@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用語変換 - 3分10秒_HR&D</title>
+    <style>
+        body {
+            background: radial-gradient(circle, #2c1e14 0%, #000 100%);
+            color: #ffd700;
+            font-family: "MS Ｐ明朝", "MS Mincho", serif;
+            margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden;
+        }
+        #game-container { position: relative; width: 100%; max-width: 900px; height: 100%; text-align: center; }
+        .title { font-size: 3.5rem; margin-top: 5vh; text-shadow: 0 0 20px #b8860b; letter-spacing: 0.5rem; }
+        
+        /* キャラクター画像の設定 */
+        #character-img { 
+            height: 40vh; 
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4)); 
+            transition: 0.4s;
+            object-fit: contain;
+        }
+
+        .question-box { 
+            font-size: 1.2rem; 
+            margin: 10px auto; 
+            min-height: 5rem; 
+            color: #fff; 
+            width: 90%; 
+            line-height: 1.4; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: rgba(255,255,255,0.05); 
+            border-radius: 10px; 
+            padding: 15px; 
+            box-sizing: border-box; 
+        }
+
+        #feedback { 
+            font-size: 1.4rem; 
+            height: 2.2rem; 
+            margin: 5px 0; 
+            font-weight: bold; 
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .input-area { 
+            margin-top: 10px;
+            position: relative;
+            z-index: 10;
+        }
+
+        input[type="text"] { 
+            background: rgba(0,0,0,0.7); 
+            border: 2px solid #ffd700; 
+            color: #fff; 
+            padding: 12px; 
+            font-size: 1.5rem; 
+            width: 50%; 
+            text-align: center; 
+            border-radius: 5px; 
+        }
+
+        /* 名前入力用のスタイル */
+        #user-name {
+            font-size: 1.2rem;
+            width: 250px;
+            margin-bottom: 20px;
+            border: 1px solid #ffd700;
+        }
+
+        button { 
+            background: linear-gradient(45deg, #ffd700, #b8860b); 
+            border: none; 
+            padding: 10px 25px; 
+            font-size: 1.2rem; 
+            cursor: pointer; 
+            font-weight: bold; 
+            margin: 5px; 
+            color: #000; 
+            border-radius: 5px; 
+        }
+        button:hover { transform: scale(1.05); box-shadow: 0 0 15px #ffd700; }
+
+        .ui-btn { position: absolute; bottom: 20px; font-size: 0.8rem; background: #333; color: #ffd700; border: 1px solid #ffd700; padding: 5px 15px; }
+        
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; }
+        .zukan-list { width: 85%; height: 70%; overflow-y: auto; text-align: left; border: 1px solid #ffd700; padding: 20px; background: rgba(20,10,5,0.8); }
+        .zukan-item { margin-bottom: 15px; border-bottom: 1px solid #444; padding-bottom: 8px; }
+        
+        #rank-display { font-size: 2.2rem; font-weight: bold; color: #ff0; text-shadow: 0 0 10px #f00; margin: 10px 0; }
+        .ranking-table { margin: 10px auto; color: #fff; border-collapse: collapse; width: 90%; font-size: 0.9rem; }
+        .ranking-table th, .ranking-table td { border-bottom: 1px solid #ffd700; padding: 8px; text-align: center; }
+        
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<audio id="bgm" src="世界に楽しいを届けて(カスタマイズ).mp3" loop></audio>
+<audio id="se-correct" src="クイズ正解1.mp3"></audio>
+<audio id="se-wrong" src="クイズ不正解1.mp3"></audio>
+
+<div id="game-container">
+    <div id="start-screen">
+        <h1 class="title">用語変換</h1>
+        <img src="3分10秒_HR&D.png" style="height: 45vh; margin-bottom: 10px;">
+        <div>
+            <input type="text" id="user-name" placeholder="名前を入力してください" autocomplete="off">
+        </div>
+        <button onclick="startGame()" style="font-size: 2rem; padding: 10px 50px;">START</button>
+    </div>
+
+    <div id="quiz-screen" class="hidden">
+        <div id="question-text" class="question-box"></div>
+        <div id="feedback"></div>
+        <img id="character-img" src="3分10秒_HR&D_真剣.png">
+        
+        <div class="input-area">
+            <input type="text" id="answer-input" autocomplete="off" placeholder="変換後の用語を入力">
+            <button onclick="checkAnswer()">変換</button>
+        </div>
+        
+        <button class="ui-btn" style="left: 20px;" onclick="toggleZukan(true)">図鑑</button>
+        <button class="ui-btn" style="right: 20px;" onclick="showHint()">ヒント</button>
+    </div>
+
+    <div id="result-screen" class="hidden">
+        <h1 class="title">RESULT</h1>
+        <div id="rank-display"></div>
+        <div id="final-stats" style="font-size: 1.2rem; color: #fff; line-height: 1.5;"></div>
+        <h3 style="margin-top: 15px;">TOP RECORDS</h3>
+        <table class="ranking-table" id="ranking-body"></table>
+        <button onclick="location.reload()">タイトルへ</button>
+    </div>
+</div>
+
+<div id="zukan-overlay" class="overlay">
+    <h2 style="color: #ffd700;">用語変換 図鑑</h2>
+    <div class="zukan-list" id="zukan-content"></div>
+    <button onclick="toggleZukan(false)" style="margin-top: 20px;">閉じる</button>
+</div>
+
+<script>
+    const masterData = [
+        { q: "愛と憎しみを合わせたものを何という？", a: "愛憎", en: "LoveAndHate", hints: ["感情に所属しており,応用感情,基本感情,強い感情,弱い感情のどれにも位置しない","反対の語句が並んでいる","○○の念が入り混じる","○○相半ばする","特に相手に対して好悪の感情を抱くこと","一組の存在達の間に生じる全く対照的な感情"] },
+        { q: "期待と喜びを合わせたものを何という？", a: "楽観", en: "Optimism(=Anticipation+Joy)", hints: ["感情に所属しており,応用感情に位置している","世界を軽く考えている","物事の先行きを良い方に考えて心配しない事","心配するほどのことではないとして気楽に考えること","病状は○○を許さない","状況を○○する"] },
+        { q: "嫌悪と喜びを合わせたものを何という？", a: "病的状態", en: "Morbidness(=Disgust+Joy)", hints: ["感情に所属しており,応用感情に位置している","矛盾している状態","「無能感が個人を圧倒し,有益な活動へ刺激するどころか,人を落ち込ませ,成長出来ないときの劣等感」","認知症が含まれる","病識とは患者自身が○○○○にあると自覚する事","過剰なストレス刺激は精神的な○○○○の原因となる"] },
+        { q: "怒りと期待を合わせたものを何という？", a: "積極性", en: "Aggressiveness(=Anger+Anticipation)", hints: ["感情に所属しており,応用感情に位置している","自発的に動くこと","物事に対して能動的に行動する姿勢","○○○を養う","○○○のある人","賢明な○○○"] },
+        { q: "怒りと喜びを合わせたものを何という？", a: "誇り", en: "Pride(=Anger+Joy)", hints: ["感情に所属しており,応用感情に位置している","自信を持っている","みずからそれを名誉とする感情","一家の○○○○を傷つけられる","○○を尊重する"] },
+        { q: "嫌悪と期待を合わせたものを何という？", a: "冷笑", en: "Cynicism(=Disgust+Anticipation)", hints: ["感情に所属しており,応用感情に位置している","さげすみ見下した態度で見ること","「さげすみ,みくだした態度で笑う事」","あざわらうこと","○○主義","○○を浮かべる"] },
+        { q: "悲しみと期待を合わせたものを何という？", a: "悲観", en: "Pessimism(=Sadness+Anticipation)", hints: ["感情に所属しており,応用感情に位置している","事態を暗い向きに見ること","好ましい状態にならないだろうと前途を悲しんで考えること","「人生・世界・宇宙は苦しみや悪ばかりだとする,物の見方」","先行きに望みは無いと考えるさま","望みの持てないさま"] },
+        { q: "嫌悪と怒りを合わせたものを何という？", a: "軽蔑", en: "Contempt(=Disgust+Anger)", hints: ["感情に所属しており,応用感情に位置している","馬鹿にすること","かろんじさげすむこと","「いやしい,劣っている,つまらないなどと感じて馬鹿にすること」","かるくみてあなどること","見下げること"] },
+        { q: "悲しみと怒りを合わせたものを何という？", a: "嫉妬", en: "Envy(=Sadness+Anger)", hints: ["感情に所属しており,応用感情及び七大罪に位置している","「相手のスキルを強制的に使用不能（封印）することが出来るが,感情の抑制が効きにくくなってしまう」","相手を愛する反動","「独占欲を満たせないときに瞬時に生まれる,消しがたい感情」","SNSでの「いいね!」の裏の感情","「自分より優れた者を羨んだり,妬んだりすること」"] },
+        { q: "驚きと怒りを合わせたものを何という？", a: "憤慨", en: "Outrage(=Surprise+Anger)", hints: ["感情に所属しており,応用感情に位置している","酷く腹を立てること","けしかからぬ事に対していきどおりなげくこと","身勝手な振る舞いに○○する","涼宮ハルヒの○○","非常に腹を立てている様子"] },
+        { q: "悲しみと嫌悪を合わせたものを何という？", a: "自責", en: "Remorse(=Sadness+Disgust)", hints: ["感情に所属しており,応用感情に位置している","自分で自分の過ちを責めること","○○思考","○○の念に駆られる","○○点","過度な○○思考は鬱の原因"] },
+        { q: "驚きと嫌悪を合わせたものを何という？", a: "不信", en: "Unbelief(=Surprise+Disgust)", hints: ["感情に所属しており,応用感情に位置している","信用しない事","信義がない事","不実","○○の念を抱く","信仰心のない事"] },
+        { q: "恐れと嫌悪を合わせたものを何という？", a: "恥", en: "Shame(=Fear+Disgust)", hints: ["感情に所属しており,応用感情に位置している","きまり悪く思う","はずかしく思う","「世の人に対し面目・名誉を失う事」","はずべき事柄をはずかしいと思う存在らしい心","○○を忍んでお願いする"] },
+        { q: "驚きと悲しみを合わせたものを何という？", a: "失望", en: "Disappointment(=Surprise+Sadness)", hints: ["感情に所属しており,応用感情に位置している","とある都市の最高戦力の成長が想定よりも低かった","のぞみをうしなうこと","あてがはずれてがっかりすること","期待や希望が外れた時の気持ちが沈むさま","○○落胆"] },
+        { q: "恐れと悲しみを合わせたものを何という？", a: "絶望", en: "Despair(=Fear+Sadness)", hints: ["感情に所属しており,応用感情及び負の感情に位置している","抗う英雄が産まれる土壌を作るための世界の状況","「ある不在の全を獲得し,或いは現存する悪を排除する可能性がまったくなくなった場合の精神状態」","希望のない様子","ピンチはチャンス","望みが絶たれた状態"] },
+        { q: "信頼と悲しみを合わせたものを何という？", a: "感傷", en: "Sentimentality(=Trust+Sadness)", hints: ["感情に所属しており,応用感情に位置している","ものに感じて心を痛めること","「そう思うと,なんだか○○の情に堪えない」","「物事に感じやすく,すぐ悲しんだり同情したりする心の傾向」","○○に浸る","○○的な"] },
+        { q: "恐れと驚きを合わせたものを何という？", a: "畏敬", en: "Awe(=Fear+Surprise)", hints: ["感情に所属しており,応用感情に位置している","心から服しうやまうこと","崇高なものや偉大な人をおそれうやまうこと","○○の念を抱く","○○する","○○の念に打たれる"] },
+        { q: "信頼と驚きを合わせたものを何という？", a: "好奇心", en: "Curiosity(=Trust+Surprise)", hints: ["感情に所属しており,応用感情に位置している","珍しいものや自分の知らないものに興味を持つ心","奇なるものを好む心","○○○旺盛","生得的なもの","物事を探究しようとする根源的な心"] },
+        { q: "喜びと驚きを合わせたものを何という？", a: "歓喜", en: "Delight(=Joy+Surprise)", hints: ["感情に所属しており,応用感情に位置している","非常に喜ぶこと","よろこび","○○の声","心からの喜び","心が滾る"] },
+        { q: "信頼と恐れを合わせたものを何という？", a: "服従", en: "Submission(=Trust+Fear)", hints: ["感情に所属しており,応用感情に位置している","大人しくして他人の命令や意志に従う事","絶対○○○○の心理","○○する","他に従う事"] },
+        { q: "喜びと恐れを合わせたものを何という？", a: "罪悪感", en: "Guilt(=Joy+Fear)", hints: ["感情に所属しており,応用感情に位置している","「社会的,道徳的に非難されるべきことを犯したという意識ないしは感情」","自身がした行為をざいあくと感じる気持ち","○○○を抱く","○○○を消す","不道徳な行いに伴う恥の気持ち"] },
+        { q: "期待と恐れを合わせたものを何という？", a: "不安", en: "Anxiety(=Anticipation+Fear)", hints: ["感情に所属しており,応用感情に位置している","「誰もが不通に経験する神経質,心配,困惑の感情」","幅広い精神障害などでもみられます","○○障害","○○症","○○神経症"] },
+        { q: "喜びと信頼を合わせたものを何という？", a: "愛", en: "Love(=Joy+Trust)", hints: ["感情に所属しており,応用感情に位置している","悪い魔法使いが得られなかったもの","「そのものの価値を認め,強く引き付けられる気持ち」","大事なものとして慕う心","かわいがる","男女が思いあう"] },
+        { q: "期待と信頼を合わせたものを何という？", a: "希望", en: "Hope(=Anticipation+Trust)", hints: ["感情に所属しており,応用感情に位置している","○○の魔法使い","未来に望みをかけること","「こうなればよい,なってほしいと願う事」","その事柄の内容","望み通りになるだろうという良い見通し"] },
+        { q: "怒りと信頼を合わせたものを何という？", a: "優位", en: "Dominance(=Anger+Trust)", hints: ["感情に所属しており,応用感情に位置している","他より立ちまさった(有利な)位置や立場","○○に立つ","味方に○○な戦局","○○性","幸福○○"] },
+        { q: "喜怒哀楽から喜と哀と怒を外し「しい」を合わせたものを何という？", a: "楽しい", en: "Enjoy(=joy,anger,sadness,Enjoy-joy-anger-sadness)", hints: ["感情に所属しており,基本感情,弱い感情,強い感情,応用感情のどれにも位置しない","気持ちよく明るい気分だ","戦騎","のびのびと満ち足りた気持ちだ","愉しい","○○○ピクニック"] },
+        { q: "嬉笑怒罵から嬉しいと笑うと罵るを外したものを何という？", a: "怒り", en: "Anger(=Happylaughingangrycursing-happy-laugh-curse)", hints: ["感情に所属しており,基本感情に位置している","はらだち","戦騎","いきどおり","原初的な感情の一つ","○○の状態"] },
+        { q: "哀哀父母から哀しい一つと父と母を外したものを何という？", a: "悲しみ", en: "Sad(=grievingparents-Asadone-father-mother)", hints: ["感情に所属しており,強い感情に位置している","負の感情の1つ","胸が締め付けられるといった身体的感覚","戦騎","胸が締め付けられるといった身体的感覚","○○○に暮れる","哀しい気持ちや心"] },
+        { q: "愛別離苦から別れる離れると愛するを外したものを何という？", a: "悲痛", en: "Grief(=separationpain-Love-breakup-Leave)", hints: ["感情に所属しており,強い感情に位置している","（見聞きして）心が痛み極めて悲しい事","あまりに悲しくて心が痛むこと","○○な面持ち","○○な叫び","悲しさを痛ましく思う事"] },
+        { q: "狂喜乱舞から狂うと乱れると舞うを外したものを何という？", a: "喜び", en: "Joy(=Crazydance-gocrazy-bedisturbed-dance)", hints: ["感情に所属しており,基本感情に位置している","うれしく思う心・気持ち","満足な思い","戦騎","悦び","慶び"] },
+        { q: "恐恐謹言から恐れ一つと謹言を外したものを何という？", a: "恐れ", en: "Fear(=Iapologizefortheinconvenience-onefear-Greetings)", hints: ["感情に所属しており,基本感情に位置している","おそれること","悪いことが起こるのではないかという心配","懸念","畏れ","恐怖"] },
+        { q: "驚心動魄から心と動くと魄を外したものを何という？", a: "驚き", en: "Surprise(=Shockingheart-heart-move-spirit)", hints: ["感情に所属しており,基本感情に位置している","動物が予期しない事象を体験した時に起こる瞬間的な感情をいう","驚愕","他の感情に比べて単純かつ原始的","生理的反応と強く結びついた情動","愕き"] },
+        { q: "自己嫌悪から自己を外したものを何という？", a: "嫌悪", en: "Disgust(=selfhate-self)", hints: ["感情に所属しており,基本感情に位置している","憎み嫌う事","不愉快に思う事","不正を○○する","○○感","同族○○"] },
+        { q: "期待値から値を外したものを何という？", a: "期待", en: "Anticipation(=Expectedvalue-value)", hints: ["感情に所属しており,基本感情に位置している","ある人がそれをするのを（他の人が）あてにし,心待ちに待つこと","将来それが実現するように待ち構えること","あることが実現するだろうと望みをかけて待ち受けること","「何らかのことが実現するだろう,と望みつつ待つこと」","好ましい状態の実現を心の中で待ち望んでいる様子"] },
+        { q: "信頼度成長曲線から度と成長曲線を外したものを何という？", a: "信頼", en: "Trust(=Confidencegrowthcurve-degree-growthcurve)", hints: ["感情に所属しており,基本感情に位置している","頼りに出来るとして信ずること","信じて頼りとすること","信用して任せること","信じて頼りにする気持ち","○○性"] },
+        { q: "恍惚の人からのと人を外したものを何という？", a: "恍惚", en: "Ecstasy(=ecstaticperson-of-person)", hints: ["感情に所属しており,強い感情に位置している","「物事に心をうばわれて,うっとりする様」","ぼけていること","○○として聴き入る","○○の境地","意識がはっきりしないさま"] },
+        { q: "警戒区域から区域を外したものを何という？", a: "警戒", en: "Vigilance(=restrictedarea-area)", hints: ["感情に所属しており,強い感情に位置している","「好ましくないことが起こらないように,注意し用心する事」","徹夜で○○にあたる","○○レベル","インフレを○○する","「危険や災害に備えて,あらかじめ注意し,用心すること」"] },
+        { q: "激怒症候群から症候群を外したものを何という？", a: "激怒", en: "Rage(=ragesyndrome-syndrome)", hints: ["感情に所属しており,強い感情に位置している","激しく怒る事","酷い立腹","大○○○○する","先生の○○を買う"] },
+        { q: "憎悪の念からのと念を外したものを何という？", a: "憎悪", en: "Loathing(=thoughtsofhatred-of-Thought)", hints: ["感情に所属しており,強い感情及び負の感情に位置している","憎み嫌う事","酷く憎むこと","戦争を○○する","○○の科学","○○のピラミッド"] },
+        { q: "驚嘆の声からのと声を外したものを何という？", a: "驚嘆", en: "Amazement(=amazing-to-worthy)", hints: ["感情に所属しており,強い感情に位置している","非常に驚くこと","大きな驚き","びっくりして感心する事","酷く感心すること","思いがけない出来事に会って驚くこと"] },
+        { q: "恐怖しろ！からしろと！を外したものを何という？", a: "恐怖", en: "Terror(=Beafraid!"+"-do"+"-!)", hints: ["感情に所属しており強い感情及び負の感情に位置している","恐れること","恐れる心","恐ろしい感じ","○○にかられる","○○心"] },
+        { q: "感嘆符から符を外したものを何という？", a: "感嘆", en: "Admiration+(=Exclamationpoint-sign)", hints: ["感情に所属しており,強い感情に位置している","「感心して,ほめること」","なげきかなしむこと","熱意と努力に○○する","○○Ⅱ","○○の声を上げる"] },
+        { q: "平穏無事から無事を外したものを何という？", a: "平穏", en: "Serenity(=Peacefulandsafe-safely)", hints: ["感情に所属しており,弱い感情に位置している","「変ったことも怒らず,おだやかなさま」","○○な日常を送る","心の○○","静かに穏やかな事","○○死"] },
+        { q: "興味津々から津々を外したものを何という？", a: "興味", en: "Interest(=Interesting-allover)", hints: ["感情に所属しており,弱い感情に位置している","人の関心をそそる面白み","ある対象に対する特別の関心","○○に満ちた表情","○○を引く","○○がわく"] },
+        { q: "煩雑世界から雑と世界を外したものを何という？", a: "煩さ", en: "Annoyance(=complicatedworld-rough-world)", hints: ["感情に所属しており,弱い感情に位置している","わずらわしいこと","うるさいこと","うるさいさま","煩瑣","騒音のうるささ"] },
+        { q: "憂鬱な未来から鬱なと未来を外したものを何という？", a: "憂い", en: "Pensiveness(=gloomyfuture-Depressed-future)", hints: ["感情に所属しており,弱い感情に位置している","思うようにならなくてつらい","せつない","憂鬱だ","愁い","悲しみ"] },
+        { q: "退屈な日々からな日々を外したものを何という？", a: "退屈", en: "Boredom(=boredompsychology-psychology)", hints: ["感情に所属しており,弱い感情に位置している","「相変わらずの状態が続くので心が晴れず,あきること」","くたびれて気力が衰えること","いやになること","いやになるさま","「することがなくて,時間を持て余すこと」"] },
+        { q: "動揺性歩行から性と歩行を外したものを何という？", a: "動揺", en: "Distraction(=agitatedgait-gender-walking)", hints: ["感情に所属しており,弱い感情に位置している","「他からの作用で,動き揺れること」「転じて,気持ちなどが不安定になること」","不安さわぎ","心の○○を隠す"] },
+        { q: "心配事から事を外したものを何という？", a: "心配", en: "Apprehension(=Anxiety-case)", hints: ["感情に所属しており,弱い感情に位置している","おもいわずらうこと","きがかり","上手く運ぶように気を使って手配すること","配慮","きにかけてめんどうをみること"] },
+        { q: "容認発音から発音外したものを何という？", a: "容認", en: "Acceptance(acceptablepronunciation-pronunciation)", hints: ["感情に所属しており,弱い感情に位置している","「それでよいとして,認めること」","行動の自由を○○する","許せる範囲と認めて許すこと","複国籍○○","副業○○"] },
+        { q: "笑われるとコンプレックスから生み出されるものは何？", a: "傲慢", en: "Arrogance(=belaughedat*Complex)", hints: ["感情に所属しており,七大罪に位置している","「取得する経験値,熟練度,各能力値が大幅に上昇する代わりに好戦的になり許容量以上の経験値をため込んでしまう」","高ぶって人を侮り見下す態度であること","○○無礼","調子づいて人を馬鹿にする","ひとをみくびって礼儀を欠くこと"] },
+        { q: "理性消失と本能的殺戮から生み出されるものは何？", a: "憤怒", en: "Wrath(=Reasondisappears*Instinctivemassacre)", hints: ["感情に所属しており,七大罪及び負の感情に位置している","「最大で通常の10倍近くまで代償なくステータスを底上げすることが出来るが,やがて唯の狂戦士と化す」「つかみかからんばかりの恐ろしい形相で,激しく怒る事」","○○の悪魔","非道な行為に○○する","○○の魔女"] },
+        { q: "周囲大幅消費と自己効率から生み出されるものは何？", a: "怠惰", en: "Lazy(=Theneighborhoodlargeconsumption*Selfefficiency)", hints: ["感情に所属しており,七大罪に位置している","「精神に異常をきたすことは無く,皮肉が込められている」「なまけておりだらしないさま」","○○の悪魔","魔女教大罪司教","○○担当"] },
+        { q: "殺害相手からランダムに一部略奪と満たされない欲望から生み出されるものは何？", a: "強欲", en: "Greed(=Iplunderthekillingpartnerofitpartlyatrandom*Thegreedthatisnotsatisfied)", hints: ["感情に所属しており,七大罪に位置している","「eを加えた場合,錬金術で生み出されたメダルを体内に収納しているといずれはグリードへと堕ちていく」","あくどいほど欲が張っている事","「際限なく,何が何でも,自分の欲を満たそうとするさま」","○○の悪魔","○○の魔女"] },
+        { q: "あらゆるものを対象に食すことが可能と永久空腹から生み出されるものは何？", a: "暴食", en: "Gluttony(=Icaneatittargetingateverything*Eternityhunger)", hints: ["感情に所属しており,七大罪に位置している","「永久空腹は克服可能であり,食したものはエネルギーとしてストックすることが出来る」","暴飲○○○○する","○○の魔女","○○者"] },
+        { q: "相手に「催眠」「魅了」「洗脳」の状態異常を付与と激しい嫌悪感から生み出されるものは何？", a: "色欲", en: "Lust(=Igivestateabnormalityofthehypnosischarmbrainwashingtoapartner*Intenseloathsomeness)", hints: ["感情に所属しており,七大罪に位置している","「対象となった者は持ち主の意のままに操られるが,継続的に重ね掛けが必要となる」","性的な欲望","情欲","○○の悪魔","色情と利欲"] },
+        { q: "死者蘇生と禁忌から生み出され自己を省くものは何？", a: "慈悲", en: "Mercy(=resurrectionofthedead*Taboo/self)", hints: ["行動に所属しており,七美徳に位置している","「死亡から数分程度でなければ使用できず,使用するごとに禁忌レベルが上昇してきます」「仏・菩薩が人々をあわれみ,楽しみを与え,苦しみを取り除くこと」「いつくしみ,あわれむこと」","○○の天使王","○○深い"] },
+        { q: "死亡回避と防御・抵抗の能力上昇と耐性系熟練度補正から生み出され我慢を省くものは何？", a: "忍耐", en: "Patience(=deathavoidance*Defense/resistanceabilityincreaseandresistanceproficiencycorrection*Resistanceproficiencycorrection/Patience)", hints: ["行動に所属しており,七美徳に位置している","「体力を1残し,生存する」「苦しさ,辛さ,悲しさなどを耐え忍ぶこと」","○○力","○○の天使","○○強い"] },
+        { q: "魂移す侵食乗っ取りと半分不死から生み出され他者の意思を省くものは何？", a: "勤勉", en: "Diligence(=Erosiontakeovertomovethesoul*halfimmortal/thewillofothers)", hints: ["一日も欠かすことなく毎日同じことを繰り返す","仕事や勉強に一所懸命に励むこと","○○家","「良く働き,学ぶこと」","たゆまずに一所懸命にあることを続けていく様"] },
+        { q: "自身を中心に自己及び味方へ体力超速回復と寄付から生み出されストックを省くものは何？", a: "救恤", en: "Relief(=Superfastrecoveryofphysicalstrengthtoselfandallies*donation/stock)", hints: ["行動に所属しており七美徳に位置している","最下級回復術師","「貧乏人・被災者等を救い,恵むこと」","困っている人に見舞いの金品などを与えて救うこと","万人の○○○○の王"] },
+        { q: "前世の記憶保持状態での転生可能と実質不死から生み出され不正を省くものは何？", a: "節制", en: "Temperance(=ReincarnationwithmemoryofpreviousliferetainedPracticallyimmortal/fraud)", hints: ["行動に所属しており七美徳に位置している","切り詰めて行動している","「欲望におぼれて度を超すことが無いように適度に慎むこと」","規律正しく統率のとれている事","○○生活"] },
+        { q: "魂を消費して神と同等の力を得ると対等な立場から生み出され不快感を省くものは何？", a: "謙譲", en: "Humility(=Consumeyoursoultogainpowerequaltothatofagod+equalposition+/Discomfort)", hints: ["行動に所属しており七美徳に位置している","魂魄の一部を神へと渡すこと","へりくだること","謙遜","○○の美徳","○○語"] },
+        { q: "自身の持つ神性領域を拡張すると強力な結界を展開するから生み出され性的な関係を省くものは何？", a: "純潔", en: "Purity(=Expandyourowndivinerealmdevelopapowerfulbarrier/sexualrelationship)", hints: ["行動に所属しており七美徳に位置している","ピュアである","肉体や心が汚れていない事","「心身にけがれがなく,清らかな事」","赤いフリージアの花言葉","スズランの花言葉"] },
+        { q: "全情報閲覧とマッピングと追跡と魔道の極みと星魔から生み出され拒否を省くものは何？", a: "叡智", en: "Wisdom(=ViewallinformationmappingtrackingTheheightofmagicStardemon/rejection)", hints: ["知識に所属しており感情七美徳七大罪のいずれにも位置しない","支配者権限に気まぐれで追加されたものである","深遠な道理を知り得る優れた知恵","「物事の真実在の理性的,悟性的認識」","○○の王","人類の○○"] },
+        { q: "深い悲しみと憎悪から至り一つを除いてあらゆる感情が鎮静されるものは何？", a: "悪意", en: "Malice(=deepsorrowhatred%Itiseveryfeelingexceptone)", hints: ["感情に所属しており負の感情に位置している","「他の存在や物事に対して抱く悪い感情,または見方」","わるぎ","○○がある","無意識の○○○○の連鎖は止められない"] },
+        { q: "殺し合う儀式と秘めた戦求本能から至り全く同じものでは話にならないものは何？", a: "闘争", en: "Struggle(=TheceremonythatitspoilsHiddenfightinginstinct%Itdoesn'tmatterifit'sexactlythesame)", hints: ["感情に所属しており負の感情に位置している","たたかうこと","あらそい","○○本能","○○の女神","○○を求める"] },
+        { q: "愛も欲も自分の中と気付けない存在が謳うから至り心の中を探すものは何？", a: "殺意", en: "Intentiontokill(=AsfortheloveandthedesireamongoneselfExistencenottobeabletonoticedeclaresit→Icanlookforitinaheart)", hints: ["感情に所属しており負の感情に位置している","存在を殺そうとする意志","存在を死に至らしめる危険性の高い行為をすることの認識","どうしようもなく相手に対して苛立ちなどを覚えた際に芽生える感情","○○の波動","スノードロップの花言葉より「貴方の死を望みます」"] },
+        { q: "個体の減少と星から存在しなくなるから至りバランスが破損するものは何？", a: "絶滅", en: "Extinction(=Decreaseinindividualsceasetoexistfromthestars→balanceisdamaged)", hints: ["感情に所属しており負の感情に位置している","絶え滅びること","絶やし滅ぼすこと","地球上から永遠にいなくなってしますこと","○○危惧種","レッドリスト"] },
+        { q: "死亡するフラグと成長するスピード速遅から至り創造の先にあるものは何？", a: "破滅", en: "Catastrophe(=flagtodie+growingfastandslow→beyondcreation)", hints: ["感情に所属しており負の感情に位置している","存在価値を失うまでに駄目になる事","存在が身を滅ぼすこと","○○フラグ","○○の本","○○的な思考"] },
+        { q: "破局的な被害を受けると失い陥った運命から至り回避したいと思うものは何？", a: "滅亡", en: "Destruction(=suffercatastrophicdamageThefateIlost→wanttoavoid)", hints: ["感情に所属しており負の感情に位置している","滅びること","絶えてなくなる事","○○迅雷","○○迅雷.net","睡蓮の花言葉"] },
+        { q: "「それは聖なる力それは未知への冒険そしてそれは勇気の証」を変換したものは何？", a: "魔法", en: "Magic(=It'sholypower,it'sanadventureintotheunknown,andit'saproofofcourage.)", hints: ["力に所属しており概念に位置している","魔力等のエネルギーを使用して不思議なことを起こさせる術","「蜘蛛ですが,なにか」の世界において魔術をシステム（魔力を「スキル」により変化させて現象として確立したもの）を通して簡略化したもの","○○陣","ホグワーツ○○魔術学校","治癒○○の間違った使い方"] },
+        { q: "輝く精神を変換したものは何？", a: "キラメンタル", en: "Chiramental(=shiningspirit)", hints: ["精神力に所属しており概念に位置している","魅力や才能の源とされる輝く精神力","ジャメンタルの対となる","キラメイジャーに変身する者に求められる素質","魔進戦隊キラメイジャーに登場する用語の1つ","キラメイストーンと共鳴する強靭な輝くの精神"] },
+        { q: "自分だけの何かを変換したものは何？", a: "ガッチャ！", en: "Gotcha(=somethingjustforme)", hints: ["行動に所属しており概念に位置している","「どでかい夢」とか「やった！」「掴んだ！」というような感じ","一ノ瀬宝太郎は錬金術に見出した","仮面ライダーガッチャード/一ノ瀬宝太郎の口癖","仮面ライダーガッチャードに登場する用語の1つ","上手く行かなかったときはノー○○○○○"] },
+        { q: "忍者に対して抱く各々の心の在り方や精神の持ち方と言った精神力を変換したものは何？", a: "忍タリティ", en: "ShinobiTality(=Mentalstrength,suchasthewayeachperson'sheartandspiritisheldtowardninjas)", hints: ["精神力に所属しており概念に位置している","「２ディメンションの術を使用したのち必殺技として○○○○○爆裂波を放つ」","忍者の力の源ともいうべきもの","手裏剣戦隊ニンニンジャーにて登場する用語の1つ","高めろ！○○○○○‼","○○○○○絵巻"] },
+        { q: "「創る形成する」を変換したものは何？", a: "ビルド", en: "Build(=Create,form)", hints: ["虚構の存在に所属しており概念に位置している","同じ肉体で顔の違う科学者が違う結論を導いた者の姿","○○○ドライバー","仮面ライダー○○○で登場する用語の1つ","プロジェクト・○○○○○○アップ"] },
+        { q: "愛と平和を変換したものは何？", a: "ラブ＆ピース", en: "Loveandpeace(=love&peace)", hints: ["概念に位置している","「他者への深い感情や情熱を指し,戦争や紛争がない状態や調和を示す」","○○○○○○の世界へ","4人が仮面ライダーとして戦う理由の一つ","仮面ライダービルドに登場する用語の1つ","葛城忍が科学者になった理由"] },
+        { q: "『「勇気(brave)」だけでなく滅びた小惑星にはなかったもので共に燃え上がり絶望を乗り越える人間の魂とされる心の力』を変換したものは何？", a: "ブレイブ", en: "Brave(=``Notonly'brave',butalsothepoweroftheheartthatwasnotpresentonthedestroyedasteroid,andissaidtobethehumanspiritthatburnstogetherandovercomesdespair.'')", hints: ["精神力に所属しており概念に位置している","勇敢であることや恐れを知らぬこと","○○○○イン","「真の地球のメロディを聴き,歌うことで○○○○が回復,新たに生み出される」","獣電戦隊キョウリュウジャーに登場する用語の1つ"] },
+        { q: "想像力を変換したものは何？", a: "イマジネーション", en: "Imagination(=imagination)", hints: ["力に所属しており概念に位置している","夢見る力","想像する力","「多くの場合は子供にしか宿っておらず,大人になるとそのほとんどが喪失してしまう」","列車戦隊トッキュウジャーに登場する用語の1つ"] },
+        { q: "マイペースに「行く」を変換したものは何？", a: "モカってる", en: "It'smocha(=goatyourownpace)", hints: ["行動に所属しており概念に位置している","モカちゃんの感性で決まる","モカちゃんらしい","「興味がわかない物にはとことん無関心だが,好きな人の為には一所懸命になれる様」","BanGDream!ガールズバンドパーティーに登場する用語の1つ"] },
+        { q: "造語である「頑張っている」を変換したものは何？", a: "ツグってる", en: "I'mconfused(=doingmybest)", hints: ["行動に所属しており概念に位置している","「普通が故に努力家で前向き,少しのことではめげないさま」","造語○○○ともいう","BanGDream!ガールズバンドパーティーに登場する用語の1つ","○○ってみよ-!"] },
+        { q: "可愛いものに目がない様を変換したものは何？", a: "ノアってる", en: "Noahishere(=It'slikeyoudon'thaveaneyeforcutethings)", hints: ["行動に所属しており概念に位置している","可愛いものに対して暴走する様","造語","かわいいものに目がない","D4DJgroovymixに登場する用語の1つ"] },
+        { q: "好奇心が強く知識も豊富で,興味のあることには饒舌になる自分を認めてくれる相手には甘えていくがそうでない相手にはガードが堅い様を変換したものは何？", a: "むにってる", en: "bedisgustedwith(=SothatIbehavelikeababytoapartnerdetectingoneself,butguardisfirmforthepartnerwhoisnotso)", hints: ["行動に所属しており概念に位置している","幼馴染に対して愛が重い行動を魅せる","造語","○○○○○時は不機嫌だったりする","D4DJgroovymixに登場する用語の1つ","ネット上で「絵師」として注目を集めている本人"] },
+        { q: "感情を持つ AI（機械族）が感情を持たない AI（機械族）のような行動を取る様を変換したものは何？", a: "ルミナってる", en: "luminous(=ThewayanAI(machinepeople)withemotionsbehaveslikeanAI(machinepeople)withoutemotions.)", hints: ["行動に所属しており概念に位置している","AI故に単調な行動を取る様","造語","ネオに心を届けるために存在する,心を得た存在","歌姫アリアの現身に近い存在"] },
+        { q: "何とも言い表せない素敵な気持ちを変換したものは何？", a: "エモい", en: "Emotional(=Whatanindescribablywonderfulfeeling!)", hints: ["感情に所属している","ある対象に対して感情が変化した時に使用される感動を表す俗語","切なさやなつかしさを含む場面が多い","○○○デザイン"] },
+        { q: "小さいもの弱いものなどに心惹かれる気持ちを抱く様を変換したものは何？", a: "可愛い", en: "Cute(=Feelingattractedtosmallandweakthings)", hints: ["感情に所属している","「（小さくて）愛らしい,小さい,同情を誘うばかりに（痛々しく）かわいそうだ」","○○○○アイテム","他と比べて小さいさま","かわいそうだ","共感を高め,信頼に出来る関係性を形成する為"] },
+        { q: "素晴らしい最高を変換したものは何？", a: "尊い", en: "precious(=wonderful,thebest)", hints: ["感情に所属している","価値が高い","大切だ","貴重だ","身分が高い","敬うべきだ","時間が重なってできたもの"] },
+        { q: "時間が重なってできたもの特定の事象を変換したものは何？", a: "記憶", en: "Memory(=Somethingcreatedbytheoverlapoftime,aspecificevent)", hints: ["概念に位置している","物事を忘れずに覚えている事","覚えておくこと","「過去の経験の内容を保持し,後でそれを思い出すこと」","○○障害","ガイアメモリに内包されるもの"] },
+        { q: "存在の数だけ存在する理想の具現化偽善正しい道理を変換したものは何？", a: "正義", en: "justice(=embodimentoftheideal,hypocrisy,correctreason,arighteousprinciplethatexistsasmanyasthereare)", hints: ["行動に所属しており概念に位置している","この概念同士で対立する脆き者","人間の社会的関係において実現されるべき究極的な価値","人間の対彼の関係の規律に関わる法的な価値をさす","「弱者を救い,悪者を懲らしめる人」"] },
+        { q: "姓名も社会も文明も全て無に還す事を変換したものは何？", a: "絶対悪", en: "absoluteevil(=Names,society,andcivilizationwillallbereducedtonothing.)", hints: ["行動に所属しており概念に位置している","共犯者のみが偉業と称えた行動","○○的な○のこと","「本人は悪い事と全く思っていないが,私利私欲や興味関心のためにどう考えても他人にとっては迷惑極まりない行為を平然と行う」","憎まれることこそ悪の本懐","「悪いことをしたくて悪事を働き,なおかつそこに何も思うところがない」"] },
+        { q: "運命共同体を変換したものは何？", a: "バンド", en: "Band(=Commondestiny)", hints: ["集団に所属しており概念に位置している","演奏に必要なメンバーが全て揃っている状態","一般にロックを演奏する事を目的","通信における帯域幅","通信路容量","バンドリでは12以上の○○○が存在する"] },
+        { q: "「ダンス・クラブやディスコでレコードを選択しプレーする人」存在と音楽を繋ぐのを変換したものは何？", a: "DJ", en: "DJ(=``Thepersonwhoselectsandplaysrecordsatdanceclubsanddiscos'',thepersonwhoconnectsexistenceandmusic.)", hints: ["バンドやユニットに参加している人もいる","ラジオ○○とクラブ○○の2種類の職業がある","○○ミキサー","トラックメイカーも兼ねる","○○は,○○Remix","D○○400ハピアラモデル"] },
+        { q: "多数の要素が集まって（手）まとまりを持った組織や体系のことを変換したものは何？", a: "システム", en: "System(=Anorganizationorsysteminwhichmanyelementscometogetherinacohesivemanner.)", hints: ["概念に位置している","相互に影響をおよぼしあう要素から構成されるまとまりや仕組みの全体","AI○○○○","目的を遂行するための体系や組織の意味","「コンピュータ分野,自然科学分野などを中心に幅広い分野で使われる」"] },
+        { q: "非常に稀有な「才能」たる転職に関連した能力を変換したものは何？", a: "スキル", en: "Skill(=Abilityrelatedtochangingjobsasaveryrare“talent”)", hints: ["力に所属しており概念に位置している","あることを行うための技術的な能力","「魔物肉を直接食し,肉体を回復することで取得出来,取得者が出来る項目が増加することで派生として現れる」","「物を作る仕事などに関し,それを巧みに（見事に）してのけることが出来る腕前」","表面的な召喚ボーナスは言語理解と錬成","潜在能力は○○の個数の分だけ分散する"] },
+        { q: "「攻撃・防御の正確さ精密さ」を変換したものは何？", a: "技術", en: "Technology(=Accuracyandprecisionofattackanddefense)", hints: ["方法に所属しており概念に位置している","巧みに行う技・技巧・技芸","からめ手を得意とする隊員が特殊○○が高い","「科学の原理を（産業や医療・事務などの活動に）役立てて,物を生産したり組織したりするしかた・わざ」","物事を巧みに（能率的に）行う技","「スナイパーを除いて○○のある隊員は戦闘能力の高い人物が多く,○○の高さはその隊員の強さに影響している事が多いです。」"] },
+        { q: "「8種の系統を持ち神聖力を消費する」を変換したものは何？", a: "神聖術", en: "Sacredart(=Ithas8differentstrainsandconsumesdivinepower.)", hints: ["力に所属しており概念に位置している","「暗黒術とも呼ばれ,神聖力或いは空間リソースと呼ばれるものを消費する」","システムコールで始まる","SAOアリシゼーション編に出てくる用語の1つである","神器が宿した記憶を開放する超高等○○○","「武装完全支配術,記憶開放術が含まれる」"] },
+        { q: "歌を歌う事を変換したものは何？", a: "歌唱", en: "Singing(=singingasong)", hints: ["「行動に所属しており概念に位置している」","声を用いて音楽を作り出すことをいう","AI○○ソフトが存在している","「調の使用,リズム,持続音など様々な発声技術によって通常の音声を強化することで行われる」","○○を行う人を歌手と言う","異なる音程の声を歌う歌手による○○団"] },
+        { q: "分からないことにルールを探す地道な努力を変換したものは何？", a: "科学", en: "Science(=Steadyeffortstofindrulesforthingswedon'tunderstand)", hints: ["学問に所属しており概念に位置している","発達しすぎた○○は魔法と区別がつかないと言われる","一定の目的・方法のもとに種種の事象を研究する認識活動","その成果としての体系知識","自然○○だけを指す場合もある","日本○○未来館"] },
+        { q: "音による芸術器楽と声楽がある人間に秘められた力を開放するものを変換したものは何？", a: "音楽", en: "Music(=Artbysound,instrumentalmusicandvocalmusic,somethingthatreleasesthepowerhiddeninhumans.)", hints: ["学問に所属しており概念に位置している","音による時間の表現","○○の要素には,リズム,メロディー,ハーモニ―の3要素をもとに,主題,形式,調性,拍子,テンポ,楽器によって構成されます","直接心身に影響するものと,○○そのものの基盤として間接的に影響するものがあります","バンドリ！オフィシャルバンドスコアが登場している","D4DJgroovymixでは原曲のボーカルでリズムゲームが出来る"] },
+        { q: "時空全体前後左右上下に広がる空間と過去から未来に伸びる時間をひっくるめたもの人の気持ちの色が変わる」を変換したものは何？", a: "宇宙", en: "Universe(=Theentirespaceandtime,aspacethatextendsforward,backward,left,right,upanddown,andtimethatextendsfromthepasttothefuture.``Everytimethesongchangesduetosynesthesia,thesoundoftheentirevenueandthecolorofpeople'sfeelingschange.'')", hints: ["概念に位置している","秩序ある統一体としての世界","あらゆる天体の存在する空間","ビッグバンによって生まれた","物体が○○の果てまで飛び去ることが出来る初速度の最小値を第二○○速度","コズミックエナジーが存在する空間"] },
+        { q: "星の理を捻じ曲げる理法術と呼ばれる魔法の名を示す下界に神の居る時代を変換したものは何？", a: "神代", en: "Ageofgods(=Anerainwhichthereweregodsinthelowerworld,showingthenameofthemagicknownasLogicthattwistedtheprinciplesofthestars.)", hints: ["概念に位置している","その名の付く魔法を全て会得することで概念魔法に至る","図説○○文字入門","日本神話における時代区分","○○凛子博士","○○兄妹,神様の時代"] }
+    ];
+
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let playerName = "名無し";
+    let stats = { start: 0, hints: 0, giveUps: 0, misCount: 0 };
+
+    function playBGM() { 
+        const b = document.getElementById('bgm'); 
+        b.volume = 0.3; 
+        b.load();
+        b.play().catch(e=>{}); 
+    }
+    function playSE(id) { const s = document.getElementById(id); s.currentTime = 0; s.play(); }
+
+    function startGame() {
+        // 名前を保存
+        const inputName = document.getElementById('user-name').value.trim();
+        if (inputName) playerName = inputName;
+
+        playBGM();
+        currentQuestions = [...masterData].sort(() => 0.5 - Math.random()).slice(0, 5);
+        stats = { start: Date.now(), hints: 0, giveUps: 0, misCount: 0 };
+        document.getElementById('start-screen').classList.add('hidden');
+        document.getElementById('quiz-screen').classList.remove('hidden');
+        initZukan();
+        showQuestion();
+    }
+
+    function showQuestion() {
+        const q = currentQuestions[currentIndex];
+        document.getElementById('question-text').innerText = q.q;
+        document.getElementById('character-img').src = "3分10秒_HR&D_真剣.png";
+        document.getElementById('feedback').innerText = "";
+        document.getElementById('answer-input').value = "";
+        document.getElementById('answer-input').focus();
+        stats.misCount = 0;
+    }
+
+    function checkAnswer() {
+        const input = document.getElementById('answer-input').value.trim();
+        const q = currentQuestions[currentIndex];
+        if (input === q.a) {
+            playSE('se-correct');
+            document.getElementById('character-img').src = "3分10秒_HR&D_照れ.png";
+            document.getElementById('feedback').innerHTML = `<span style="color:#0f0">〇 正解!</span> ${q.en}`;
+            setTimeout(next, 1500);
+        } else {
+            playSE('se-wrong');
+            stats.misCount++;
+            document.getElementById('character-img').src = "3分10秒_HR&D_切ない.png";
+            document.getElementById('feedback').innerHTML = `<span style="color:#f00">× 不正解</span>`;
+            if (stats.misCount >= 7) {
+                stats.giveUps++;
+                document.getElementById('feedback').innerHTML = `<span style="color:#ffd700">正解: ${q.a}</span>`;
+                setTimeout(next, 2000);
+            }
+        }
+    }
+
+    function next() {
+        currentIndex++;
+        if (currentIndex < 5) showQuestion(); else showResult();
+    }
+
+    function showResult() {
+        const time = ((Date.now() - stats.start) / 1000).toFixed(2);
+        const score = Math.max(0, 10000 - (time * 50) - (stats.hints * 200) - (stats.giveUps * 1000));
+        let rank = "称号: 用語変換の徒";
+        if (score > 9000) rank = "称号: 真理の到達者";
+        else if (score > 7000) rank = "称号: 熟練の変換師";
+        else if (score > 4000) rank = "称号: 駆け出しの賢者";
+        
+        document.getElementById('quiz-screen').classList.add('hidden');
+        document.getElementById('result-screen').classList.remove('hidden');
+        document.getElementById('rank-display').innerText = rank;
+        document.getElementById('final-stats').innerHTML = `プレーヤー: ${playerName}<br>Time: ${time}s | Hint: ${stats.hints} | GiveUp: ${stats.giveUps}`;
+        updateRanking(time, rank);
+    }
+
+    function updateRanking(time, rank) {
+        let records = JSON.parse(localStorage.getItem('tr_ranking') || "[]");
+        records.push({ 
+            name: playerName,
+            time: parseFloat(time), 
+            rank: rank.replace("称号: ", ""), 
+            date: new Date().toLocaleDateString() 
+        });
+        records.sort((a, b) => a.time - b.time);
+        records = records.slice(0, 5);
+        localStorage.setItem('tr_ranking', JSON.stringify(records));
+
+        // ランキングテーブルの表示
+        document.getElementById('ranking-body').innerHTML = `<tr><th>順位</th><th>名前</th><th>タイム</th><th>称号</th></tr>` + 
+            records.map((r, i) => `<tr><td>${i+1}位</td><td>${r.name}</td><td>${r.time}s</td><td>${r.rank}</td></tr>`).join('');
+    }
+
+    function showHint() { 
+        const q = currentQuestions[currentIndex];
+        stats.hints++; 
+        alert("【ヒント】\n・" + q.hints.join("\n・")); 
+    }
+    
+    function toggleZukan(s) { document.getElementById('zukan-overlay').style.display = s ? 'flex' : 'none'; }
+    
+    function initZukan() {
+        document.getElementById('zukan-content').innerHTML = masterData.map(d => `
+            <div class="zukan-item"><strong>${d.a}</strong> (${d.en})<br><small style="color:#bbb;">${d.hints[0]}</small></div>
+        `).join('');
+    }
+
+    document.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const quizVisible = !document.getElementById('quiz-screen').classList.contains('hidden');
+            const startVisible = !document.getElementById('start-screen').classList.contains('hidden');
+            if (quizVisible) checkAnswer();
+            else if (startVisible) startGame();
+        }
+    });
+</script>
+<div>
+    <h2><a href="創作物の宝物庫-PROGRAMエリア.html#top3" target="_top">PROGRAMエリアへ戻る</a></h2>
+</div>
+</body>
+</html>
