@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -12,6 +14,10 @@ public class QuizGame extends JFrame {
     private final JButton submitButton, dictButton, hintButton, startButton, resetButton;
     private final List<String[]> masterList = new ArrayList<>();
     private final List<String[]> sessionQuizzes = new ArrayList<>();
+    
+    // ★ 正解済み用語を記録するセット
+    private final Set<String> clearedTerms = new HashSet<>(); 
+    
     private int currentIndex = 0, missCount = 0, hintUsed = 0, giveUpCount = 0;
     private int currentHintStep = 0; 
     private long startTime;
@@ -22,64 +28,88 @@ public class QuizGame extends JFrame {
     public QuizGame() {
         setTitle("用語変換");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1100, 800);
+        
+        // ★ 画面最大化とEscキー対応
+        setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+            KeyStroke.getKeyStroke("ESCAPE"), "escapeAction");
+        getRootPane().getActionMap().put("escapeAction", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                int res = JOptionPane.showConfirmDialog(QuizGame.this, "ゲームを終了しますか？", "終了確認", JOptionPane.YES_NO_OPTION);
+                if (res == JOptionPane.YES_OPTION) System.exit(0);
+            }
+        });
+
         setLayout(null);
         getContentPane().setBackground(new Color(20, 20, 25));
 
         loadCSV("quiz_data3.csv");
+        loadClearedTerms(); // ★ 保存された正解記録を読み込む
         playBGM("bgm.wav");
 
         characterLabel = new JLabel();
-        characterLabel.setBounds(620, 50, 450, 650);
-        add(characterLabel);
-
         titleLabel = new JLabel("用語変換", SwingConstants.CENTER);
-        titleLabel.setBounds(50, 150, 550, 100);
         titleLabel.setFont(new Font("MS Gothic", Font.BOLD, 72));
         titleLabel.setForeground(new Color(255, 215, 0));
         
         startButton = new JButton("START");
-        startButton.setBounds(225, 350, 200, 80);
         startButton.setFont(new Font("Arial", Font.BOLD, 30));
         startButton.addActionListener(e -> startGame());
         
         questionLabel = new JLabel("", SwingConstants.CENTER);
-        questionLabel.setBounds(20, 80, 580, 300);
         questionLabel.setFont(new Font("MS Gothic", Font.BOLD, 32));
         questionLabel.setForeground(Color.WHITE);
 
         answerField = new JTextField();
-        answerField.setBounds(150, 400, 250, 50);
         answerField.setFont(new Font("MS Gothic", Font.PLAIN, 24));
         answerField.addActionListener(e -> checkAnswer());
 
         submitButton = new JButton("送信");
-        submitButton.setBounds(410, 400, 100, 50);
         submitButton.addActionListener(e -> checkAnswer());
 
         resultLabel = new JLabel("", SwingConstants.CENTER);
-        resultLabel.setBounds(50, 300, 550, 80);
         resultLabel.setFont(new Font("MS Gothic", Font.BOLD, 40));
 
         dictButton = new JButton("図鑑");
-        dictButton.setBounds(20, 700, 100, 40);
         dictButton.addActionListener(e -> openDictionary());
 
         hintButton = new JButton("ヒント");
-        hintButton.setBounds(130, 700, 100, 40);
         hintButton.addActionListener(e -> showCurrentHint());
 
         resetButton = new JButton("リセット");
-        resetButton.setBounds(240, 700, 100, 40);
         resetButton.addActionListener(e -> initStartScreen());
 
         add(titleLabel); add(startButton); add(questionLabel);
         add(answerField); add(submitButton); add(resultLabel);
-        add(dictButton); add(hintButton); add(resetButton);
+        add(dictButton); add(hintButton); add(resetButton); add(characterLabel);
+
+        // ★ 画面リサイズ時に位置を再計算
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                relayout();
+            }
+        });
 
         initStartScreen();
-        setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private void relayout() {
+        int w = getWidth();
+        int h = getHeight();
+        characterLabel.setBounds(w - 500, h - 700, 450, 650);
+        titleLabel.setBounds((w - 600) / 2 - 200, h / 2 - 150, 550, 100);
+        startButton.setBounds((w - 600) / 2 - 25, h / 2 + 50, 200, 80);
+        questionLabel.setBounds(50, 80, w - 600, 300);
+        answerField.setBounds(w / 2 - 250, h / 2 + 50, 250, 50);
+        submitButton.setBounds(w / 2 + 10, h / 2 + 50, 100, 50);
+        resultLabel.setBounds(50, h / 2 - 50, w - 600, 80);
+        dictButton.setBounds(20, h - 100, 100, 40);
+        hintButton.setBounds(130, h - 100, 100, 40);
+        resetButton.setBounds(240, h - 100, 100, 40);
+        revalidate(); repaint();
     }
 
     private void initStartScreen() { 
@@ -113,10 +143,8 @@ public class QuizGame extends JFrame {
             String[] data = sessionQuizzes.get(currentIndex);
             questionLabel.setText("<html><center>" + data[0] + "</center></html>"); 
             currentAnswer = (data.length >= 3) ? data[2].trim() : ""; 
-            answerField.setText("");
-            answerField.requestFocus();
-            resultLabel.setText("");
-            updateCharacter("真剣");
+            answerField.setText(""); answerField.requestFocus();
+            resultLabel.setText(""); updateCharacter("真剣");
         } else { showFinalResult(); }
     }
 
@@ -125,16 +153,16 @@ public class QuizGame extends JFrame {
         String userAns = answerField.getText().trim();
         if(!currentAnswer.isEmpty() && userAns.equalsIgnoreCase(currentAnswer)) {
             isAnswering = false;
+            clearedTerms.add(sessionQuizzes.get(currentIndex)[0]); // ★ 正解記録に追加
+            saveClearedTerms(); // ★ ファイルへ保存
             playSE("quiz_correct.wav");
-            resultLabel.setText("〇");
-            resultLabel.setForeground(Color.CYAN);
+            resultLabel.setText("〇"); resultLabel.setForeground(Color.CYAN);
             updateCharacter("照れ");
             new Timer(1500, e -> { currentIndex++; showNextQuestion(); ((Timer)e.getSource()).stop(); }).start();
         } else {
             playSE("wrong.wav");
             missCount++;
-            resultLabel.setText("×");
-            resultLabel.setForeground(Color.ORANGE);
+            resultLabel.setText("×"); resultLabel.setForeground(Color.ORANGE);
             updateCharacter("切ない");
             if(missCount >= 7) { 
                 isAnswering = false; giveUpCount++; missCount = 0; currentIndex++; showNextQuestion(); 
@@ -142,31 +170,23 @@ public class QuizGame extends JFrame {
         }
     }
 
-private void showCurrentHint() {
+    private void showCurrentHint() {
         if (sessionQuizzes == null || currentIndex >= sessionQuizzes.size()) return;
         String[] data = sessionQuizzes.get(currentIndex);
-        
-        // ★ 3(ヒント1) からスタートして、段階(0,1,2...)を足す
         int colIndex = 3 + currentHintStep;
 
         if (data.length > colIndex && !data[colIndex].trim().isEmpty()) {
             String hintText = data[colIndex].trim();
             hintUsed++;
-            
-            // ★ 「表示する段階」を先に進めてからダイアログを出す
-            // これで「第1段階」の時に「ヒント1」が正しく出ます
             int displayStep = currentHintStep + 1;
+            
+            // ★ HTMLで折り返し表示
+            JLabel label = new JLabel("<html><body style='width: 300px;'>【 ヒント 第 " + displayStep + " 段階 】<br><br>" + hintText + "</body></html>");
+            label.setFont(new Font("MS Gothic", Font.PLAIN, 16));
+            JOptionPane.showMessageDialog(this, label, "💡 ヒント", JOptionPane.INFORMATION_MESSAGE);
 
-            JOptionPane.showMessageDialog(this, 
-                "【 ヒント 第 " + displayStep + " 段階 】\n\n" + hintText, 
-                "💡 ヒント", JOptionPane.INFORMATION_MESSAGE);
-
-            // 次回のためにカウントアップ（最大6段階まで）
             if (currentHintStep < 5) {
-                // 次の列が存在する場合のみ次へ進む
-                if (data.length > (colIndex + 1) && !data[colIndex+1].trim().isEmpty()) {
-                    currentHintStep++;
-                }
+                if (data.length > (colIndex + 1) && !data[colIndex+1].trim().isEmpty()) currentHintStep++;
             }
         } else {
             JOptionPane.showMessageDialog(this, "これ以上のヒントはありません。", "💡 ヒント", JOptionPane.INFORMATION_MESSAGE);
@@ -182,12 +202,17 @@ private void showCurrentHint() {
         StringBuilder sb = new StringBuilder();
         sb.append("========== 用語図鑑 ==========\n\n");
         for (String[] data : masterList) {
-            if (data.length >= 1) {
-                sb.append("【用語】 ").append(data[0]).append("\n");
+            String term = data[0];
+            sb.append("【用語】 ").append(term).append("\n");
+            // ★ 正解済みかチェック
+            if (clearedTerms.contains(term)) {
                 if (data.length >= 2 && !data[1].isEmpty()) sb.append("  ▶ 変換式: ").append(data[1]).append("\n");
                 if (data.length >= 3 && !data[2].isEmpty()) sb.append("  ⇒ 正解  : ").append(data[2]).append("\n");
-                sb.append("------------------------------------------\n");
+            } else {
+                sb.append("  ▶ 変換式: ？？？ (正解すると解放)\n");
+                sb.append("  ⇒ 正解  : ？？？\n");
             }
+            sb.append("------------------------------------------\n");
         }
         area.setText(sb.toString());
         area.setCaretPosition(0);
@@ -197,111 +222,69 @@ private void showCurrentHint() {
         updateCharacter("真剣");
     }
 
+    // ★ 正解記録の保存
+    private void saveClearedTerms() {
+        File file = new File(System.getProperty("user.dir"), "cleared_terms.txt");
+        try (PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"))) {
+            for (String term : clearedTerms) pw.println(term);
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    // ★ 正解記録の読み込み
+    private void loadClearedTerms() {
+        File file = new File(System.getProperty("user.dir"), "cleared_terms.txt");
+        if (!file.exists()) return;
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
+            String line;
+            while ((line = br.readLine()) != null) clearedTerms.add(line.trim());
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
     private void showFinalResult() {
         long time = (System.currentTimeMillis() - startTime) / 1000;
         String title = (time <= 30) ? "👑 色彩の支配者" : (time <= 60) ? "⚔️ 白の一族の精鋭" : (time <= 120) ? "📖 変換の見習い" : "🐢 のんびり一族";
-
         updateCharacter("基本");
-        
-        // 1. 名前入力
         String inputMsg = String.format("タイム: %d秒 (ヒント使用: %d回)\n称号: %s\n\n名前を入力してください:", time, hintUsed, title);
         String name = JOptionPane.showInputDialog(this, inputMsg, "🎉 クリア！", JOptionPane.QUESTION_MESSAGE);
         if (name == null || name.trim().isEmpty()) name = "名無しの一族";
-
-        // 2. 保存と取得（エラーが起きても止まらないように try-catch で囲む）
-        String topRanking = "ランキングを読み込めませんでした。";
-        try {
-            saveRanking(name.trim(), (int)time, title, hintUsed);
-            topRanking = getTopRanking(30);
-        } catch (Exception e) {
-            System.err.println("Ranking Error: " + e.getMessage());
-        }
-
-        // 3. 表示用パネルの作成
+        saveRanking(name.trim(), (int)time, title, hintUsed);
+        
         JPanel resPanel = new JPanel(new BorderLayout());
         resPanel.setBackground(new Color(255, 215, 0)); 
-
-        // キャラ画像
-        JPanel charaPanel = new JPanel(new GridLayout(1, 5, 5, 0));
-        charaPanel.setBackground(new Color(255, 215, 0));
-        String[] charas = {"chara_main.png", "chara_serious.png", "chara_blush.png", "chara_sad.png", "chara_base.png"};
-        for (String c : charas) {
-            ImageIcon icon = getIllust(c, 160, 240);
-            if (icon != null) charaPanel.add(new JLabel(icon));
-        }
-
-        // ランキングテキスト
-        JTextArea rankArea = new JTextArea(topRanking);
+        JTextArea rankArea = new JTextArea(getTopRanking(30));
         rankArea.setFont(new Font("MS Gothic", Font.PLAIN, 16));
-        rankArea.setEditable(false);
         JScrollPane scroll = new JScrollPane(rankArea);
         scroll.setPreferredSize(new Dimension(500, 250));
+        resPanel.add(new JLabel("<html><center>✨ リザルト ✨<br>タイム: " + time + "秒</center></html>", SwingConstants.CENTER), BorderLayout.NORTH);
+        resPanel.add(scroll, BorderLayout.CENTER);
 
-        resPanel.add(charaPanel, BorderLayout.NORTH);
-        resPanel.add(new JLabel("<html><center><font size='5'>✨ リザルト ✨</font><br>タイム: " + time + "秒 (ヒント: " + hintUsed + "回)</center></html>", SwingConstants.CENTER), BorderLayout.CENTER);
-        resPanel.add(scroll, BorderLayout.SOUTH);
-
-        // 4. 音声再生
         if (giveUpCount == 0) playSE("congratulations-deep-voice.wav");
-
-        // 5. ダイアログ表示（ここが出るはず！）
         JOptionPane.showMessageDialog(this, resPanel, "ランキング TOP30", JOptionPane.PLAIN_MESSAGE);
-
-        // 6. 強制リセット
         initStartScreen();
-        this.repaint();
     }
 
     private void saveRanking(String name, int time, String title, int hint) {
-        // カレントディレクトリの絶対パスからファイルを作成
         File file = new File(System.getProperty("user.dir"), "ranking.csv");
-        
-        // UTF-8で追記モード。リソース自動閉鎖(try-with-resources)を使用
-        try (FileOutputStream fos = new FileOutputStream(file, true);
-             OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
-             PrintWriter pw = new PrintWriter(osw)) {
-            
+        try (PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8"))) {
             pw.println(name + "," + time + "," + title + "," + hint);
-            pw.flush(); // 強制的に書き込みを確定
-        } catch (IOException e) {
-            // ここでスタック・トレースが出る場合は、コンソールを確認してください
-            e.printStackTrace();
-        }
+        } catch (IOException e) { e.printStackTrace(); }
     }
 
     private String getTopRanking(int limit) {
         List<String[]> ranks = new ArrayList<>();
         File file = new File(System.getProperty("user.dir"), "ranking.csv");
-        
-        if (!file.exists()) return "まだデータがありません。";
-
-        try (FileInputStream fis = new FileInputStream(file);
-             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
-             BufferedReader br = new BufferedReader(isr)) {
-            
+        if (!file.exists()) return "データなし";
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
             String line;
             while ((line = br.readLine()) != null) {
-                if (line.trim().isEmpty()) continue;
                 String[] d = line.split(",");
                 if (d.length >= 2) ranks.add(d);
             }
-        } catch (IOException e) {
-            return "ランキング読み込みエラー";
-        }
-
-        // タイムで並び替え
-        ranks.sort((a, b) -> {
-            try {
-                return Integer.compare(Integer.parseInt(a[1].trim()), Integer.parseInt(b[1].trim()));
-            } catch (Exception e) { return 0; }
-        });
-
-        StringBuilder sb = new StringBuilder(" 順位 | タイム | ヒント | 名前 | 称号\n--------------------------------------------------\n");
+        } catch (IOException e) { return "エラー"; }
+        ranks.sort((a, b) -> Integer.compare(Integer.parseInt(a[1].trim()), Integer.parseInt(b[1].trim())));
+        StringBuilder sb = new StringBuilder("順位 | タイム | 名前\n");
         for (int i = 0; i < ranks.size() && i < limit; i++) {
-            String[] r = ranks.get(i);
-            String h = (r.length > 3) ? r[3] : "0";
-            String t = (r.length > 2) ? r[2] : "なし";
-            sb.append(String.format(" %2d位 | %3s秒 | %2s回 | %s | %s\n", i + 1, r[1], h, r[0], t));
+            sb.append(String.format("%2d位 | %3s秒 | %s\n", i + 1, ranks.get(i)[1], ranks.get(i)[0]));
         }
         return sb.toString();
     } 
@@ -314,7 +297,6 @@ private void showCurrentHint() {
                 String line = l.replace("\uFEFF", "").trim();
                 if (line.isEmpty()) continue;
                 String[] d = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-                for (int i = 0; i < d.length; i++) d[i] = d[i].trim().replaceAll("^\"|\"$", "");
                 if (d.length >= 1) masterList.add(d);
             }
         } catch (IOException e) {}
@@ -324,26 +306,20 @@ private void showCurrentHint() {
         try {
             File f = new File(filename);
             if (!f.exists()) return;
-            AudioInputStream ais = AudioSystem.getAudioInputStream(f);
             bgmClip = AudioSystem.getClip();
-            bgmClip.open(ais);
+            bgmClip.open(AudioSystem.getAudioInputStream(f));
             bgmClip.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            // マルチキャッチで警告解消
-        }
+        } catch (Exception e) {}
     }
 
     private void playSE(String filename) {
         try {
             File f = new File(filename);
             if (!f.exists()) return;
-            AudioInputStream ais = AudioSystem.getAudioInputStream(f);
             Clip clip = AudioSystem.getClip();
-            clip.open(ais);
+            clip.open(AudioSystem.getAudioInputStream(f));
             clip.start();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            // マルチキャッチで警告解消
-        }
+        } catch (Exception e) {}
     }
 
     public void updateCharacter(String s) {
