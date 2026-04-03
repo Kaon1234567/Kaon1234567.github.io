@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>CG_異形の者 - Illustration Gallery</title>
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #d1d1d1;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            letter-spacing: 0.3em;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+            margin-bottom: 60px;
+        }
+
+        /* イラスト紹介の枠 */
+        .illustration-frame {
+            background: linear-gradient(145deg, #1a1a1a, #222);
+            border: 1px solid #333;
+            border-radius: 4px;
+            margin-bottom: 80px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* 横並びにするためのコンテナ */
+        .flex-container {
+            display: flex;
+            border-top: 1px solid #333; /* 変異個体セクションとの区切り */
+        }
+
+        /* 変異個体（小翠智永子）セクション */
+        .mutation-section {
+            padding: 30px;
+            background: rgba(139, 0, 0, 0.05); /* わずかに知識欲の赤 */
+            border-bottom: 1px solid #444;
+        }
+        .mutation-section dt {
+            font-size: 1.4em;
+            color: #ff4d4d; /* 瞳の紅 */
+            margin-bottom: 10px;
+        }
+        .mutation-section dd {
+            margin: 0 0 20px 0;
+            font-size: 1em;
+            color: #bbb;
+        }
+        .mutation-image-wrapper {
+            text-align: center;
+        }
+        .mutation-image-wrapper img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #444;
+        }
+
+        /* 画像エリア（完全体） */
+        .image-box {
+            flex: 0 0 450px;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid #333;
+        }
+        .image-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* テキスト紹介エリア */
+        .description-box {
+            padding: 40px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .char-title {
+            font-size: 1.8em;
+            color: #fff;
+            margin: 0 0 10px 0;
+            border-left: 4px solid #fff;
+            padding-left: 15px;
+        }
+        .definition-tag {
+            font-size: 0.9em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            display: inline-block;
+            padding: 2px 10px;
+            background: #333;
+        }
+        
+        .greeder .definition-tag { color: #ff4d4d; border: 1px solid #ff4d4d; }
+        .addictor .definition-tag { color: #aaa; border: 1px solid #aaa; }
+        .mixtus .definition-tag { color: #50c878; border: 1px solid #50c878; }
+
+        .text-body {
+            font-size: 1em;
+            line-height: 1.8;
+            color: #bbb;
+        }
+        .quote {
+            margin-top: 20px;
+            font-style: italic;
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 800px) {
+            .flex-container { flex-direction: column; }
+            .image-box { flex: none; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>異形の者</h1>
+
+    <div class="illustration-frame greeder">
+        <div class="mutation-section">
+            <dl>
+                <dt>Sallowed by desire【知識欲】小翠智永子</dt>
+                <dd>大学に所属していた過去を持つ緑の一族の女性。知識欲に呑まれかけている彼女の姿。</dd>
+            </dl>
+            <div class="mutation-image-wrapper">
+                <img src="Sallowed by desire【知識欲】小翠智永子.jpg" alt="Sallowed by desire【知識欲】小翠智永子">
+            </div>
+        </div>
+
+        <div class="flex-container">
+            <div class="image-box">
+                <img src="Sallowed by desire【知識欲】グリーダー.png" alt="Greeder">
+            </div>
+            <div class="description-box">
+                <span class="definition-tag">欲望に呑まれし者</span>
+                <h2 class="char-title">グリーダー / Greeder</h2>
+                <p class="text-body">
+                    抑えきれない渇望に身を任せ、精神が内側から作り替えられた姿。
+                    何かに執着し、それを求め続ける「飢え」が鋭利なシルエットとなって現れている。
+                    左右で異なる瞳は、理性が欲望に浸食された証である。
+                </p>
+                <p class="quote">「……足りない。もっと、識らなければ。」</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="illustration-frame addictor">
+        <div class="flex-container">
+            <div class="image-box">
+                <div style="color:#444;">[ NO IMAGE: ADDICTOR ]</div>
+            </div>
+            <div class="description-box">
+                <span class="definition-tag">力に溺れし者</span>
+                <h2 class="char-title">アディクター / Addictor</h2>
+                <p class="text-body">
+                    手にした強大な力に魅了され、自己を失った姿。
+                    制御を失ったエネルギーの奔流に身を焼き、ただ破壊衝動のままに突き進む暴走体。
+                </p>
+                <p class="quote">「力が……溢れて……止まらない……！」</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="illustration-frame mixtus">
+        <div class="flex-container">
+            <div class="image-box">
+                <img src="ミクスタス_【知識欲】＆叡智.png" alt="Mixtus">
+            </div>
+            <div class="description-box">
+                <span class="definition-tag">融合超人</span>
+                <h2 class="char-title">ミクスタス / Mixtus</h2>
+                <p class="text-body">
+                    欲望の化身「グリーダー」と、力の化身「アディクター」が重なり合い、一つに溶け合った究極の個体。
+                </p>
+                <p class="quote">「欲望と力、その全てを私は統べる。」</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

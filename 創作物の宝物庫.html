@@ -1,59 +1,135 @@
 <!doctype html>
-<html lang ="ja">
- <head>
+<html lang="ja">
+<head>
     <meta charset="UTF-8">
-    <title>創作物の宝物庫</title>
-    <meta name="description" content="創作物の宝物庫">
+    <title>創作物の宝物庫 - Main Portal</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <style>
-    body {
-            padding: 30px;
-            color: #000000;
-            background-color: #40ec0c;
+        body { 
+            padding: 50px 20px; 
+            color: #FFFFFF; 
+            /* 宇宙色をイメージした深いグラデーション */
+            background: radial-gradient(circle, #1b2735 0%, #090a0f 100%); 
             font-weight: bold;
-            font-size: 120%;
-            font-family: serif;
+            font-family: "Hiragino Mincho ProN", "MS Mincho", serif; 
+            text-align: center;
+        }
+        .portal-gate {
+            border: 8px groove gold;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 25px;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.5);
+        }
+        h1 { 
+            font-size: 3.5em; 
+            border-bottom: 5px double gold; 
+            padding-bottom: 20px; 
+            margin-bottom: 30px; 
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+        
+        /* エリア選択パネル：2カラム構成 */
+        .area-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .area-card {
+            padding: 40px 20px;
+            border: 2px solid #fff;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.5em;
+            transition: all 0.4s ease;
+            border-radius: 15px;
+            display: block;
+        }
+        /* 各エリアのテーマカラー */
+        .cg-area { background: rgba(0, 128, 128, 0.4); border-color: #008080; }
+        .pg-area { background: rgba(0, 0, 139, 0.4); border-color: #00008b; }
+        .mu-area { background: rgba(139, 0, 0, 0.4); border-color: #8b0000; }
+        .nv-area { background: rgba(75, 0, 130, 0.4); border-color: #4b0082; }
+
+        .area-card:hover { 
+            transform: translateY(-10px); 
+            background: rgba(255, 255, 255, 0.2); 
+            border-color: gold; 
+            color: gold; 
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* クレジット・窓口セクション */
+        .footer-credit {
+            margin-top: 50px;
+            padding: 30px;
+            border-top: 3px double gold;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0 0 15px 15px;
+        }
+        .credit-list { list-style: none; padding: 0; line-height: 2; font-size: 1.1em; }
+        .marsh-btn {
+            display: inline-block;
+            margin-left: 15px;
+            background: #ffb6c1; /* マシュマロ・ピンク */
+            color: #d11e6d !important;
+            padding: 2px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid #fff;
+        }
+        .thanks-msg {
+            text-align: center;
+            color: gold;
+            font-size: 1.3em;
+            margin-top: 30px;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 5px #000;
         }
     </style>
- </head>
+</head>
+<body>
 
- <body>
-   <div class="container">
-		<div class="starter-template">
-   <p>
-      <!--img src="../../Documents/電子創作研究会/c01.gif"--><!--br-->
-      作成者 しらのん<br>
-      所属 電子創作研究会<br>
-      <!--協力者:モグモグガチ勢さん,CADさん><br-->
-      協力サークル 電子創作研究会<br>
-      special thanks:このHPへアクセス或いは来訪してくれた皆さん
-   </p>
-   <hr>
-    <h1>創作物の宝物庫</h1>
-    <p>
-        ようこそ創作の世界へ<br>
-        貴方の可能を探しましょう？<br>
-        〇〇さん、ようこそ創作へ<br>
-        ここでは、3種の世界をお披露目いたします
-    </p>
-    <h3>PROGRAMエリア</h3>
-    <h4><a href="創作物の宝物庫-PROGRAMエリア.html" alt="創作物の宝物庫-PROGRAMエリア" target="_blank">PROGRAMエリア</a><br></h4>
-    <h4>おすすめプログラム:<a href="創作物の宝物庫-PROGRAMエリア.html#program2" target="_blank">用語変換</a></h4>
-    <h3>CGエリア</h3>
-    <h4><a href="創作物の宝物庫-CGエリア.html" alt="創作物の宝物庫-CGエリア" target="_blank">CGエリア</a><br></h4>
-    <h4>おすすめイラスト:<a href="創作物の宝物庫-CGエリア.html#cg1" target="_blank">白空明美</a><br></h4>
-    <!--h4>おすすめモデリング:<a href="../../Documents/電子創作研究会/創作物の宝物庫-CGエリア.html#modering1" target="_blank">comp</a></h4-->
-    <h3>MUSICエリア</h3>
-    <h4><a href="創作物の宝物庫-MUSICエリア.html" alt="創作物の宝物庫-MUSICエリア" target="_blank">MUSICエリア</a><br></h4>
-    <h4>おすすめ曲:<a href="創作物の宝物庫-MUSICエリア.html#dtm1" target="_blank">enjoypop</a><br></h4>
-    <!--h4>おすすめ楽曲:<a href="../../Documents/電子創作研究会/創作物の宝物庫-MUSICエリア.html#cad1" target="_blank">1</a></h4-->
-    <hr>  
-      <h2>おまけ</h2>
-      <h3>小説エリア</h3>
-      <h4><a href="創作物の宝物庫-小説エリア.html" alt="創作物の宝物庫-小説エリア" target="_blank">小説エリア</a><br></h4>
-      <h4>おすすめ小説:<a href="創作物の宝物庫-小説エリア -色彩学園一話.html" target="_blank">創作物の宝物庫-小説エリア -色彩学園一話</a></h4>
-		</div>
-	</div>
-	<!-- /.container -->
- </body>
+    <div class="portal-gate">
+        <h1>創作物の宝物庫</h1>
+        <p style="font-size: 1.3em; color: silver;">―― 紡がれる七色の記録 ――</p>
+        
+        <div class="area-grid">
+            <a href="創作物の宝物庫-CGエリア.html" class="area-card cg-area">🖼️ CG AREA<br><small style="font-size: 0.6em;">六色同盟 / D4DJ / 二次世界</small></a>
+            <a href="創作物の宝物庫-PROGRAMエリア.html" class="area-card pg-area">💻 PROGRAM AREA<br><small style="font-size: 0.6em;">C / VSCode / システム開発</small></a>
+            <a href="創作物の宝物庫-MUSICエリア.html" class="area-card mu-area">🎵 MUSIC AREA<br><small style="font-size: 0.6em;">音色と旋律のアーカイブ</small></a>
+            <a href="創作物の宝物庫-小説エリア.html" class="area-card nv-area">📖 NOVEL AREA<br><small style="font-size: 0.6em;">色彩学園 / 一族の設定資料</small></a>
+        </div>
+
+        <div class="footer-credit">
+            <ul class="credit-list">
+                <li>● 企画：しらのん</li>
+                <li>● 映像クリエイター：クレア=テラニス=黄燐</li>
+                <li>● 統括管理者：ジェシカ・トローヴ 
+                    <a href="https://marshmallow-qa.com/p9yi3b9pgo3dhr9" target="_blank" class="marsh-btn">
+                        🍬 しらのんへ感想を送る
+                    </a>
+                </li>
+                <li>● 元所属：電子創作研究会</li>
+                <li>● 協力サークル：電子創作研究会</li>
+            </ul>
+            
+            <div class="thanks-msg">
+                Special Thanks: このHPへアクセス、あるいは来訪してくれた皆さん
+            </div>
+            
+            <p style="text-align: center; font-size: 0.8em; color: #777; margin-top: 20px;">
+                Final Update in Gunma: 2026.04.02 23:15
+            </p>
+        </div>
+    </div>
+
+</body>
 </html>

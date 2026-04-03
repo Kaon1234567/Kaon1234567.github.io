@@ -9,55 +9,71 @@
     body {
             padding: 30px;
             color:#FFFFFF;
-            background-color: #008080;
+            background-color: #008080;/* CGエリアの識別色 */
             font-weight: bold;
             font-size: 120%;
             font-family: serif;
         }
-        header{
-background:lightblue;height:100px;
-display:flex;
-}
+    header{
+        background:lightblue;height:100px;
+        display:flex;
+    }
 
-header img{
-height:100%;
-width:auto;
-}
-.header_container{
-display:flex;
+    header img{
+        height:100%;
+        width:auto;
+    }
+    .header_container{
+        display:flex;
 
-width:95%;
-justify-content:flex-end;
-align-items:center;
-}
+        width:95%;
+        justify-content:flex-end;
+        align-items:center;
+    }
 
-.header_item{
-margin:10px;
-}
+    .header_item{
+        margin:10px;
+    }
 
-.main{
-background:lightpink;
-display:grid;
-}
+    .main{
+        background:lightpink;
+        display:grid;
+    }
 
-.main div{
-border:2px dotted red;
-text-align:center;
-}
+    .main div{
+        border:2px dotted red;
+        text-align:center;
+    }
 
-.main img{
-    height:auto;
-width: 70%;
-margin:10px;
-border:10px groove gold;
-}
+    .main img{
+        height:auto;
+        width: 70%;
+        margin:10px;
+        border:10px groove gold;
+    }
+
+    /* 異形セクション用の追加スタイル */
+    .anomaly-section {
+        margin-top: 30px;
+        background: #000;
+        border: 4px double #8b0000;
+        padding: 20px;
+        text-align: center;
+    }
+    .anomaly-warning {
+        color: #ff4d4d;
+        font-size: 0.8em;
+        letter-spacing: 2px;
+        animation: blinker 2s linear infinite;
+    }
+    @keyframes blinker { 50% { opacity: 0; } }
     </style>
  </head>
 <body>
     <header>
         <img src="stripes.png">
         <nav class="header_container">
-        <div class="header_item"><a href="index.html" alt="index">index(創作物の宝物庫)</a></div>
+        <div class="header_item"><a href="創作物の宝物庫.html" alt="創作物の宝物庫">index(創作物の宝物庫)</a></div>
         <div class="header_item"><a href="創作物の宝物庫-PROGRAMエリア.html" alt="創作物の宝物庫-PROGRAMエリア">創作物の宝物庫-PROGRAMエリア</a></div>
         <div class="header_item"><a href="創作物の宝物庫-MUSICエリア.html" alt="創作物の宝物庫-MUSICエリア">創作物の宝物庫-MUSICエリア</a></div>
         <div class="header_item"><a href="創作物の宝物庫-小説エリア.html" alt="創作物の宝物庫-小説エリア">創作物の宝物庫-小説エリア</a></div>
@@ -68,96 +84,78 @@ border:10px groove gold;
     <h2 id="top1">創作物の宝物庫-CGエリア</h2>
     <p>
         ここでは、CGを見て頂きます<br>
-        私が作成した代物になります<br>
         興味を持っていただけると幸いです<br>
+        企画:しらのん<br>
+        mainクリエイター:白峰メギユナール<br>
+        subクリエイター:月島佐菜<br>
+        エリア管理者:ラフィーナ・アドミニストレータ・コンプソン<br>
         Supported by Erika Shirayuki
     </p>
-    <ul>
-    <h4><li><a href="創作物の宝物庫-CGエリア.html#cg1">白空明美</a></li></h4>
-    <h4><li><a href="創作物の宝物庫-CGエリア.html#cg2">シフォンin電子空間</a></li></h4>
-    <h4><li><a href="創作物の宝物庫-CGエリア.html#cg3">制服氷川紗夜in学校</a></li></h4>
-    <h4><li><a href="創作物の宝物庫-CGエリア.html#cg4">水着氷川日菜in浜辺</a></li></h4>
-    <h4><li><a href="創作物の宝物庫-CGエリア.html#cg5">大鳴門むにin喫茶バイナル</a></li></h4>
-    <h4><li><a href="創作物の宝物庫-CGエリア.html#cg6">白雪絵理佳SYBERPUNKSTYLE</a></li></h4>
-    <h4><li><a href="創作物の宝物庫-CGエリア.html#cg7">創作系三人娘</a></li></h4>
-    <h4><li><a href="創作物の宝物庫-CGエリア.html#cg8">寄道一星ルミナと私服明石真秀</a></li></h4>
-    <h4><li><a href="創作物の宝物庫-CGエリア.html#cg9">身代わり人形</a></li></h4>
-    <h4><li><a href="創作物の宝物庫-CGエリア.html#cg10">元研究者小翠智永子</a></li></h4>
-    <h4><li><a href="創作物の宝物庫-CGエリア.html#cg11">巫女装束新道鈴夏</a></li></h4>
-    <h4><li><a href="創作物の宝物庫-CGエリア.html#cg12">私服阿鹿（仮）</a></li></h4>
-    <h4><li><a href="操作物の宝物庫-CGエリア.html#cg13">情報屋シフォン</a></li></h4>
-    </ul>
-    <dl>
-    <div class="text"><dt id="cg1">白空明美</dt>
-    <dd>世界が一つ二次世界SAOいる時の可愛い洋服纏って指輪を駆使して戦う女性。</dd></div>
-    <img src="白空明美.png" alt="白空明美">
-    <div class="text"><dt id="cg2">シフォンin電子空間</dt>
-    <dd>PC等のデバイスから電子領域にいることが多いときの姿であり、周りにあるのは入った電子空間から引き寄せた。</dd></div>
-    <img src="シフォンin電子空間.png" alt="シフォンin電子空間">
-    <div class="text"><dt id="cg3">制服氷川紗夜in学校</dt>
-    <dd>学校の正門近くで制服を着て居る風紀委員の女性。</dd></div>
-    <img src="制服氷川紗夜in学校.png" alt="制服氷川紗夜in学校">
-    <div class="text"><dt id="cg4">水着氷川日菜in浜辺</dt>
-    <dd>初夏に水着で浜辺を訪れた女性。</dd></div>
-    <img src="水着氷川日菜in浜辺.png" alt="水着氷川日菜in浜辺">
-    <div class="text"><dt id="cg5">大鳴門むにin喫茶バイナル</dt>
-    <dd>むにちゃんが麗ちゃんに有栖川学院の制服を着せられて喫茶店バイナルに連れてこられた時の姿。</dd></div>
-    <img src="大鳴門むにin喫茶バイナル.png" alt="大鳴門むにin喫茶バイナル">
-    <div class="text"><dt id="cg6">白雪絵理佳SYBERPUNKSTYLE</dt>
-    <dd>開発室の中でアイテムを作成している女子学生。干渉フェーズでSYBERPUNKSTYLE。学園の制服を着て色彩学園に通っている。白の一族の者。</dd></div>
-    <img src="白雪絵理佳SYBERPUNKSTYLE.png" alt="白雪絵理佳SYBERPUNKSTYLE">
-    <div class="text"><dt id="cg7">創作系三人娘</dt>
-    <dd>立て看板用のイラストとして作成されたものの採用されなかったもの。左から順にミユ、レーラ、サナが描かれている。よく三人で一緒に遊んでいるようで????</dd></div>
-    <img src="創作系三人娘.png" alt="創作系三人娘">
-    <div class="text"><dt id="cg8">寄道一星ルミナと私服明石真秀</dt>
-    <dd>寄道して食事中の一星ルミナと其処を通りかかった私服明石真秀が驚く後ろ姿が描かれている。周囲に居るのはルミナの所属するユニットUniChOrdのメンバーだ。</dd></div>
-    <img src="寄道一星ルミナと私服明石真秀.png" alt="寄道一星ルミナと私服明石真秀">
-    <div class="text"><dt id="cg9">身代わり人形</dt>
-    <dd>言葉演算から登場する人形。身代わりの機能を持つアイテム。情報屋シフォンが主人公達に渡したもの。</dd></div>
-    <img src="身代わり人形.png" alt="身代わり人形">
-    <div class="text"><dt id="cg10">元研究者小翠智永子</dt>
-    <dd>言葉演算から登場する女性。大学に所属していた元研究者。現在??に住み研究の続きをしている?緑の一族の者。休息に大樹の丘まで来ている。</dd></div>
-    <img src="元研究者小翠智永子.png" alt="元研究者小翠智永子">
-    <div class="text"><dt id="cg11">巫女装束新道鈴夏</dt>
-    <dd>言葉演算から登場する女子学生。巫女の血を受け継ぐ元神童。巫女であるため霊力を持っている?!巫女装束を着て大樹の丘まで来ている。</dd></div>
-    <img src="巫女装束新道鈴夏.png" alt="巫女装束新道鈴夏">
-    <div class="text"><dt id="cg12">阿鹿（仮）</dt>
-    <dd>言葉演算から登場する男子学生。阿保な行動や馬鹿な成績を取ることが多くクラスメイトから阿鹿と呼ばれている。私服で大樹の丘に来ている。</dd></div>
-    <img src="私服阿鹿（仮）.png" alt="私服阿鹿（仮）">
-    <div class=""><dt id="cg13">情報屋シフォン</dt>
-    <dd>シフォンが言葉演算で情報屋の姿をしている。どう見ても情報屋に見えない所がみそである。</dd></div>
-    <img src="情報屋シフォン.png" alt="情報屋シフォン">
-    <hr>
-    <P>世界：世界は二つの種類に分けることが出来る。<br>
-        そのうち、原作通りのシナリオを辿った世界を原作世界、その世界から派生、分岐した世界を二次世界と呼んでいる。<br> 
-    </P>
-    <!--/p>
-       モグモグガチ勢さん作成によるCGモデリングになります 
-    </p>
-    <ul>
-    <h4><li><a href="../../Documents/電子創作研究会/創作物の宝物庫-CGエリア.html#modering1">comp</a></li></h4>
-    <h4><li><a href="../../Documents/電子創作研究会/創作物の宝物庫-CGエリア.html#modering2">9</a></li></h4>
-    <h4><li><a href="../../Documents/電子創作研究会/創作物の宝物庫-CGエリア.html#modering3">base_v20-2</a></li></h4>
-    <h4><li><a href="../../Documents/電子創作研究会/創作物の宝物庫-CGエリア.html#modering4">base_v20-4</a></li></h4>
-    </ul>
-    <dl>
-    <dt id="modering1">comp</dt>
-    <dd>皿の上のお寿司一貫とお茶、箸のセット</dd>
-    <img src="../../Pictures/モデリング/comp.jpg" alt="comp">
-    <dt id="modering2">9</dt>
-    <dd>運動会準備中</dd>
-    <img src="../../Pictures/モデリング/9.png" alt="9">
-    <dt id="modering3">base_v20-2</dt>
-    <dd>運動会の席の椅子拡大</dd>
-    <img src="../../Pictures/モデリング/base_v20-2.png" alt="base_v20-2">
-    <dt id="modering4">base_v20-4</dt>
-    <dd>運動会準備中の全体</dd>
-    <img src="../../Pictures/モデリング/base_v20-4.png" alt="base_v20-4">
-    </dl-->
-    </div>
-    <hr>
-    <h2><a href="創作物の宝物庫-CGエリア.html#top1" target="_top">TOPへ戻る</a></h2>
-		<!-- /.main -->
+    
+<div class="main-container" style="background-color: #008080; padding: 20px; color: white; font-family: serif; border: 8px groove gold;">
+    <h2 style="border-bottom: 5px double gold; padding-bottom: 10px; text-align: center;">創作物の宝物庫-CGエリア</h2>
 
+    <div class="category-section" style="border: 2px solid white; padding: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.05);">
+        <h3 style="background: white; color: #008080; padding: 5px;">■ 創作世界：六色同盟 ＆ 七色の血統</h3>
+        
+        <div class="sub-group">
+            <h4>【一族別の個別記録】</h4>
+            <div class="link-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                <a href="cg_white.html" style="background: #f5f5f5; color: #000; padding: 10px; text-align: center; text-decoration: none;">白の一族</a>
+                <a href="cg_red.html" style="background: #8b0000; color: #fff; padding: 10px; text-align: center; text-decoration: none;">赤の一族</a>
+                <a href="cg_blue.html" style="background: #00008b; color: #fff; padding: 10px; text-align: center; text-decoration: none;">青の一族</a>
+                <a href="cg_yellow.html" style="background: #ffd700; color: #000; padding: 10px; text-align: center; text-decoration: none;">黄の一族</a>
+                
+                <div style="background: #006400; color: #fff; padding: 10px; text-align: center; position: relative;">
+                    <a href="cg_green.html" style="color: #fff; text-decoration: none;">緑の一族</a>
+                    <div style="font-size: 0.6em; color: #ff4d4d; line-height: 1.2;">※一部、異形への転送を確認</div>
+                </div>
+
+                <a href="cg_black.html" style="background: #000000; color: gold; padding: 10px; text-align: center; border: 1px solid gold; text-decoration: none;">黒の一族</a>
+                <a href="cg_cosmo.html" style="background: linear-gradient(45deg, #4b0082, #000); color: #fff; padding: 10px; text-align: center; text-decoration: none; grid-column: span 2;">宇宙色の一族 (Cosmo)</a>
+            </div>
+        </div>
+
+        <div class="sub-group" style="margin-top: 15px;">
+            <h4>【同盟・共演アーカイブ】</h4>
+            <ul>
+                <li><a href="cg_alliance.html" style="color: silver; font-size: 1.2em; text-decoration: underline;">六色同盟：複数色共演ページ (赤＋白など)</a></li>
+                <li><a href="cg_original_others.html" style="color: #ddd;">その他の住人（鈴夏 ほか）</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="category-section" style="border: 2px solid orange; padding: 15px;">
+        <h3 style="background: orange; color: white; padding: 5px;">■ 二次世界：アーカイブ</h3>
+        <ul>
+            <li><a href="cg_d4dj_main.html" style="color: orange;">D4DJ（真秀 ＆ ルミナ ユニット個別・共演）</a></li>
+            <li><a href="cg_sao.html" style="color: #00bfff;">SAO（白空 明美 ほか）</a></li>
+            <li><a href="cg_bangdream.html" style="color: #e0daff;">BanG Dream!（紗夜 ＆ 日菜 ほか）</a></li>
+            <li><a href="cg_bofuri.html" style="color: #ff4d4d;">防振り（メイプル）</a></li>
+            <li><a href="cg_tokusatsu.html" style="color: #ff0000;">特撮（ライダー ＆ 戦隊）</a></li>
+        </ul>
+    </div>
+
+    <div class="anomaly-section">
+        <div class="anomaly-warning">⚠️ 隔離データ検出：ANOMALY_DETECTED</div>
+        <p style="margin: 10px 0; font-size: 0.9em;">「欲望に呑まれ、力に溺れし者たちの記録」</p>
+        <a href="CG_異形の者.html" style="color: #ff4d4d; border: 1px solid #8b0000; padding: 5px 15px; text-decoration: none; display: inline-block; background: #1a0000;">
+            異形エリアを閲覧する
+        </a>
+    </div>
+
+</div>
+</div>
+</div>
+    <hr>
+    <p>世界：世界は二つの種類に分けることが出来る。<br>
+       そのうち、原作通りのシナリオを辿った世界を原作世界、その世界から派生、分岐した世界を二次世界と呼んでいる。<br> 
+    </p>
+
+    <hr>
+    <h2 class="text-center">
+        <a href="#top1" style="color: gold; text-decoration: none;">▲ このページのTOPへ戻る</a>
+    </h2>
+    <br>
 </body>
 </html>
