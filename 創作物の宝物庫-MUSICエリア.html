@@ -1,155 +1,75 @@
 <!doctype html>
-<html lang ="ja">
- <head>
+<html lang="ja">
+<head>
     <meta charset="UTF-8">
     <title>創作物の宝物庫-MUSICエリア</title>
-    <meta name="description" content="創作物の宝物庫-MUSICエリア">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <style>
-    body {
-            padding: 30px;
-            color: #000;
-            background-color: #FF8800;
-            font-weight: bold;
-            font-size: 120%;
-            font-family: serif;
+        body { padding: 30px; color: #000; background-color: #FF8800; font-weight: bold; font-family: serif; }
+        header { background: lightblue; height: 100px; display: flex; }
+        .header_container { display: flex; width: 95%; justify-content: flex-end; align-items: center; }
+        .header_item { margin: 10px; }
+        .main { background: lightpink; padding: 20px; }
+        
+        .canon-section {
+            background: #1a1a2e; color: #fff;
+            border: 3px double #FF00FF; padding: 20px;
+            margin: 20px 0; text-align: center; border-radius: 10px;
         }
-        header{
-background:lightblue;height:100px;
-display:flex;
-}
+        .canon-section h3 { color: #00FFFF; }
 
-header img{
-height:100%;
-width:auto;
-}
-.header_container{
-display:flex;
-
-width:95%;
-justify-content:flex-end;
-align-items:center;
-}
-
-.header_item{
-margin:10px;
-}
-
-.main{
-background:lightpink;
-display:grid;
-}
-
-.main div{
-border:2px dotted red;
-text-align:center;
-}
-
-.main img{
-width:95%;
-margin:10px;
-}
-table{
-  width: auto;
-  color: aquamarine;
-  height: auto;
-}
-caption{
-  color:crimson;
-}
+        table { width: 100%; color: #000; border-collapse: collapse; margin-top: 20px; background: #fff; }
+        th, td { border: 1px solid #333; padding: 10px; text-align: left; }
     </style>
- </head>
+</head>
 <body>
-  <header>
-    <img src="stripes.png">
-    <nav class="header_container">
-    <div class="header_item"><a href="創作物の宝物庫.html" alt="創作物の宝物庫">index(創作物の宝物庫)</a></div>
-    <div class="header_item"><a href="創作物の宝物庫-PROGRAMエリア.html" alt="創作物の宝物庫-PROGRAMエリア">創作物の宝物庫-PROGRAMエリア</a></div>
-    <div class="header_item"><a href="創作物の宝物庫-CGエリア.html" alt="創作物の宝物庫-CGエリア">創作物の宝物庫-CGエリア</a></div>
-    <div class="header_item"><a href="創作物の宝物庫-小説エリア.html" alt="創作物の宝物庫-小説エリア">創作物の宝物庫-小説エリア</a></div> 
-  </nav>
+    <header>
+        <nav class="header_container">
+            <div class="header_item"><a href="index.html">index(創作物の宝物庫)</a></div>
+            <div class="header_item"><a href="PROGRAM.html">PROGRAM</a></div>
+            <div class="header_item"><a href="CG.html">CG</a></div>
+            <div class="header_item"><a href="小説.html">小説</a></div> 
+        </nav>
     </header>
+
     <div class="main">
-    <h2 id="top4">創作物の宝物庫-MUSICエリア</h2>
-    <img src="音楽を聴く.png">
-    <p>
-        ここでは、MUSICを聴いて頂きます<br>
-        興味を持っていただけると幸いです<br>
-        企画:しらのん<br>
-        mainクリエイター:東=ソメノ=万糸香<br>
-        subクリエイター:響鳴未由<br>
-        エリア管理者:稀菜・ジュ―ミック<br>
-        Supported by Kanon Shierakumo,Kana Akane
-    </p>
-    <ol>
-    <h4><li>links melodies</li></h4>
-    <h4><li>break  or break!</li></h4>
-    <h4><li>enjoypop</li></h4>
-    <h4><li>世界に楽しいを届けて</li></h4>
-    詳細:<a href="創作物の宝物庫-MUSICエリア -世界に楽しいを届けて.html">創作物の宝物庫-MUSICエリア-世界に楽しいを届けて</a><br>
-    <h4><li>世界に楽しいを届けて（カスタマイズ）</li></h4>
-    詳細:<a href="創作物の宝物庫-MUSICエリア - 世界に楽しいを届けて(カスタマイズ).html">創作物の宝物庫-MUSICエリア-世界に楽しいを届けて(カスタマイズ)</a><br>
-    <h4><li>stormy link(Remix)</li></h4>
-    <h4><li>on your mark (Remix)</li></h4>
-    <h4><li>パノラマリウム(Remix)</li></h4>
-    <h4><li>DJ NANMO WAKARAN(Remix)</li></h4>
-    <h4><li>World Etude(Remix)'</li></h4>
-    </ol>
-    <table border="1">
-      <caption>セットリスト</caption>
-    <thread>
-    <tr><th>曲名</th><th>ポイント</th><th>リンク</th></tr>
-    </thread>
-    <tbody>
-    <tr><td id="dtm2">links melodies</td>
-    <td>Photon melodiesを参考に作成されたものですが、Photon melodiesからはかけ離れてしまったもの。</td>
-    <td><a href="links melodies.mp3" alt="Links melodies">links melodies</a></td></tr><br>
-    <tr><td id="dtm3">break  or break!</td>
-    <td>Hell! or HELL?を参考に作成したものの、違う感じなってしまったもの。</td>
-    <td><a href="break  or break!.mp3" alt="break or break!">break  or break!</a></td></tr><br>
-    <tr><td id="dtm1">enjoypop</td>
-    <td>楽しいを込めて作成された曲である。</td>
-    <td><a href="enjoypop.mp3" alt="enjoypop">enjoypop</a></td></tr><br>
-    <tr><td id="dtm8">世界に楽しいを届けて</td>
-    <td>enjoypopに歌詞が付き、ボーカル重音テトが歌ったもの。</td>
-    <td><a href="世界に楽しいを届けて.mp3" alt="世界に楽しいを届けて">世界に楽しいを届けて</a></td></tr><br>
-    <tr><td id="dtm9">世界に楽しいを届けて（カスタマイズ）</td>
-    <td>enjoypopを基に歌詞やメロディをカスタマイズしたもの。ボーカルは重音テトです。</td>
-    <td><a href="世界に楽しいを届けて(カスタマイズ).mp3" alt="世界に楽しいを届けて（カスタマイズ）">世界に楽しいを届けて（カスタマイズ）</a></td></tr><br>
-    <tr><td id="dtm4">stormy link</td>
-    <td>stormy linkをRemixしたものであり、ボーカルと歌詞が入っているもの。</td>
-    <td><a href="stormy link(Remix).mp3" alt="stormy link(Remix)">stormy link(Remix)</a></td></tr><br>
-    <tr><td id="dtm5">on your mark (Remix)</td>
-    <td>on your markをRemixしたものであり、ボーカルと歌詞が入っているもの。</td>
-    <td><a href="on your mark(Remix).mp3" alt="on your mark (Remix)">on your mark (Remix)</a></td></tr><br>
-    <tr><td id="dtm6">パノラマリウム(Remix)</td>
-    <td>パノラマリウムをRemixしたものであって、少し聞きづらくなっている。</td>
-    <td><a href="パノラマリウム（Remix）.mp3" alt="パノラマリウム(Remix)">パノラマリウム(Remix)</a></td></tr><br>
-    <tr><td id="dtm7">DJ NANMO WAKARAN(Remix)</td>
-    <td>DJ NANMO WAKARANをRemixしたものであり、String&electric-pianoが合うと思い、調整しました。</td>
-    <td><a href="DJ NANMO WAKARAN(Remix).mp3" alt="DJ NANMO WAKARAN(Remix)">DJ NANMO WAKARAN(Remix)</a></td></tr><br>
-    <tr><td id="dtm10">World Etude(Remix)</td>
-    <td>World EtudeをRemixしたものであり、String&pianoによる調整をしました。</td>
-    <td><a href="World Etude(Remix)'.mp3" alt="World Etude(Remix)'">World Etude(Remix)'</a></td></tr><br>
-    </tbody>
-    <!--p>CADさんの作成した楽曲を見て頂きます</p>
-    <ul>
-      <li><a href="../../Documents/電子創作研究会/創作物の宝物庫-MUSICエリア.html#cad1">1</a></li>
-      <li>CD</li>
-      <li>kinketsu</li>
-    </ul>
-    <dl>
-    <dt id="cad1">1</dt>
-    <dd>1という楽曲</dd>
-    <a href="../../Music/Dmusic/1.mp3" alt="1">1</a><br>
-    <dt id="cad2">CD</dt>
-    <dd>CDという楽曲</dd>
-    <a href="../../Music/Dmusic/CD.mp3" alt="CD">CD</a><br>
-    <dt id="cad3">kinketsu</dt>
-    <dd>kinketsuという楽曲</dd>
-    <a href="../../Music/Dmusic/kinketsu.wav" alt="kinketsu">kinketsu</a><br>
-    </dl-->
-		</div><!-- /.main -->
-    <h2><a href="創作物の宝物庫-MUSICエリア.html#top4" target="_top">TOPへ戻る</a></h2>
+        <h2>創作物の宝物庫-MUSICエリア</h2>
+        
+        <img src="3分10秒_HR&D.png" alt="3分10秒_HR&D" style="width: 50%; max-width: 400px; display: block; margin: 10px auto;">
+
+        <div class="canon-section">
+            <h3>♪ 色彩学園外伝：カラーミックスカノン</h3>
+            <p>DJ果音 ＆ ヴォーカル可奈による、本編同時進行の音楽プロジェクト。<br>
+            現在、執筆者・協力者募集中！</p>
+        </div>
+
+        <p>
+            ここでは、MUSICを聴いて頂きます<br>
+            興味を持っていただけると幸いです<br>
+            企画:しらのん<br>
+            mainクリエイター:東=ソメノ=万糸香<br>
+            subクリエイター:響鳴未由<br>
+            エリア管理者:稀菜・ジュ―ミック<br>
+            Supported by Kanon Shierakumo, Kana Akane (Color-Mix Canon)
+        </p>
+
+        <table border="1">
+            <thead>
+                <tr><th>曲名</th><th>解説</th><th>試聴・詳細</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>links melodies</td><td>Photon melodiesを参考に作成されたものですが、かけ離れてしまったもの。</td><td><a href="links melodies.mp3">試聴</a></td></tr>
+                <tr><td>break or break!</td><td>Hell! or HELL?を参考に作成したものの、違う感じなってしまったもの。</td><td><a href="break or break!.mp3">試聴</a></td></tr>
+                <tr><td>enjoypop</td><td>楽しいを込めて作成された曲。</td><td><a href="enjoypop.mp3">試聴</a></td></tr>
+                <tr><td>世界に楽しいを届けて</td><td>enjoypopに歌詞が付き、重音テトが歌ったもの。</td><td><a href="世界に楽しいを届けて.mp3">試聴</a> / <a href="創作物の宝物庫-MUSICエリア -世界に楽しいを届けて.html">詳細</a></td></tr>
+                <tr><td>世界に楽しいを届けて（カスタマイズ）</td><td>enjoypopを基にカスタマイズしたもの。</td><td><a href="世界に楽しいを届けて(カスタマイズ).mp3">試聴</a> / <a href="創作物の宝物庫-MUSICエリア - 世界に楽しいを届けて(カスタマイズ).html">詳細</a></td></tr>
+                <!--tr><td>stormy link(Remix)</td><td>stormy linkをRemixしたものであり、ボーカルと歌詞が入っているもの。</td><td><a href="stormy link(Remix).mp3">試聴</a></td></tr>
+                <tr><td>on your mark (Remix)</td><td>on your markをRemixしたものであり、ボーカルと歌詞が入っているもの。</td><td><a href="on your mark(Remix).mp3">試聴</a></td></tr>
+                <tr><td>パノラマリウム(Remix)</td><td>パノラマリウムをRemixしたものであって、少し聞きづらくなっている。</td><td><a href="パノラマリウム（Remix）.mp3">試聴</a></td></tr>
+                <tr><td>DJ NANMO WAKARAN(Remix)</td><td>String&electric-pianoが合うと思い、調整しました。</td><td><a href="DJ NANMO WAKARAN(Remix).mp3">試聴</a></td></tr>
+                <tr><td>World Etude(Remix)'</td><td>World EtudeをRemixしたものであり、String&pianoによる調整をしました。</td><td><a href="World Etude(Remix)'.mp3">試聴</a></td></tr-->
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
