@@ -1,129 +1,166 @@
 <!doctype html>
-<html lang ="ja">
- <head>
+<html lang="ja">
+<head>
     <meta charset="UTF-8">
-    <title>創作物の宝物庫-PROGRAMエリア</title>
+    <title>創作物の宝物庫 - PROGRAMエリア</title>
     <meta name="description" content="創作物の宝物庫-プログラムエリア">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <style>
-    body {
+        body {
             padding: 30px;
-            color: #FF0088;
-            font-weight: bold;
-            background-color: black;
-            font-size: 120%;
+            color: #e0e0e0;
+            background-color: #121212;
             font-family: serif;
+            font-size: 110%;
         }
-    p{color:cyan;}
-    header{
-background:lightblue;height:100px;
-display:flex;
-}
-
-header img{
-height:100%;
-width:auto;
-}
-.header_container{
-display:flex;
-
-width:95%;
-justify-content:flex-end;
-align-items:center;
-}
-
-.header_item{
-margin:10px;
-}
-.main{
-  background:lightpink;
-}
-
-
-.main div{
-border:2px dotted red;
-text-align:center;
-}
-
-.main img{
-  height: 25%;
-width:25%;
-margin:10px;
-display: flex;
-}
-
-
+        header {
+            background: #1f2937;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #ff0088;
+            margin-bottom: 30px;
+        }
+        header img {
+            height: 100%;
+            width: auto;
+        }
+        .header_container {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .header_item a {
+            margin: 0 10px;
+            color: #7dd3fc;
+            text-decoration: none;
+        }
+        .header_item a:hover {
+            color: #ff77c2;
+        }
+        .main {
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+        .main-img {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .intro-box {
+            background: #2a2a2a;
+            padding: 15px;
+            border-left: 4px solid #ff0088;
+            color: #7dd3fc;
+            margin-bottom: 30px;
+        }
+        /* 作品ごとのカード */
+        .program-card {
+            background: #252525;
+            border: 1px solid #3f3f46;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .program-card h3 {
+            color: #ff77c2;
+            margin-top: 0;
+            border-bottom: 1px solid #ff0088;
+            padding-bottom: 8px;
+        }
+        .program-card p {
+            color: #d4d4d8;
+        }
+        .download-links a {
+            display: inline-block;
+            margin-right: 15px;
+            margin-top: 10px;
+            color: #38bdf8;
+            font-weight: bold;
+        }
+        .top-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .top-link a {
+            color: #ff0088;
+        }
     </style>
- </head>
+</head>
 <body>
-  <header>
-    <img src="stripes.png">
-    <nav class="header_container">
-    <div class="header_item"><a href="創作物の宝物庫.html" alt="創作物の宝物庫">index(創作物の宝物庫)</a></div>
-    <div class="header_item"><a href="創作物の宝物庫-CGエリア.html" alt="創作物の宝物庫-CGエリア">創作物の宝物庫-CGエリア</a></div>
-    <div class="header_item"><a href="創作物の宝物庫-MUSICエリア.html" alt="創作物の宝物庫-MUSICエリア">創作物の宝物庫-MUSICエリア</a></div>
-    <div class="header_item"><a href="創作物の宝物庫-小説エリア.html" alt="創作物の宝物庫-小説エリア">創作物の宝物庫-小説エリア</a></div>
-    </nav>
+    <header>
+        <img src="stripes.png" alt="logo">
+        <nav class="header_container">
+            <div class="header_item"><a href="創作物の宝物庫.html">index(創作物の宝物庫)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-CGエリア.html">CGエリア</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-MUSICエリア.html">MUSICエリア</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-小説エリア.html">小説エリア</a></div>
+        </nav>
     </header>
+
     <div class="main">
-    <h2 id="top3">創作物の宝物庫-PROGRAMエリア</h2>
-    <img src="夕焼けの大樹の丘で集合.jpg" alt="夕焼けの大樹の丘で集合">
-    <p>
-        ここでは、PROGRAMを見て頂きます<br>
-        興味を持っていただけると幸いです<br>
-        企画:しらのん<br>
-        mainクリエイター:羽丘・ロディーネ・萌枝<br>
-        subクリエイター:佐々木麗良<br>
-        サーバープログラマー:宮下=ペスカドール=陽菜<br>
-        エリア管理者:アリア・プラムログ<br>
-        Supported by Chiffon
-    </p>
-    <hr>
-    <ul>
-    <h4><li><a href="創作物の宝物庫-PROGRAMエリア.html#program1">【数当てゲーム】</a></li></h4>
-    <h4><li><a href="創作物の宝物庫-PROGRAMエリア.html#program2">感情を含む用語演算変換クイズ</a></li></h4>
-    <h4><li><a href="創作物の宝物庫-PROGRAMエリア.html#program3">言葉演算</a></li></h4>
-    </ul>
-    <dl>
-    <dt>【数当てゲーム】</dt><br>
-    <dd>0~9の数を5回のチャンスで当てて頂きます</dd>
-    </dl>
-    <p id="program1">
-      ポイント:コンピュータが指定した数字を当てるシンプルなもののヒント無しでは難しいです。
-      ランダム、分岐、ループ、表示、標準入力等を駆使することで構成されています。CUIのみの実装となります。
-    <br>
-    </p>
-    <a href="KAZUATEGAME.VER2.00.zip" alt="KAZUATEGAME.VER2.00">【数当てゲーム】</a>
-    <hr>
-    <dl>
-    <dt>感情を含む用語演算変換クイズ</dt>
-    <dd>感情を含む用語一覧から用語を選んでクイズの回答を入力するものです<br>
-        詳しい取り扱い方は取扱説明書を読んでください！</dd>
-    </dl>
-    <p id="program2">
-      ポイント:メソッドや配列、ループ、分岐、変数、表示等を駆使して作成されています。
-      GUI実装成功したのでWEB版解禁となります!用語は感情関連が多く配置されています。
-      演算能力が要求されます!腕の立つ方は試してみてください。
-      Java版も完成していますので、そちらも是非遊んでみてください。
-    <br>
-    </p>
-    <hr>
-    <dl>
-    <dt>言葉演算</dt><br>
-    <dd>言葉を演算して対象の言葉を答えるクイズゲームです。</dd>
-    </dl>
-    <p id="program3">
-      ポイント:このゲームはチュートリアルがあるのでそこから取り組むことをお勧めします。難易度は４つ。一つの難易度につき５問。制限時間は難易度によって異なります。
-      時間内に正解できなければ身代わり人形を一つ失います。人形をすべて失ったらゲームオーバーです。心して遊びましょう。感情を含む用語演算変換クイズをアップグレードして、CUIとGUI双方が実装されています!
-      演算能力が要求されます。腕の立つ方は試してみましょう！
-    <br>
-    </p>
-    <a href="創作物の宝物庫-PROGRAMエリア-用語変換.html" alt="感情を含む用語演算変換クイズ">感情を含む用語演算変換クイズ(略称:用語変換)</a><br>
-    <a href="用語変換説明書.pdf" alt="用語変換説明書">用語変換取扱説明書</a><br>
-    <a href="用語変換Ⅱ.zip" alt="用語変換Ⅱ">用語変換Ⅱ</a><br>
-    <a href="言葉演算.zip" alt="言葉演算">言葉演算</a><br>
-    使用言語:java,CSS,HTML,JavaScript<br>
-    <h2><a href="創作物の宝物庫-PROGRAMエリア.html#top3" target="_top">TOPへ戻る</a></h2>
+        <h2 id="top3" style="color: #ff0088;">創作物の宝物庫 - PROGRAMエリア</h2>
+        <img src="夕焼けの大樹の丘で集合.jpg" alt="夕焼けの大樹の丘で集合" class="main-img">
+        
+        <div class="intro-box">
+            ここでは、PROGRAMを見て頂きます<br>
+            興味を持っていただけると幸いです<br><br>
+            企画: しらのん / mainクリエイター: 羽丘・ロディーネ・萌枝 / subクリエイター: 佐々木麗良<br>
+            サーバープログラマー: 宮下=ペスカドール=陽菜 / エリア管理者: アリア・プラムログ<br>
+            Supported by Chiffon
+        </div>
+
+        <hr style="border-color: #444;">
+
+        <ul>
+            <li><a href="#program1" style="color: #7dd3fc;">【数当てゲーム】</a></li>
+            <li><a href="#program2" style="color: #7dd3fc;">感情を含む用語演算変換クイズ</a></li>
+            <li><a href="#program3" style="color: #7dd3fc;">言葉演算</a></li>
+        </ul>
+
+        <br>
+
+        <!-- 数当てゲーム -->
+        <div class="program-card" id="program1">
+            <h3>【数当てゲーム】</h3>
+            <p><strong>概要：</strong>0~9の数を5回のチャンスで当てて頂きます。</p>
+            <p><strong>ポイント：</strong>コンピュータが指定した数字を当てるシンプルなもののヒント無しでは難しいです。ランダム、分岐、ループ、表示、標準入力等を駆使することで構成されています。CUIのみの実装となります。</p>
+            <div class="download-links">
+                <a href="KAZUATEGAME.VER2.00.zip">📦 【数当てゲーム】をダウンロード</a>
+            </div>
+        </div>
+
+        <!-- 感情を含む用語演算変換クイズ -->
+        <div class="program-card" id="program2">
+            <h3>感情を含む用語演算変換クイズ</h3>
+            <p><strong>概要：</strong>感情を含む用語一覧から用語を選んでクイズの回答を入力するものです。詳しい取り扱い方は取扱説明書を読んでください！</p>
+            <p><strong>ポイント：</strong>メソッドや配列、ループ、分岐、変数、表示等を駆使して作成されています。GUI実装成功したのでWEB版解禁となります!用語は感情関連が多く配置されています。演算能力が要求されます!腕の立つ方は試してみてください。Java版も完成していますので、そちらも是非遊んでみてください。</p>
+            <div class="download-links">
+                <a href="創作物の宝物庫-PROGRAMエリア-用語変換.html">🌐 用語変換(WEB版)</a>
+                <a href="用語変換説明書.pdf">📄 用語変換取扱説明書 (PDF)</a>
+                <a href="用語変換Ⅱ.zip">📦 用語変換Ⅱをダウンロード</a>
+            </div>
+        </div>
+
+        <!-- 言葉演算 -->
+        <div class="program-card" id="program3">
+            <h3>言葉演算</h3>
+            <p><strong>概要：</strong>言葉を演算して対象の言葉を答えるクイズゲームです。</p>
+            <p><strong>ポイント：</strong>このゲームはチュートリアルがあるのでそこから取り組むことをお勧めします。難易度は４つ。一つの難易度につき５問。制限時間は難易度によって異なります。時間内に正解できなければ身代わり人形を一つ失います。人形をすべて失ったらゲームオーバーです。心して遊びましょう。感情を含む用語演算変換クイズをアップグレードして、CUIとGUI双方が実装されています!演算能力が要求されます。腕の立つ方は試してみましょう！</p>
+            <p><small style="color: #a1a1aa;">使用言語: Java, CSS, HTML, JavaScript</small></p>
+            <div class="download-links">
+                <a href="言葉演算.zip">📦 言葉演算をダウンロード</a>
+            </div>
+        </div>
+
+        <div class="top-link">
+            <h3><a href="#top3">↑ TOPへ戻る</a></h3>
+        </div>
     </div>
 </body>
 </html>
