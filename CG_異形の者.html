@@ -1,109 +1,164 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <title>CG_異形の者 - Illustration Gallery</title>
+    <meta name="description" content="異形の者たちのCGギャラリー">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #0d0d0d;
+            padding: 30px;
             color: #d1d1d1;
+            background-color: #008080;
+            font-weight: bold;
+            font-size: 120%;
             font-family: 'Georgia', serif;
-            margin: 0;
-            padding: 40px 20px;
+            min-height: 100vh;
         }
-        .container {
+
+        /* 共通ヘッダーのスタイル */
+        header {
+            background: rgba(173, 216, 230, 0.2);
+            backdrop-filter: blur(5px);
+            height: 100px;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            padding: 5px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+        }
+        header img {
+            height: 100%;
+            width: auto;
+        }
+        .header_container {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .header_item {
+            margin: 0 10px;
+        }
+        .header_item a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .header_item a:hover {
+            color: #ff4d4d;
+        }
+
+        /* ギャラリー構造 */
+        .gallery-container {
+            border: 8px groove gold;
+            padding: 25px;
+            background-color: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            margin-top: 20px;
             max-width: 1000px;
-            margin: 0 auto;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
         }
-        h1 {
+        .gallery-title {
+            border-bottom: 5px double #ff4d4d;
+            padding-bottom: 10px;
             text-align: center;
-            font-size: 2.5em;
-            letter-spacing: 0.3em;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255,255,255,0.2);
-            margin-bottom: 60px;
+            color: #ffffff;
+            font-size: 1.8em;
+            letter-spacing: 0.2em;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
         }
 
         /* イラスト紹介の枠 */
         .illustration-frame {
             background: linear-gradient(145deg, #1a1a1a, #222);
             border: 1px solid #333;
-            border-radius: 4px;
-            margin-bottom: 80px;
+            border-radius: 8px;
+            margin-top: 25px;
+            margin-bottom: 40px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        /* 横並びにするためのコンテナ */
+        /* 横並びコンテナ */
         .flex-container {
             display: flex;
-            border-top: 1px solid #333; /* 変異個体セクションとの区切り */
+            border-top: 1px solid #333;
         }
 
-        /* 変異個体（小翠智永子）セクション */
+        /* 変異個体セクション */
         .mutation-section {
-            padding: 30px;
-            background: rgba(139, 0, 0, 0.05); /* わずかに知識欲の赤 */
+            padding: 25px;
+            background: rgba(139, 0, 0, 0.15);
             border-bottom: 1px solid #444;
         }
         .mutation-section dt {
-            font-size: 1.4em;
-            color: #ff4d4d; /* 瞳の紅 */
-            margin-bottom: 10px;
+            font-size: 1.3em;
+            color: #ff4d4d;
+            margin-bottom: 8px;
         }
         .mutation-section dd {
-            margin: 0 0 20px 0;
-            font-size: 1em;
+            margin: 0 0 15px 0;
+            font-size: 0.95em;
             color: #bbb;
+            font-weight: normal;
         }
         .mutation-image-wrapper {
             text-align: center;
         }
         .mutation-image-wrapper img {
-            max-width: 100%;
+            max-width: 80%;
             height: auto;
-            border: 1px solid #444;
+            border: 5px groove gold;
+            border-radius: 4px;
         }
 
-        /* 画像エリア（完全体） */
+        /* 画像エリア */
         .image-box {
-            flex: 0 0 450px;
+            flex: 0 0 400px;
             background-color: #000;
             display: flex;
             align-items: center;
             justify-content: center;
             border-right: 1px solid #333;
+            padding: 15px;
         }
         .image-box img {
-            width: 100%;
+            max-width: 100%;
             height: auto;
             display: block;
+            border-radius: 4px;
         }
 
         /* テキスト紹介エリア */
         .description-box {
-            padding: 40px;
+            padding: 30px;
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
         .char-title {
-            font-size: 1.8em;
+            font-size: 1.6em;
             color: #fff;
             margin: 0 0 10px 0;
             border-left: 4px solid #fff;
             padding-left: 15px;
         }
         .definition-tag {
-            font-size: 0.9em;
+            font-size: 0.85em;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             display: inline-block;
             padding: 2px 10px;
             background: #333;
+            border-radius: 3px;
         }
         
         .greeder .definition-tag { color: #ff4d4d; border: 1px solid #ff4d4d; }
@@ -111,90 +166,131 @@
         .mixtus .definition-tag { color: #50c878; border: 1px solid #50c878; }
 
         .text-body {
-            font-size: 1em;
+            font-size: 0.95em;
             line-height: 1.8;
             color: #bbb;
+            font-weight: normal;
         }
         .quote {
-            margin-top: 20px;
+            margin-top: 15px;
             font-style: italic;
             color: #888;
             font-size: 0.9em;
+            font-weight: normal;
+        }
+
+        /* ページ下部ナビゲーション */
+        .page-bottom-nav {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        .page-bottom-nav a {
+            color: gold;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        .page-bottom-nav a:hover {
+            text-decoration: underline;
         }
 
         @media (max-width: 800px) {
             .flex-container { flex-direction: column; }
-            .image-box { flex: none; width: 100%; }
+            .image-box { flex: none; width: 100%; border-right: none; border-bottom: 1px solid #333; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>異形の者</h1>
+    <!-- 共通ヘッダーナビゲーション -->
+    <header>
+        <img src="stripes.png" alt="ヘッダー装飾画像">
+        <nav class="header_container">
+            <div class="header_item"><a href="index.html">🚪 玄関(index)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫.html">🏛️ 宝物庫(ポータル)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-PROGRAMエリア.html">PROGRAM</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-CGエリア.html">🎨 CGエリア</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-MUSICエリア.html">MUSIC</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-小説エリア.html">小説</a></div>
+        </nav>
+    </header>
 
-    <div class="illustration-frame greeder">
-        <div class="mutation-section">
-            <dl>
-                <dt>Sallowed by desire【知識欲】小翠智永子</dt>
-                <dd>大学に所属していた過去を持つ緑の一族の女性。知識欲に呑まれかけている彼女の姿。</dd>
-            </dl>
-            <div class="mutation-image-wrapper">
-                <img src="Sallowed by desire【知識欲】小翠智永子.jpg" alt="Sallowed by desire【知識欲】小翠智永子">
+    <div class="gallery-container">
+        <h2 id="top1" class="gallery-title">■ 異形の者 アーカイブ</h2>
+
+        <!-- グリーダー -->
+        <div class="illustration-frame greeder">
+            <div class="mutation-section">
+                <dl>
+                    <dt>Sallowed by desire【知識欲】小翠智永子</dt>
+                    <dd>大学に所属していた過去を持つ緑の一族の女性。知識欲に呑まれかけている彼女の姿。</dd>
+                </dl>
+                <div class="mutation-image-wrapper">
+                    <img src="Sallowed by desire【知識欲】小翠智永子.jpg" alt="Sallowed by desire【知識欲】小翠智永子">
+                </div>
+            </div>
+
+            <div class="flex-container">
+                <div class="image-box">
+                    <img src="Sallowed by desire【知識欲】グリーダー.png" alt="Greeder">
+                </div>
+                <div class="description-box">
+                    <div><span class="definition-tag">欲望に呑まれし者</span></div>
+                    <h3 class="char-title">グリーダー / Greeder</h3>
+                    <p class="text-body">
+                        抑えきれない渇望に身を任せ、精神が内側から作り替えられた姿。
+                        何かに執着し、それを求め続ける「飢え」が鋭利なシルエットとなって現れている。
+                        左右で異なる瞳は、理性が欲望に浸食された証である。
+                    </p>
+                    <p class="quote">「……足りない。もっと、識らなければ。」</p>
+                </div>
             </div>
         </div>
 
-        <div class="flex-container">
-            <div class="image-box">
-                <img src="Sallowed by desire【知識欲】グリーダー.png" alt="Greeder">
+        <!-- アディクター -->
+        <div class="illustration-frame addictor">
+            <div class="flex-container">
+                <div class="image-box">
+                    <div style="color:#666; padding: 40px 0;">[ NO IMAGE: ADDICTOR ]</div>
+                </div>
+                <div class="description-box">
+                    <div><span class="definition-tag">力に溺れし者</span></div>
+                    <h3 class="char-title">アディクター / Addictor</h3>
+                    <p class="text-body">
+                        手にした強大な力に魅了され、自己を失った姿。
+                        制御を失ったエネルギーの奔流に身を焼き、ただ破壊衝動のままに突き進む暴走体。
+                    </p>
+                    <p class="quote">「力が……溢れて……止まらない……！」</p>
+                </div>
             </div>
-            <div class="description-box">
-                <span class="definition-tag">欲望に呑まれし者</span>
-                <h2 class="char-title">グリーダー / Greeder</h2>
-                <p class="text-body">
-                    抑えきれない渇望に身を任せ、精神が内側から作り替えられた姿。
-                    何かに執着し、それを求め続ける「飢え」が鋭利なシルエットとなって現れている。
-                    左右で異なる瞳は、理性が欲望に浸食された証である。
-                </p>
-                <p class="quote">「……足りない。もっと、識らなければ。」</p>
+        </div>
+
+        <!-- ミクスタス -->
+        <div class="illustration-frame mixtus">
+            <div class="flex-container">
+                <div class="image-box">
+                    <img src="ミクスタス_【知識欲】＆叡智.png" alt="Mixtus">
+                </div>
+                <div class="description-box">
+                    <div><span class="definition-tag">融合超人</span></div>
+                    <h3 class="char-title">ミクスタス / Mixtus</h3>
+                    <p class="text-body">
+                        欲望の化身「グリーダー」と、力の化身「アディクター」が重なり合い、一つに溶け合った究極の個体。
+                    </p>
+                    <p class="quote">「欲望と力、その全てを私は統べる。」</p>
+                </div>
             </div>
+        </div>
+
+        <!-- ページ下部ナビゲーション -->
+        <div class="page-bottom-nav">
+            <h3><a href="#top1">▲ このページのTOPへ戻る</a></h3>
+            <p style="margin-top: 15px;">
+                <a href="創作物の宝物庫-CGエリア.html">◀ CGエリアTOPへ戻る</a>
+            </p>
         </div>
     </div>
 
-    <div class="illustration-frame addictor">
-        <div class="flex-container">
-            <div class="image-box">
-                <div style="color:#444;">[ NO IMAGE: ADDICTOR ]</div>
-            </div>
-            <div class="description-box">
-                <span class="definition-tag">力に溺れし者</span>
-                <h2 class="char-title">アディクター / Addictor</h2>
-                <p class="text-body">
-                    手にした強大な力に魅了され、自己を失った姿。
-                    制御を失ったエネルギーの奔流に身を焼き、ただ破壊衝動のままに突き進む暴走体。
-                </p>
-                <p class="quote">「力が……溢れて……止まらない……！」</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="illustration-frame mixtus">
-        <div class="flex-container">
-            <div class="image-box">
-                <img src="ミクスタス_【知識欲】＆叡智.png" alt="Mixtus">
-            </div>
-            <div class="description-box">
-                <span class="definition-tag">融合超人</span>
-                <h2 class="char-title">ミクスタス / Mixtus</h2>
-                <p class="text-body">
-                    欲望の化身「グリーダー」と、力の化身「アディクター」が重なり合い、一つに溶け合った究極の個体。
-                </p>
-                <p class="quote">「欲望と力、その全てを私は統べる。」</p>
-            </div>
-        </div>
-    </div>
-
-</div>
-<header><a href="創作物の宝物庫-CGエリア.html" class="back-link">← CGポータルへ戻る</a></header>
 </body>
 </html>

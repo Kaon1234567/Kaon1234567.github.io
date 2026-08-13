@@ -2,39 +2,193 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>CGエリア - SAO</title>
+    <title>CGエリア - Sword Art Online</title>
+    <meta name="description" content="Sword Art Online関連作品のCGギャラリー">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <style>
-        body { padding: 30px; color: #FFFFFF; background-color: #001122; font-weight: bold; font-family: serif; }
-        .work-section { border: 3px solid #00bfff; padding: 20px; border-radius: 10px; margin-bottom: 30px; background: rgba(0,191,255,0.05); }
-        .main img { width: 75%; border: 8px double #00bfff; margin: 20px 0; }
-        .back-link { color: #00bfff; font-size: 1.2rem; text-decoration: none; }
+        body {
+            padding: 30px;
+            color: #FFFFFF;
+            background-color: #008080;
+            font-weight: bold;
+            font-size: 120%;
+            font-family: serif;
+            min-height: 100vh;
+        }
+
+        /* 共通ヘッダーのスタイル */
+        header {
+            background: rgba(173, 216, 230, 0.2);
+            backdrop-filter: blur(5px);
+            height: 100px;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            padding: 5px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+        }
+        header img {
+            height: 100%;
+            width: auto;
+        }
+        .header_container {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .header_item {
+            margin: 0 10px;
+        }
+        .header_item a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .header_item a:hover {
+            color: #00bfff;
+        }
+
+        /* ギャラリー構造 */
+        .gallery-container {
+            border: 8px groove gold;
+            padding: 25px;
+            background-color: rgba(0, 32, 64, 0.7);
+            border-radius: 12px;
+            margin-top: 20px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+        }
+        .gallery-title {
+            border-bottom: 5px double #00bfff;
+            padding-bottom: 10px;
+            text-align: center;
+            color: #00ffff;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        .cg-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #00bfff;
+            padding: 20px;
+            margin-top: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-radius: 8px;
+        }
+        .cg-card h3 {
+            color: #00ffff;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .cg-card img {
+            max-width: 80%;
+            height: auto;
+            border: 5px groove gold;
+            margin: 15px 0;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+        .cg-card img:hover {
+            transform: scale(1.01);
+        }
+        .cg-description {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 18px;
+            border-left: 4px solid #00bfff;
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin-top: 15px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* ページ下部ナビゲーション */
+        .page-bottom-nav {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 191, 255, 0.3);
+        }
+        .page-bottom-nav a {
+            color: gold;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        .page-bottom-nav a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <header><a href="創作物の宝物庫-CGエリア.html" class="back-link">← CGポータルへ戻る</a></header>
-    <div class="main">
-        <h1 style="color: #00bfff;">■ Sword Art Online：白空 明美</h1>
-        <div class="work-section">
-            <dt>白空 明美</dt>
-            <dd>仮想世界での彼女の姿を記録しています。</dd>
+
+    <!-- 共通ヘッダーナビゲーション -->
+    <header>
+        <img src="stripes.png" alt="ヘッダー装飾画像">
+        <nav class="header_container">
+            <div class="header_item"><a href="index.html">🚪 玄関(index)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫.html">🏛️ 宝物庫(ポータル)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-PROGRAMエリア.html">PROGRAM</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-CGエリア.html">🎨 CGエリア</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-MUSICエリア.html">MUSIC</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-小説エリア.html">小説</a></div>
+        </nav>
+    </header>
+
+    <div class="gallery-container">
+        <h2 id="top1" class="gallery-title">■ Sword Art Online アーカイブ</h2>
+        <p class="text-center" style="color: #e0e0e0;">SAO関連の二次創作CG・記録ギャラリーです。</p>
+
+        <!-- CG項目 1 -->
+        <div class="cg-card">
+            <h3>白空 明美</h3>
             <img src="白空明美.png" alt="白空明美">
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: #00ffff;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">仮想世界での彼女の姿を記録しています。</p>
+            </div>
         </div>
-        <h1 style="color: #00bfff;">■ Sword Art Online：ホワイトチョコレートドルフィン</h1>
-        <div class="work-section">
-            <dt>ホワイトチョコレートドルフィン</dt>
-            <dd>仮想世界でのイルカを記録しています。</dd>
+
+        <!-- CG項目 2 -->
+        <div class="cg-card">
+            <h3>ホワイトチョコレートドルフィン</h3>
             <img src="ホワイトチョコレートドルフィン.png" alt="ホワイトチョコレートドルフィン">
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: #00ffff;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">仮想世界でのイルカを記録しています。</p>
+            </div>
         </div>
-        <h1 style="color: #00bfff;">■ Sword Art Online：ホワイトチョコレートドルフィン</h1>
-        <div class="work-section">
-            <dt>ホワイトチョコレートドルフィン</dt>
-            <dd>仮想世界でのイルカを記録しています。</dd>
+
+        <!-- CG項目 3 -->
+        <div class="cg-card">
+            <h3>ホワイトチョコレートドルフィン（演出強化）</h3>
             <img src="ホワイトチョコレートドルフィン_演出強化.jpg" alt="ホワイトチョコレートドルフィン_演出強化">
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: #00ffff;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">仮想世界でのイルカの演出強化版を記録しています。</p>
+            </div>
         </div>
-        <div class="work-section">
-            <dt>言語ペンギン</dt>
-            <dd>仮想世界でのペンギンを記録しています。</dd>
+
+        <!-- CG項目 4 -->
+        <div class="cg-card">
+            <h3>言語ペンギン</h3>
             <img src="言語ペンギン.jpg" alt="言語ペンギン">
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: #00ffff;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">仮想世界でのペンギンを記録しています。</p>
+            </div>
+        </div>
+
+        <!-- ページ下部ナビゲーション -->
+        <div class="page-bottom-nav">
+            <h3><a href="#top1">▲ このページのTOPへ戻る</a></h3>
+            <p style="margin-top: 15px;">
+                <a href="創作物の宝物庫-CGエリア.html">◀ CGエリアTOPへ戻る</a>
+            </p>
+        </div>
     </div>
+
 </body>
 </html>

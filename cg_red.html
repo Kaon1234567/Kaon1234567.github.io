@@ -3,22 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <title>CGエリア - 赤の一族</title>
+    <meta name="description" content="赤の一族所属キャラクターのCGギャラリー">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <style>
-        body { padding: 30px; color: #FFFFFF; background-color: #4d0000; font-weight: bold; font-family: serif; }
-        .clan-section { background: rgba(255, 0, 0, 0.1); padding: 20px; border: 3px solid #ff0000; border-radius: 10px; margin-bottom: 30px; }
-        .main img { width: 75%; border: 10px groove #ff0000; margin: 20px 0; }
-        .back-link { color: #ff4d4d; font-size: 1.2rem; }
+        body {
+            padding: 30px;
+            color: #FFFFFF;
+            background-color: #008080;
+            font-weight: bold;
+            font-size: 120%;
+            font-family: serif;
+            min-height: 100vh;
+        }
+
+        /* 共通ヘッダーのスタイル */
+        header {
+            background: rgba(173, 216, 230, 0.2);
+            backdrop-filter: blur(5px);
+            height: 100px;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            padding: 5px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+        }
+        header img {
+            height: 100%;
+            width: auto;
+        }
+        .header_container {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .header_item {
+            margin: 0 10px;
+        }
+        .header_item a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .header_item a:hover {
+            color: #ff4d4d;
+        }
+
+        /* ギャラリー構造 */
+        .gallery-container {
+            border: 8px groove gold;
+            padding: 25px;
+            background-color: rgba(64, 0, 0, 0.7);
+            border-radius: 12px;
+            margin-top: 20px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+        .gallery-title {
+            border-bottom: 5px double #ff0000;
+            padding-bottom: 10px;
+            text-align: center;
+            color: #ff6666; /* 読みやすい明るめの赤 */
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        .cg-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #ff0000;
+            padding: 20px;
+            margin-top: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-radius: 8px;
+        }
+        .cg-card h3 {
+            color: #ff6666;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .cg-card img {
+            max-width: 80%;
+            height: auto;
+            border: 5px groove gold;
+            margin: 15px 0;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+        .cg-card img:hover {
+            transform: scale(1.01);
+        }
+        .cg-description {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 18px;
+            border-left: 4px solid #ff0000;
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin-top: 15px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* ページ下部ナビゲーション */
+        .page-bottom-nav {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 0, 0, 0.3);
+        }
+        .page-bottom-nav a {
+            color: gold;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        .page-bottom-nav a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <header><a href="創作物の宝物庫-CGエリア.html">← CGポータルへ戻る</a></header>
-    <div class="main">
-        <h1 style="border-bottom: 3px solid #ff0000; display: inline-block;">赤の一族：アーカイブ</h1>
-        <div class="clan-section">
-            <dt>赤の一族のキャラクター名</dt>
-            <dd>ここにキャラの説明文を記述します。</dd>
+
+    <!-- 共通ヘッダーナビゲーション -->
+    <header>
+        <img src="stripes.png" alt="ヘッダー装飾画像">
+        <nav class="header_container">
+            <div class="header_item"><a href="index.html">🚪 玄関(index)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫.html">🏛️ 宝物庫(ポータル)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-PROGRAMエリア.html">PROGRAM</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-CGエリア.html">🎨 CGエリア</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-MUSICエリア.html">MUSIC</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-小説エリア.html">小説</a></div>
+        </nav>
+    </header>
+
+    <div class="gallery-container">
+        <h2 id="top1" class="gallery-title">■ 赤の一族：アーカイブ</h2>
+        <p class="text-center" style="color: #e0e0e0;">赤の一族に属する者たちのCG・記録ギャラリーです。</p>
+
+        <!-- CG項目 1 -->
+        <div class="cg-card">
+            <h3>赤の一族のキャラクター名</h3>
             <img src="画像パス.png" alt="赤の一族キャラ">
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: #ff6666;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">ここにキャラの説明文を記述します。</p>
+            </div>
+        </div>
+
+        <!-- ページ下部ナビゲーション -->
+        <div class="page-bottom-nav">
+            <h3><a href="#top1">▲ このページのTOPへ戻る</a></h3>
+            <p style="margin-top: 15px;">
+                <a href="創作物の宝物庫-CGエリア.html">◀ CGエリアTOPへ戻る</a>
+            </p>
         </div>
     </div>
+
 </body>
 </html>

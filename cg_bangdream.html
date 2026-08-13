@@ -1,58 +1,164 @@
 <!doctype html>
-<html lang ="ja">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <title>CGエリア - BanG Dream! アーカイブ</title>
+    <meta name="description" content="創作物の宝物庫-CGエリア-BanG Dream! アーカイブ">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <style>
         body {
             padding: 30px;
             color: #FFFFFF;
-            background-color: #4b0082; /* Roseliaをイメージした深紫をベースに */
+            background-color: #4b0082; /* Roseliaをイメージした深紫 */
             font-weight: bold;
             font-family: serif;
+            min-height: 100vh;
         }
+
+        /* 共通ヘッダーのスタイル */
+        header {
+            background: rgba(173, 216, 230, 0.2);
+            backdrop-filter: blur(5px);
+            height: 100px;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            padding: 5px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+        }
+        header img {
+            height: 100%;
+            width: auto;
+        }
+        .header_container {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .header_item {
+            margin: 0 10px;
+        }
+        .header_item a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .header_item a:hover {
+            color: #ffd700;
+        }
+
+        /* メインコンテンツ */
+        .main {
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
         .band-section {
             background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 40px;
             border: 2px solid #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
+        .band-section dt {
+            font-size: 1.3em;
+            margin-bottom: 8px;
+        }
+        .band-section dd {
+            font-size: 1em;
+            color: #e0e0e0;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+
         /* パスパレ（日菜）用のカラー */
-        .pasupare { border-color: #a7ffbc; background: rgba(167, 255, 188, 0.1); }
-        
-        .main img {
-            width: 70%;
-            border: 10px groove gold;
-            margin: 20px 0;
+        .pasupare { 
+            border-color: #a7ffbc; 
+            background: rgba(167, 255, 188, 0.1); 
         }
-        .back-link { color: #a7ffbc; font-size: 1.2rem; }
+
+        .main img {
+            width: 75%;
+            max-width: 800px;
+            border: 8px groove gold;
+            margin: 15px 0;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+        .main img:hover {
+            transform: scale(1.01);
+        }
+
+        /* ページ下部ナビゲーション */
+        .page-bottom-nav {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .page-bottom-nav a {
+            color: #a7ffbc;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        .page-bottom-nav a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+
+    <!-- 共通ヘッダーナビゲーション -->
     <header>
-        <a href="創作物の宝物庫-CGエリア.html">← CGポータルへ戻る</a>
+        <img src="stripes.png" alt="ヘッダー装飾画像">
+        <nav class="header_container">
+            <div class="header_item"><a href="index.html">🚪 玄関(index)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫.html">🏛️ 宝物庫(ポータル)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-PROGRAMエリア.html">PROGRAM</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-CGエリア.html">🎨 CGエリア</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-MUSICエリア.html">MUSIC</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-小説エリア.html">小説</a></div>
+        </nav>
+    </header>
 
     <div class="main">
-        <h2 style="color: #e0daff;">■ Roselia</h2>
+        <h1 id="top2" style="margin-bottom: 30px;">🎵 BanG Dream! アーカイブ</h1>
+
+        <!-- Roselia -->
+        <h2 style="color: #e0daff; text-align: left; margin-left: 5%;">■ Roselia</h2>
         <div class="band-section">
-            <dt>制服 氷川紗夜 in 学校</dt>
+            <dt style="color: #e0daff;">制服 氷川紗夜 in 学校</dt>
             <dd>学校の正門近くで風紀委員を務める姿。</dd>
             <img src="制服氷川紗夜in学校.png" alt="氷川紗夜">
         </div>
 
-        <h2 style="color: #a7ffbc;">■ Pastel＊Palettes</h2>
+        <!-- Pastel＊Palettes -->
+        <h2 style="color: #a7ffbc; text-align: left; margin-left: 5%;">■ Pastel＊Palettes</h2>
         <div class="band-section pasupare">
-            <dt>水着 氷川日菜 in 浜辺</dt>
+            <dt style="color: #a7ffbc;">水着 氷川日菜 in 浜辺</dt>
             <dd>初夏に水着で浜辺を訪れたひととき。</dd>
             <img src="水着氷川日菜in浜辺.png" alt="氷川日菜">
         </div>
-        <h2 style="color:#FFFFFF;">混合</h2>
+
+        <!-- 混合 -->
+        <h2 style="color: #FFFFFF; text-align: left; margin-left: 5%;">■ 混合</h2>
         <div class="band-section">
-            <dt>モカとらーなと抹茶パン</dt>
+            <dt style="color: #ffffff;">モカとらーなと抹茶パン</dt>
             <dd>抹茶パンと二人の邂逅。</dd>
             <img src="モカとらーなと抹茶パン.png" alt="モカとらーなと抹茶パン">
         </div>
     </div>
+
+    <!-- ページ下部ナビゲーション -->
+    <div class="page-bottom-nav">
+        <h3><a href="#top2">▲ このページのTOPへ戻る</a></h3>
+        <p style="margin-top: 15px;">
+            <a href="創作物の宝物庫-CGエリア.html">← CGポータルへ戻る</a>
+        </p>
+    </div>
+
 </body>
 </html>

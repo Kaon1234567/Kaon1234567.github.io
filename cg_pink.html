@@ -13,11 +13,20 @@
             font-weight: bold;
             font-size: 120%;
             font-family: serif;
+            min-height: 100vh;
         }
+
+        /* 共通ヘッダーのスタイル */
         header {
-            background: lightblue;
+            background: rgba(173, 216, 230, 0.2);
+            backdrop-filter: blur(5px);
             height: 100px;
             display: flex;
+            align-items: center;
+            border-radius: 8px;
+            padding: 5px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
         }
         header img {
             height: 100%;
@@ -25,90 +34,131 @@
         }
         .header_container {
             display: flex;
-            width: 95%;
+            width: 100%;
             justify-content: flex-end;
             align-items: center;
         }
         .header_item {
-            margin: 10px;
+            margin: 0 10px;
+        }
+        .header_item a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .header_item a:hover {
+            color: #ff69b4;
         }
 
         /* ギャラリー構造 */
         .gallery-container {
             border: 8px groove gold;
-            padding: 20px;
-            background-color: #008080;
+            padding: 25px;
+            background-color: rgba(0, 64, 64, 0.6);
+            border-radius: 12px;
             margin-top: 20px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.2);
         }
         .gallery-title {
             border-bottom: 5px double #ff69b4;
             padding-bottom: 10px;
             text-align: center;
             color: #ffb6c1; /* 読みやすい淡いピンク */
+            font-size: 1.8em;
+            margin-bottom: 15px;
         }
         .cg-card {
             background: rgba(0, 0, 0, 0.4);
             border: 2px solid #ff69b4;
-            padding: 15px;
+            padding: 20px;
+            margin-top: 25px;
             margin-bottom: 30px;
             text-align: center;
+            border-radius: 8px;
+        }
+        .cg-card h3 {
+            color: #ffb6c1;
+            margin-top: 0;
+            margin-bottom: 15px;
         }
         .cg-card img {
             max-width: 80%;
             height: auto;
             border: 5px groove gold;
             margin: 15px 0;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+        .cg-card img:hover {
+            transform: scale(1.01);
         }
         .cg-description {
             text-align: left;
             background: rgba(255, 255, 255, 0.1);
-            padding: 10px 15px;
+            padding: 12px 18px;
             border-left: 4px solid #ff69b4;
             font-size: 0.9em;
             line-height: 1.6;
+            margin-top: 15px;
+            border-radius: 0 4px 4px 0;
         }
-        .back-link {
-            margin-top: 30px;
+
+        /* ページ下部ナビゲーション */
+        .page-bottom-nav {
             text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 105, 180, 0.3);
         }
-        .back-link a {
+        .page-bottom-nav a {
             color: gold;
             text-decoration: none;
-            font-size: 1.2em;
+            margin: 0 15px;
+        }
+        .page-bottom-nav a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
+
+    <!-- 共通ヘッダーナビゲーション -->
     <header>
-        <img src="stripes.png" alt="ヘッダー画像">
+        <img src="stripes.png" alt="ヘッダー装飾画像">
         <nav class="header_container">
-            <div class="header_item"><a href="創作物の宝物庫.html">index(創作物の宝物庫)</a></div>
-            <div class="header_item"><a href="創作物の宝物庫-CGエリア.html">CGエリアTOP</a></div>
+            <div class="header_item"><a href="index.html">🚪 玄関(index)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫.html">🏛️ 宝物庫(ポータル)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-PROGRAMエリア.html">PROGRAM</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-CGエリア.html">🎨 CGエリア</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-MUSICエリア.html">MUSIC</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-小説エリア.html">小説</a></div>
         </nav>
     </header>
 
     <div class="gallery-container">
-        <h2 class="gallery-title">■ 五色連合：桃色 アーカイブ</h2>
-        <p class="text-center">桃色に属する者たちのCG・記録ギャラリーです。</p>
+        <h2 id="top1" class="gallery-title">■ 五色連合：桃色 アーカイブ</h2>
+        <p class="text-center" style="color: #e0e0e0;">桃色に属する者たちのCG・記録ギャラリーです。</p>
 
         <!-- CG項目 1 -->
         <div class="cg-card">
             <h3>キャラクター名 / タイトル</h3>
             <img src="sample_pink.png" alt="桃色のCGイラスト">
             <div class="cg-description">
-                <p>【解説】</p>
-                <p>ここに桃色のキャラクターや背景の解説テキストを入力してください。</p>
+                <p style="margin-bottom: 5px; font-weight: bold; color: #ffb6c1;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">ここに桃色のキャラクターや背景の解説テキストを入力してください。</p>
             </div>
         </div>
 
-        <div class="back-link">
-            <a href="創作物の宝物庫-CGエリア.html">◀ CGエリアTOPへ戻る</a>
+        <!-- ページ下部ナビゲーション -->
+        <div class="page-bottom-nav">
+            <h3><a href="#top1">▲ このページのTOPへ戻る</a></h3>
+            <p style="margin-top: 15px;">
+                <a href="創作物の宝物庫-CGエリア.html">◀ CGエリアTOPへ戻る</a>
+            </p>
         </div>
     </div>
 
-    <hr>
-    <h2 class="text-center">
-        <a href="#top1" style="color: gold; text-decoration: none;">▲ このページのTOPへ戻る</a>
-    </h2>
 </body>
 </html>

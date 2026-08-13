@@ -3,101 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <title>CGエリア - 白の一族アーカイブ</title>
+    <meta name="description" content="白の一族所属キャラクターのCGギャラリー">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <style>
         body {
             padding: 30px;
-            color: #333333; /* 文字は読みやすく濃いグレー */
-            background-color: #f5f5f5; /* 白の一族の識別色：清潔感のあるオフホワイト */
+            color: #FFFFFF;
+            background-color: #008080;
             font-weight: bold;
+            font-size: 120%;
             font-family: serif;
+            min-height: 100vh;
         }
-        .clan-section {
-            background: rgba(255,255,255,0.8);
-            padding: 20px;
-            border: 2px solid gold;
-            border-radius: 10px;
+
+        /* 共通ヘッダーのスタイル */
+        header {
+            background: rgba(173, 216, 230, 0.2);
+            backdrop-filter: blur(5px);
+            height: 100px;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            padding: 5px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             margin-bottom: 30px;
         }
-        .main img {
-            width: 75%;
-            border: 10px groove gold;
-            margin: 20px 0;
+        header img {
+            height: 100%;
+            width: auto;
         }
-        .back-link { color: #008080; font-size: 1.2rem; text-decoration: none; }
+        .header_container {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .header_item {
+            margin: 0 10px;
+        }
+        .header_item a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .header_item a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 5px #ffffff;
+        }
+
+        /* ギャラリー構造 */
+        .gallery-container {
+            border: 8px groove gold;
+            padding: 25px;
+            background-color: rgba(245, 245, 245, 0.15); /* 白の一族用の透明感のあるオフホワイト背景 */
+            backdrop-filter: blur(3px);
+            border-radius: 12px;
+            margin-top: 20px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+        .gallery-title {
+            border-bottom: 5px double gold;
+            padding-bottom: 10px;
+            text-align: center;
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        .cg-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid gold;
+            padding: 20px;
+            margin-top: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-radius: 8px;
+        }
+        .cg-card h3 {
+            color: gold;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .cg-card img {
+            max-width: 80%;
+            height: auto;
+            border: 5px groove gold;
+            margin: 15px auto;
+            display: block;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+        .cg-card img:hover {
+            transform: scale(1.01);
+        }
+        .cg-description {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 18px;
+            border-left: 4px solid gold;
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin-top: 15px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* 差分画像グリッド配置用 */
+        .diff-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .diff-grid img {
+            max-width: 45%;
+            margin: 0;
+        }
+
+        /* ページ下部ナビゲーション */
+        .page-bottom-nav {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        .page-bottom-nav a {
+            color: gold;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        .page-bottom-nav a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+
+    <!-- 共通ヘッダーナビゲーション -->
     <header>
-        <a href="創作物の宝物庫-CGエリア.html" class="back-link">← CGポータルへ戻る</a>
+        <img src="stripes.png" alt="ヘッダー装飾画像">
+        <nav class="header_container">
+            <div class="header_item"><a href="index.html">🚪 玄関(index)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫.html">🏛️ 宝物庫(ポータル)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-PROGRAMエリア.html">PROGRAM</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-CGエリア.html">🎨 CGエリア</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-MUSICエリア.html">MUSIC</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-小説エリア.html">小説</a></div>
+        </nav>
     </header>
 
-    <div class="main">
-        <h1 style="border-bottom: 3px solid gold; display: inline-block;">白の一族：記録保管庫</h1>
+    <div class="gallery-container">
+        <h2 id="top1" class="gallery-title">■ 白の一族：記録保管庫</h2>
+        <p class="text-center" style="color: #f5f5f5;">純白の血を引く者たちのCG・記録ギャラリーです。</p>
 
         <!-- 白雪 絵理佳 -->
-        <div class="clan-section">
-            <dt>白雪 絵理佳 (SYBERPUNK STYLE)</dt>
-            <dd>色彩学園の制服を纏い、アイテムを錬成する姿。</dd>
+        <div class="cg-card">
+            <h3>白雪 絵理佳 (CYBERPUNK STYLE)</h3>
             <img src="白雪絵理佳SYBERPUNKSTYLE.png" alt="白雪絵理佳">
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: gold;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">色彩学園の制服を纏い、アイテムを錬成する姿。</p>
+            </div>
+        </div>
 
-            <dt>Creation - 純白のバレンタイン</dt>
-            <dd>Valentineの一瞬を捉えた、純白のバレンタイン。</dd> 
+        <div class="cg-card">
+            <h3>Creation - 純白のバレンタイン</h3>
             <img src="Creation-純白のバレンタイン.png" alt="Creation-純白のバレンタイン">
-        
-            <dt>白雪 絵理佳_サンタ衣装</dt>
-            <dd>白雪絵理佳がサンタ衣装を着た姿。</dd>
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: gold;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">Valentineの一瞬を捉えた、純白のバレンタイン。</p>
+            </div>
+        </div>
+
+        <div class="cg-card">
+            <h3>白雪 絵理佳（サンタ衣装）</h3>
             <img src="白雪絵理佳_サンタ衣装.JPG" alt="白雪絵理佳_サンタ衣装">
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: gold;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">白雪絵理佳がサンタ衣装を着た姿。</p>
+            </div>
+        </div>
 
-            <dt>白雪絵理佳（バレンタイン衣装・透過差分）</dt>
-            <dd>バレンタイン衣装の表情差分（満足 / 大満足 / そこそこ満足 / がっかり）。</dd>
-            <img src="バレンタインin美術部アトリエ_白雪絵理佳_透過_満足.png" alt="白雪絵理佳_満足">
-            <img src="バレンタインin美術部アトリエ_白雪絵理佳_透過_大満足.png" alt="白雪絵理佳_大満足">
-            <img src="バレンタインin美術部アトリエ_白雪絵理佳_透過_そこそこ満足.png" alt="白雪絵理佳_そこそこ満足">
-            <img src="バレンタインin美術部アトリエ_白雪絵理佳_透過_がっかり.png" alt="白雪絵理佳_がっかり">
+        <div class="cg-card">
+            <h3>白雪 絵理佳（バレンタイン衣装・透過差分）</h3>
+            <div class="diff-grid">
+                <img src="バレンタインin美術部アトリエ_白雪絵理佳_透過_満足.png" alt="白雪絵理佳_満足">
+                <img src="バレンタインin美術部アトリエ_白雪絵理佳_透過_大満足.png" alt="白雪絵理佳_大満足">
+                <img src="バレンタインin美術部アトリエ_白雪絵理佳_透過_そこそこ満足.png" alt="白雪絵理佳_そこそこ満足">
+                <img src="バレンタインin美術部アトリエ_白雪絵理佳_透過_がっかり.png" alt="白雪絵理佳_がっかり">
+            </div>
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: gold;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">バレンタイン衣装の表情差分（満足 / 大満足 / そこそこ満足 / がっかり）。</p>
+            </div>
+        </div>
 
-            <dt>白雨の魔能装束の絵理佳</dt>
-            <dd>白雨の魔能装束を纏った絵理佳。</dd>
+        <div class="cg-card">
+            <h3>白雨の魔能装束の絵理佳</h3>
             <img src="白雨の魔能装束の絵理佳.jpg" alt="白雨の魔能装束の絵理佳">
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: gold;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">白雨の魔能装束を纏った絵理佳。</p>
+            </div>
         </div>
 
         <!-- 白雲 果音 -->
-        <div class="clan-section">
-            <dt>白雲 果音_ライブ衣装</dt>
-            <dd>白雲果音がライブで着る衣装。</dd>
+        <div class="cg-card">
+            <h3>白雲 果音（ライブ衣装）</h3>
             <img src="白雲果音_ライブ衣装.png" alt="白雲果音_ライブ衣装">
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: gold;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">白雲果音がライブで着る衣装。</p>
+            </div>
         </div>
 
         <!-- 白雪 シフォン -->
-        <div class="clan-section">
-            <dt>白雪 シフォン (情報屋Ver)</dt>
-            <dd>電子領域から情報を操る、白の一族からの協力者。どう見ても情報屋に見えないのがポイント。</dd>
+        <div class="cg-card">
+            <h3>白雪 シフォン (情報屋Ver)</h3>
             <img src="情報屋シフォン.png" alt="白雪シフォン">
-            
-            <dt>シフォン in 電子空間</dt>
-            <dd>PC等のデバイスから電子領域に潜入した際の姿。</dd>
-            <img src="シフォンin電子空間.png" alt="シフォン">
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: gold;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">電子領域から情報を操る、白の一族からの協力者。どう見ても情報屋に見えないのがポイント。</p>
+            </div>
+        </div>
 
-            <dt>白雪シフォン（透過・表情差分）</dt>
-            <dd>表情差分（笑み / 悲しみ）。</dd>
-            <img src="白雪シフォン_透過_笑み.png" alt="白雪シフォン_透過_笑み">
-            <img src="白雪シフォン_透過_悲しみ.png" alt="白雪シフォン_透過_悲しみ">
+        <div class="cg-card">
+            <h3>シフォン in 電子空間</h3>
+            <img src="シフォンin電子空間.png" alt="シフォン">
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: gold;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">PC等のデバイスから電子領域に潜入した際の姿。</p>
+            </div>
+        </div>
+
+        <div class="cg-card">
+            <h3>白雪 シフォン（透過・表情差分）</h3>
+            <div class="diff-grid">
+                <img src="白雪シフォン_透過_笑み.png" alt="白雪シフォン_透過_笑み">
+                <img src="白雪シフォン_透過_悲しみ.png" alt="白雪シフォン_透過_悲しみ">
+            </div>
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: gold;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">表情差分（笑み / 悲しみ）。</p>
+            </div>
         </div>
 
         <!-- 白雨 理々佳 -->
-        <div class="clan-section">
-            <dt>白雨の魔能装束の理々佳</dt>
-            <dd>白雨の魔能装束を纏った理々佳。</dd>
+        <div class="cg-card">
+            <h3>白雨の魔能装束の理々佳</h3>
             <img src="白雨の魔能装束の理々佳.jpg" alt="白雨の魔能装束の理々佳">
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: gold;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">白雨の魔能装束を纏った理々佳。</p>
+            </div>
         </div>
 
         <!-- 集合・その他 -->
-        <div class="clan-section">
-            <dt>白雨の魔能装束の絵理佳と理々佳</dt>
-            <dd>白雨の魔能装束を身にまとった絵理佳と理々佳のふたり。</dd>
+        <div class="cg-card">
+            <h3>白雨の魔能装束の絵理佳と理々佳</h3>
             <img src="白雨の魔能装束の絵理佳と理々佳.jpg" alt="白雨の魔能装束の絵理佳と理々佳">
+            <div class="cg-description">
+                <p style="margin-bottom: 5px; font-weight: bold; color: gold;">【解説】</p>
+                <p style="margin-bottom: 0; font-weight: normal;">白雨の魔能装束を身にまとった絵理佳と理々佳のふたり。</p>
+            </div>
+        </div>
+
+        <!-- ページ下部ナビゲーション -->
+        <div class="page-bottom-nav">
+            <h3><a href="#top1">▲ このページのTOPへ戻る</a></h3>
+            <p style="margin-top: 15px;">
+                <a href="創作物の宝物庫-CGエリア.html">◀ CGエリアTOPへ戻る</a>
+            </p>
         </div>
     </div>
 
-    <p><a href="創作物の宝物庫-CGエリア.html" class="back-link">← CGポータルへ戻る</a></p>
 </body>
 </html>
