@@ -1,111 +1,164 @@
 <!doctype html>
-<html lang ="ja">
- <head>
+<html lang="ja">
+<head>
     <meta charset="UTF-8">
-    <title>創作物の宝物庫-小説エリア-色彩学園プロローグ『Cの想像/色彩学園』</title>
-    <meta name="description" content="創作物の宝物庫-小説エリア-色彩学園プロローグ『Cの想像0/色彩学園』">
+    <title>創作物の宝物庫-小説エリア-色彩学園プロローグ『Cの想像0/事件の兆し』</title>
+    <meta name="description" content="創作物の宝物庫-小説エリア-色彩学園プロローグ『Cの想像0/事件の兆し』">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <style>
-    body {
+        body {
             padding: 30px;
-            color: #51ff00;
+            color: #333333;
             background-color: #ffffff;
             font-weight: bold;
-            font-size: 120%;
+            font-size: 110%;
             font-family: serif;
         }
-    p{color:#FF0088;}
-    header{
-background:lightblue;height:100px;
-display:flex;
-}
 
-header img{
-height:100%;
-width:auto;
-}
-.header_container{
-display:flex;
+        /* ヘッダーのスタイル */
+        header {
+            background: lightblue;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            padding: 5px;
+        }
+        header img {
+            height: 100%;
+            width: auto;
+        }
+        .header_container {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .header_item {
+            margin: 0 10px;
+        }
 
-width:95%;
-justify-content:flex-end;
-align-items:center;
-}
+        /* メインコンテンツ */
+        .main {
+            background: lightpink;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+        .main-img {
+            width: 95%;
+            max-width: 800px;
+            margin: 15px auto;
+            display: block;
+        }
 
-.header_item{
-margin:10px;
-}
+        .info-text {
+            color: #d8006f;
+            font-size: 1.05em;
+            line-height: 1.8;
+            text-align: center;
+        }
 
-.main{
-background:lightpink;
-}
+        /* 小説本文枠 */
+        .novel-box {
+            background: rgba(255, 255, 255, 0.85);
+            color: #222222;
+            padding: 25px;
+            border-radius: 8px;
+            line-height: 2.2;
+            margin-top: 20px;
+            font-weight: normal;
+        }
 
-.main div{
-border:2px dotted red;
-text-align:center;
-}
-
-.main img{
-width:95%;
-margin:10px;
-}
+        .page-bottom-nav {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .page-bottom-nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
     </style>
- </head>
+</head>
 <body>
+
+    <!-- ヘッダーナビゲーション -->
     <header>
-        <img src="stripes.png">
+        <img src="stripes.png" alt="ヘッダー装飾画像">
         <nav class="header_container">
-        <div class="header_item"><a href="創作物の宝物庫.html" alt="創作物の宝物庫">index(創作物の宝物庫)</a></div>
-        <div class="header_item"><a href="創作物の宝物庫-PROGRAMエリア.html" alt="創作物の宝物庫-PROGRAMエリア">創作物の宝物庫-PROGRAMエリア</a></div>
-        <div class="header_item"><a href="創作物の宝物庫-CGエリア.html" alt="創作物の宝物庫-CGエリア">創作物の宝物庫-CGエリア</a></div>
-        <div class="header_item"><a href="創作物の宝物庫-MUSICエリア.html" alt="創作物の宝物庫-MUSICエリア">創作物の宝物庫-MUSICエリア</a></div>
-        <div class="header_item"><a href="創作物の宝物庫-小説エリア.html" alt="創作物の宝物庫-PROGRAMエリア">創作物の宝物庫-小説エリア</a></div>
+            <div class="header_item"><a href="index.html">🚪 玄関(index)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫.html">🏛️ 宝物庫(ポータル)</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-PROGRAMエリア.html">PROGRAM</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-CGエリア.html">CG</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-MUSICエリア.html">MUSIC</a></div>
+            <div class="header_item"><a href="創作物の宝物庫-小説エリア.html">小説</a></div>
         </nav>
-        </header>
-        <div class="main">
-    <h2 id="top2">創作物の宝物庫-小説エリア-色彩学園プロローグ-Cの想像0/事件の兆し</h2>
-    <img src="ハートで作る10.png">
-    <p>
-        ここでは小説を読んでいただきます<br>
-        興味を持っていただけると幸いです<br>
-        企画:しらのん<br>
-        小説クリエイター:リノン・ヴェルテール<br>
-        エリア管理者:スレミア・ノベレル<br>
+    </header>
 
-        Supported by Erika Shirayuki
-    </p>
-<hr>
-<p>
-     『Cの想像0 / 事件の兆し』<br>
+    <div class="main">
+        <h2 id="top2">創作物の宝物庫-小説エリア-色彩学園プロローグ-Cの想像0/事件の兆し</h2>
+        <img src="ハートで作る10.png" class="main-img" alt="色彩学園プロローグ">
+        
+        <div class="info-text">
+            <p>
+                ここでは小説を読んでいただきます<br>
+                興味を持っていただけると幸いです<br>
+                企画:しらのん<br>
+                小説クリエイター:リノン・ヴェルテール<br>
+                エリア管理者:スレミア・ノベレル<br>
+                Supported by Erika Shirayuki
+            </p>
+        </div>
 
-二〇四〇年十月一日十二時三十五分旧校舎三階の調理室前。<br>
-鼻を突くのは、焦げた砂糖の匂いだった。<br>
- 扉のすきまから見えたのは、クラスメイトの馬鹿こと阿鹿有馬の眼が赤く光っている姿だった。<br>
-  (...なんで、あいつの眼が)<br>
-脳裏に数ヶ月前の記憶が過ぎる。<br>
-  テストで失敗し、一人この廊下で俯いていた私。その時、調理室の窓から「これ食って元気出せよ！」
-  とぶっきらぼうに投げ入れられたのは、彼が「最高級品」と自慢していたカップ麺の1つだった。<br>
-    あの時、火傷しそうな程の熱かった湯気の温もりを、私は今も覚えている。<br>
- だが、今の彼にその面影はないように見える。床に座り込み、機械的な異音を立てながら、
-麵を貪るその背後には、巨大な『欲望』の影が蠢いていた。<br>
- ドクン、と心臓が熱く跳ねる。<br>
-循環していた赤い血が彼の放つ魔力に反応し、一気に書き換わっていく。指先から心臓へ、そして全身へ。赤色が光を放つ白へと反転する。<br>
- 「うっ・・・・・・・」
- 魔力という燃料が血を焼き、一族の誇りである『魔能』を呼び覚ます。<br>
-血管が白く浮き出るこの感覚は、今の私にはあまりに重く鋭すぎた。<br>
- その放課後十六時半、家に帰宅した私を待っていたのは、父様こと白雪玲一の視線と訓練だった。<br>
- 炉を作る訓練であったが今一つ力の入らない私。それを見て父様はこう言った。<br>
- 『もっと精密に正確に炉を想像するんだ、これが出来なければ何も始まらないぞ』<br>
- この言葉を聞いてようやく私の身体に力が入り、やっとのことで炉を創造する事が出来た。<br>
- 『やったな、絵理佳』と父様が言う。そうして訓練が終わり、優しい視線に戻ってこう告げた。<br>
- 『これでようやく一歩進んだな』
- そう告げられた私は笑みを零した。<br>
+        <hr>
 
-</p>
-<hr>
-<h2><a href="創作物の宝物庫-小説エリア -色彩学園一覧.html" >色彩学園一覧</a></h2>
-<h2><a href="創作物の宝物庫-小説エリア -色彩学園プロローグ.html" target="_top">TOPへ戻る</a></h2>
-<h2><a href="創作物の宝物庫-小説エリア -色彩学園一話.html" target="_top">次へ進む</a></h2>
-</div>
+        <!-- 小説本文エリア -->
+        <div class="novel-box">
+            <h3>『Cの想像0 / 事件の兆し』</h3><br>
+
+            二〇四〇年十月一日十二時三十五分、旧校舎三階の調理室前。<br>
+            鼻を突くのは、焦げた砂糖の匂いだった。<br><br>
+
+            扉のすきまから見えたのは、クラスメイトの馬鹿こと阿鹿有馬の眼が赤く光っている姿だった。<br>
+            （...なんで、あいつの眼が）<br><br>
+
+            脳裏に数ヶ月前の記憶が過ぎる。<br>
+            テストで失敗し、一人この廊下で俯いていた私。その時、調理室の窓から「これ食って元気出せよ！」とぶっきらぼうに投げ入れられたのは、彼が「最高級品」と自慢していたカップ麺の1つだった。<br>
+            あの時、火傷しそうな程の熱かった湯気の温もりを、私は今も覚えている。<br><br>
+
+            だが、今の彼にその面影はないように見える。床に座り込み、機械的な異音を立てながら、麺を貪るその背後には、巨大な『欲望』の影が蠢いていた。<br><br>
+
+            ドクン、と心臓が熱く跳ねる。<br>
+            循環していた赤い血が彼の放つ魔力に反応し、一気に書き換わっていく。指先から心臓へ、そして全身へ。赤色が光を放つ白へと反転する。<br><br>
+
+            「うっ・・・・・・・」<br>
+            魔力という燃料が血を焼き、一族の誇りである『魔能』を呼び覚ます。<br>
+            血管が白く浮き出るこの感覚は、今の私にはあまりに重く鋭すぎた。<br><br>
+
+            その放課後十六時半、家に帰宅した私を待っていたのは、父様こと白雪玲一の視線と訓練だった。<br>
+            炉を作る訓練であったが今一つ力の入らない私。それを見て父様はこう言った。<br>
+            『もっと精密に正確に炉を想像するんだ、これが出来なければ何も始まらないぞ』<br><br>
+
+            この言葉を聞いてようやく私の身体に力が入り、やっとのことで炉を創造する事が出来た。<br>
+            『やったな、絵理佳』と父様が言う。そうして訓練が終わり、優しい視線に戻ってこう告げた。<br>
+            『これでようやく一歩進んだな』<br>
+            そう告げられた私は笑みを零した。
+        </div>
+    </div>
+
+    <!-- ページ下部のナビゲーション -->
+    <div class="page-bottom-nav">
+        <h2><a href="#top2">▲ このページのTOPへ戻る</a></h2>
+        <ul>
+            <li><a href="創作物の宝物庫-小説エリア -色彩学園一覧.html">📚 色彩学園一覧</a></li>
+            <li><a href="創作物の宝物庫-小説エリア.html">📖 小説エリアのトップへ</a></li>
+            <li><a href="創作物の宝物庫-小説エリア -色彩学園一話.html">▶ 次へ進む（第一話）</a></li>
+        </ul>
+    </div>
+
 </body>
 </html>

@@ -63,20 +63,53 @@
             box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4);
         }
         
-        /* クレジット・窓口セクション */
-        .footer-credit {
+        /* フッター全体のスタイル */
+        .portal-footer {
             margin-top: 50px;
+            padding-top: 20px;
+        }
+
+        /* 玄関へ戻るボタンの配置 */
+        .footer-nav {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* 玄関へ戻るボタンのデザイン */
+        .return-index-btn {
+            display: inline-block;
+            padding: 8px 25px;
+            color: gold !important;
+            border: 2px solid gold;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            text-decoration: none !important;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .return-index-btn:hover {
+            background: gold;
+            color: #000 !important;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+            transform: translateY(-2px);
+        }
+
+        /* クレジット部分 */
+        .footer-credit {
             padding: 30px;
             border-top: 3px double gold;
             text-align: left;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 0 0 15px 15px;
+            border-radius: 15px;
         }
         .credit-list { list-style: none; padding: 0; line-height: 2; font-size: 1.1em; }
         .marsh-btn {
             display: inline-block;
             margin-left: 15px;
-            background: #ffb6c1; /* マシュマロ・ピンク */
+            background: #ffb6c1;
             color: #d11e6d !important;
             padding: 2px 15px;
             border-radius: 20px;
@@ -101,34 +134,38 @@
         <h1>創作物の宝物庫</h1>
         <p style="font-size: 1.3em; color: silver;">―― 紡がれる七色の記録 ――</p>
         
+        <!-- エリアカード一覧 -->
         <div class="area-grid">
-            <a href="創作物の宝物庫-CGエリア.html" class="area-card cg-area">🖼️ CG AREA<br><small style="font-size: 0.6em;">六色同盟 / D4DJ / 二次世界</small></a>
-            <a href="創作物の宝物庫-PROGRAMエリア.html" class="area-card pg-area">💻 PROGRAM AREA<br><small style="font-size: 0.6em;">C / VSCode / システム開発</small></a>
-            <a href="創作物の宝物庫-MUSICエリア.html" class="area-card mu-area">🎵 MUSIC AREA<br><small style="font-size: 0.6em;">音色と旋律のアーカイブ</small></a>
-            <a href="創作物の宝物庫-小説エリア.html" class="area-card nv-area">📖 NOVEL AREA<br><small style="font-size: 0.6em;">色彩学園 / 一族の設定資料</small></a>
+            <a href="創作物の宝物庫-CGエリア.html" class="area-card cg-area" target="_blank" rel="noopener noreferrer">🖼️ CG AREA<br><small style="font-size: 0.6em;">六色同盟 / D4DJ / 二次世界</small></a>
+            <a href="創作物の宝物庫-PROGRAMエリア.html" class="area-card pg-area" target="_blank" rel="noopener noreferrer">💻 PROGRAM AREA<br><small style="font-size: 0.6em;">C / VSCode / システム開発</small></a>
+            <a href="創作物の宝物庫-MUSICエリア.html" class="area-card mu-area" target="_blank" rel="noopener noreferrer">🎵 MUSIC AREA<br><small style="font-size: 0.6em;">音色と旋律のアーカイブ</small></a>
+            <a href="創作物の宝物庫-小説エリア.html" class="area-card nv-area" target="_blank" rel="noopener noreferrer">📖 NOVEL AREA<br><small style="font-size: 0.6em;">色彩学園 / 一族の設定資料</small></a>
         </div>
 
-        <div class="footer-credit">
-            <ul class="credit-list">
-                <li>● 企画：しらのん</li>
-                <li>● 映像クリエイター：クレア=テラニス=黄燐</li>
-                <li>● 統括管理者：ジェシカ・トローヴ 
-                    <a href="https://marshmallow-qa.com/p9yi3b9pgo3dhr9" target="_blank" class="marsh-btn">
-                        🍬 しらのんへ感想を送る
-                    </a>
-                </li>
-                <li>● 元所属：電子創作研究会</li>
-                <li>● 協力サークル：電子創作研究会</li>
-            </ul>
-            
-            <div class="thanks-msg">
-                Special Thanks: このHPへアクセス、あるいは来訪してくれた皆さん
+        <!-- フッターセクション -->
+        <footer class="portal-footer">
+            <div class="footer-nav">
+                <a href="index.html" class="return-index-btn">🚪 玄関 (index) へ戻る</a>
             </div>
             
-            <p style="text-align: center; font-size: 0.8em; color: #777; margin-top: 20px;">
-                Final Update in Gunma: 2026.04.02 23:15
-            </p>
-        </div>
+            <div class="footer-credit">
+                <ul class="credit-list">
+                    <li>● 企画：しらのん</li>
+                    <li>● 映像クリエイター：クレア=テラニス=黄燐</li>
+                    <li>● 統括管理者：ジェシカ・トローヴ 
+                        <a href="https://marshmallow-qa.com/p9yi3b9pgo3dhr9" target="_blank" rel="noopener noreferrer" class="marsh-btn">
+                            🍬 しらのんへ感想を送る
+                        </a>
+                    </li>
+                    <li>● 元所属：電子創作研究会</li>
+                    <li>● 協力サークル：電子創作研究会</li>
+                </ul>
+                
+                <div class="thanks-msg">
+                    Special Thanks: このHPへアクセス、あるいは来訪してくれた皆さん
+                </div>
+            </div>
+        </footer>
     </div>
 
 </body>
