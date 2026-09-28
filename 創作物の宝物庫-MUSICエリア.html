@@ -18,13 +18,79 @@
         }
         .canon-section h3 { color: #00FFFF; }
 
+        /* プレイヤーコントロールパネル */
+        .player-control-panel {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #00FFFF;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .player-control-panel h4 {
+            margin-top: 0;
+            color: #FF77C2;
+        }
+        .mode-buttons {
+            margin-bottom: 15px;
+        }
+        .mode-btn {
+            background: #333;
+            color: #fff;
+            border: 1px solid #00FFFF;
+            padding: 8px 16px;
+            margin-right: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .mode-btn.active {
+            background: #FF0088;
+            color: #fff;
+            border-color: #FF77C2;
+            box-shadow: 0 0 8px #FF0088;
+        }
+        .audio-player-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        #main-audio {
+            width: 100%;
+            max-width: 500px;
+        }
+        #now-playing {
+            color: #00FFFF;
+            font-size: 1.1em;
+        }
+
         table { width: 100%; color: #000; border-collapse: collapse; margin-top: 20px; background: #fff; }
         th, td { border: 1px solid #333; padding: 10px; text-align: left; }
+        
+        /* 再生中の行ハイライト */
+        tr.playing-row {
+            background-color: #ffe6f2 !important;
+            font-weight: bold;
+        }
+        .play-btn {
+            background: #0088cc;
+            color: #fff;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .play-btn:hover {
+            background: #005580;
+        }
     </style>
 </head>
 <body>
     <header>
-        <img src="stripes.png">
+        <img src="stripes.png" alt="logo">
         <nav class="header_container">
             <!-- サイト最上部の「玄関」へ戻る -->
             <div class="header_item"><a href="index.html">🚪 玄関 (index)</a></div>
@@ -60,29 +126,135 @@
             Supported by Kanon Shierakumo, Kana Akane (Color-Mix Canon)
         </p>
 
+        <!-- オーディオプレイヤー＆各種モード制御パネル -->
+        <div class="player-control-panel">
+            <h4>🎧 音楽プレイヤー & 再生モード設定</h4>
+            <div class="mode-buttons">
+                <button type="button" class="mode-btn" id="btn-single" onclick="setPlayMode('single')">🔂 個別ループ</button>
+                <button type="button" class="mode-btn" id="btn-all-loop" onclick="setPlayMode('all-loop')">🔁 全体ループ再生</button>
+                <button type="button" class="mode-btn" id="btn-sequence" onclick="setPlayMode('sequence')">▶️ 連続全体再生</button>
+            </div>
+            <div class="audio-player-container">
+                <audio id="main-audio" controls controlsList="nodownload"></audio>
+                <span id-="now-playing">再生モードを選択して曲を選択してください</span>
+            </div>
+        </div>
+
         <table border="1">
             <thead>
                 <tr><th>曲名</th><th>解説</th><th>試聴・詳細</th></tr>
             </thead>
-            <tbody>
-                <tr><td>links melodies</td><td>Photon melodiesを参考に作成されたものですが、かけ離れてしまったもの。</td><td><a href="links melodies.mp3">試聴</a></td></tr>
-                <tr><td>break or break!</td><td>Hell! or HELL?を参考に作成したものの、違う感じなってしまったもの。</td><td><a href="break or break!.mp3">試聴</a></td></tr>
-                <tr><td>enjoypop</td><td>楽しいを込めて作成された曲。</td><td><a href="enjoypop.mp3">試聴</a></td></tr>
-                <tr><td>世界に楽しいを届けて</td><td>enjoypopに歌詞が付き、重音テトが歌ったもの。</td><td><a href="世界に楽しいを届けて.mp3">試聴</a> / <a href="創作物の宝物庫-MUSICエリア -世界に楽しいを届けて.html">詳細</a></td></tr>
-                <tr><td>世界に楽しいを届けて（カスタマイズ）</td><td>enjoypopを基にカスタマイズしたもの。</td><td><a href="世界に楽しいを届けて(カスタマイズ).mp3">試聴</a> / <a href="創作物の宝物庫-MUSICエリア - 世界に楽しいを届けて(カスタマイズ).html">詳細</a></td></tr>
-                <tr><td>言葉と思いを繋ぐ演算.mp3</td><td>言葉と想いを繋ぐための演算。</td><td><a href="言葉と思いを繋ぐ演算.mp3">試聴</a>/<a href="創作物の宝物庫-MUSICエリア-言葉と思いを繋ぐ演算.html">詳細</a></td></tr>
-                <tr><td>Starter of blue sky.mp3</td><td>青空の始まりをテーマにした曲。</td><td><a href="Starter of blue sky.mp3">試聴</a></td></tr>
-                <tr><td>Glasslandchord.mp3</td><td>草原をテーマにした曲。</td><td><a href="Glasslandchord.mp3">試聴</a></td></tr>
-                <tr><td>Sunlightafternoon.mp3</td><td>午後の日差しをテーマにした曲。</td><td><a href="Sunlightafternoon.mp3">試聴</a></td></tr>
-                <tr><td>Mistyboundary.mp3</td><td>霧の境界をテーマにした曲。</td><td><a href="Mistyboundary.mp3">試聴</a></td></tr>
-                <tr><td>私は止め方を知りたい.mp3</td><td>止める方法を知りたいというテーマの曲。</td><td><a href="私は止め方を知りたい.mp3">試聴</a>/<a href="創作物の宝物庫-MUSICエリア-私は止め方を知りたい.html">詳細</a></td></tr>
-                <!--tr><td>stormy link(Remix)</td><td>stormy linkをRemixしたものであり、ボーカルと歌詞が入っているもの。</td><td><a href="stormy link(Remix).mp3">試聴</a></td></tr>
-                <tr><td>on your mark (Remix)</td><td>on your markをRemixしたものであり、ボーカルと歌詞が入っているもの。</td><td><a href="on your mark(Remix).mp3">試聴</a></td></tr>
-                <tr><td>パノラマリウム(Remix)</td><td>パノラマリウムをRemixしたものであって、少し聞きづらくなっている。</td><td><a href="パノラマリウム（Remix）.mp3">試聴</a></td></tr>
-                <tr><td>DJ NANMO WAKARAN(Remix)</td><td>String&electric-pianoが合うと思い、調整しました。</td><td><a href="DJ NANMO WAKARAN(Remix).mp3">試聴</a></td></tr>
-                <tr><td>World Etude(Remix)'</td><td>World EtudeをRemixしたものであり、String&pianoによる調整をしました。</td><td><a href="World Etude(Remix)'.mp3">試聴</a></td></tr-->
+            <tbody id="music-list">
+                <tr><td>links melodies</td><td>Photon melodiesを参考に作成されたものですが、かけ離れてしまったもの。</td><td><button class="play-btn" onclick="playMusic('links melodies.mp3', 'links melodies', this)">▶ 試聴</button></td></tr>
+                <tr><td>break or break!</td><td>Hell! or HELL?を参考に作成したものの、違う感じなってしまったもの。</td><td><button class="play-btn" onclick="playMusic('break or break!.mp3', 'break or break!', this)">▶ 試聴</button></td></tr>
+                <tr><td>enjoypop</td><td>楽しいを込めて作成された曲。</td><td><button class="play-btn" onclick="playMusic('enjoypop.mp3', 'enjoypop', this)">▶ 試聴</button></td></tr>
+                <tr><td>世界に楽しいを届けて</td><td>enjoypopに歌詞が付き、重音テトが歌ったもの。</td><td><button class="play-btn" onclick="playMusic('世界に楽しいを届けて.mp3', '世界に楽しいを届けて', this)">▶ 試聴</button> / <a href="創作物の宝物庫-MUSICエリア -世界に楽しいを届けて.html">詳細</a></td></tr>
+                <tr><td>世界に楽しいを届けて（カスタマイズ）</td><td>enjoypopを基にカスタマイズしたもの。</td><td><button class="play-btn" onclick="playMusic('世界に楽しいを届けて(カスタマイズ).mp3', '世界に楽しいを届けて（カスタマイズ）', this)">▶ 試聴</button> / <a href="創作物の宝物庫-MUSICエリア - 世界に楽しいを届けて(カスタマイズ).html">詳細</a></td></tr>
+                <tr><td>言葉と思いを繋ぐ演算.mp3</td><td>言葉と想いを繋ぐための演算。</td><td><button class="play-btn" onclick="playMusic('言葉と思いを繋ぐ演算.mp3', '言葉と思いを繋ぐ演算', this)">▶ 試聴</button> / <a href="創作物の宝物庫-MUSICエリア-言葉と思いを繋ぐ演算.html">詳細</a></td></tr>
+                <tr><td>Starter of blue sky.mp3</td><td>青空の始まりをテーマにした曲。</td><td><button class="play-btn" onclick="playMusic('Starter of blue sky.mp3', 'Starter of blue sky', this)">▶ 試聴</button></td></tr>
+                <tr><td>Glasslandchord.mp3</td><td>草原をテーマにした曲。</td><td><button class="play-btn" onclick="playMusic('Glasslandchord.mp3', 'Glasslandchord', this)">▶ 試聴</button></td></tr>
+                <tr><td>Sunlightafternoon.mp3</td><td>午後の日差しをテーマにした曲。</td><td><button class="play-btn" onclick="playMusic('Sunlightafternoon.mp3', 'Sunlightafternoon', this)">▶ 試聴</button></td></tr>
+                <tr><td>Mistyboundary.mp3</td><td>霧の境界をテーマにした曲。</td><td><button class="play-btn" onclick="playMusic('Mistyboundary.mp3', 'Mistyboundary', this)">▶ 試聴</button></td></tr>
+                <tr><td>私は止め方を知りたい.mp3</td><td>止める方法を知りたいというテーマの曲。</td><td><button class="play-btn" onclick="playMusic('私は止め方を知りたい.mp3', '私は止め方を知りたい', this)">▶ 試聴</button> / <a href="創作物の宝物庫-MUSICエリア-私は止め方を知りたい.html">詳細</a></td></tr>
+                <tr><td>遊び選び壊しましょう.mp3</td><td>breakblockのテーマ曲</td><td><button class="play-btn" onclick="playMusic('遊び選び壊しましょう.mp3', '遊び選び壊しましょう', this)">▶ 試聴</button> / <a href="創作物の宝物庫-MUSICエリア-遊び選び壊しましょう.html">詳細</a></td></tr>
             </tbody>
         </table>
     </div>
+
+    <script>
+        const audio = document.getElementById('main-audio');
+        const nowPlayingText = document.getElementById('now-playing');
+        let currentPlayIndex = -1;
+        let playMode = 'single'; // デフォルトは個別ループ ('single', 'all-loop', 'sequence')
+
+        // 全曲リストデータの読み込み
+        const playlist = [];
+        document.querySelectorAll('#music-list tr').forEach((tr, index) => {
+            const btn = tr.querySelector('.play-btn');
+            if (btn) {
+                const title = tr.cells[0].textContent;
+                // onclick属性からファイルパスを取得
+                const onclickText = btn.getAttribute('onclick');
+                const srcMatch = onclickText.match(/playMusic\('([^']+)'/);
+                if (srcMatch) {
+                    playlist.push({
+                        index: index,
+                        src: srcMatch[1],
+                        title: title,
+                        rowElement: tr,
+                        btnElement: btn
+                    });
+                }
+            }
+        });
+
+        // 再生モードの切り替え
+        function setPlayMode(mode) {
+            playMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            
+            if (mode === 'single') {
+                document.getElementById('btn-single').classList.add('active');
+                audio.loop = true;
+            } else if (mode === 'all-loop') {
+                document.getElementById('btn-all-loop').classList.add('active');
+                audio.loop = false;
+            } else if (mode === 'sequence') {
+                document.getElementById('btn-sequence').classList.add('active');
+                audio.loop = false;
+            }
+        }
+
+        // 楽曲の再生処理
+        function playMusic(src, title, btnElement) {
+            const trackIndex = playlist.findIndex(item => item.src === src);
+            if (trackIndex !== -1) {
+                currentPlayIndex = trackIndex;
+                updatePlayState();
+            }
+        }
+
+        function playTrackByIndex(index) {
+            if (index >= 0 && index < playlist.length) {
+                currentPlayIndex = index;
+                updatePlayState();
+            }
+        }
+
+        function updatePlayState() {
+            const track = playlist[currentPlayIndex];
+            if (!track) return;
+
+            // ハイライト行のクリアと設定
+            playlist.forEach(item => item.rowElement.classList.remove('playing-row'));
+            track.rowElement.classList.add('playing-row');
+
+            audio.src = track.src;
+            nowPlayingText.textContent = `▶ 再生中: ${track.title}`;
+            audio.play();
+        }
+
+        // 曲が終わったときの挙動コントロール
+        audio.addEventListener('ended', () => {
+            if (playMode === 'single') {
+                // HTML5の loop=true で自動リピートされます
+            } else if (playMode === 'sequence') {
+                // 連続全体再生（最後まで行ったら停止）
+                if (currentPlayIndex < playlist.length - 1) {
+                    playTrackByIndex(currentPlayIndex + 1);
+                } else {
+                    nowPlayingText.textContent = '再生完了（連続再生終了）';
+                    playlist.forEach(item => item.rowElement.classList.remove('playing-row'));
+                }
+            } else if (playMode === 'all-loop') {
+                // 全体ループ再生（最後まで行ったら最初の曲に戻る）
+                const nextIndex = (currentPlayIndex + 1) % playlist.length;
+                playTrackByIndex(nextIndex);
+            }
+        });
+
+        // 初期化（デフォルト：個別ループ）
+        setPlayMode('single');
+    </script>
 </body>
 </html>
