@@ -126,6 +126,76 @@
             letter-spacing: 0.1em;
             text-shadow: 0 0 5px #000;
         }
+
+        /* -------------------------------------------------- */
+        /* 🔔 更新通知バナー（サイトのデザインに合わせた装飾） */
+        /* -------------------------------------------------- */
+        #update-banner {
+            display: none; /* 初期状態は非表示 */
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(9, 10, 15, 0.95);
+            color: #ffffff;
+            border: 2px solid gold;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+            z-index: 9999;
+            max-width: 340px;
+            text-align: left;
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .banner-header {
+            font-weight: bold;
+            color: gold;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
+            padding-bottom: 5px;
+        }
+
+        .banner-body {
+            font-size: 0.9em;
+            color: #e0e0e0;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .banner-btn {
+            background: rgba(212, 175, 55, 0.2);
+            color: gold;
+            border: 1px solid gold;
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        .banner-btn:hover {
+            background: gold;
+            color: #000;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+        }
     </style>
 </head>
 <body>
@@ -167,6 +237,40 @@
             </div>
         </footer>
     </div>
+
+    <!-- 🔔 登録不要の更新通知ポップアップバナー -->
+    <div id="update-banner">
+        <div class="banner-header">
+            <span>🔔</span> 宝物庫からのお知らせ
+        </div>
+        <div class="banner-body">
+            前回の来訪以降に、新しい作品やコンテンツが追加・更新されました！
+        </div>
+        <button class="banner-btn" onclick="closeUpdateBanner()">確認した（通知を消す）</button>
+    </div>
+
+    <!-- 🔔 更新通知スクリプト -->
+    <script>
+        // ★ サイトを更新したら、この日付文字列（日時）を変更してください
+        const LATEST_UPDATE_DATE = "2026-10-03 15:00"; 
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // 来訪者の前回の訪問日時を取得
+            const lastVisited = localStorage.getItem('treasure_last_visit');
+            
+            // 初めての訪問、または前回の訪問日時より LATEST_UPDATE_DATE が新しい場合に表示
+            if (!lastVisited || new Date(LATEST_UPDATE_DATE) > new Date(lastVisited)) {
+                document.getElementById('update-banner').style.display = 'block';
+            }
+        });
+
+        function closeUpdateBanner() {
+            // 「確認した」ボタンが押された現在時刻をブラウザ（ローカルストレージ）に記録
+            localStorage.setItem('treasure_last_visit', new Date().toISOString());
+            // バナーを非表示にする
+            document.getElementById('update-banner').style.display = 'none';
+        }
+    </script>
 
 </body>
 </html>
