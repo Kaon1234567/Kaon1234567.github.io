@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>創作物の宝物庫 - Main Portal</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <style>
+        body { 
+            padding: 50px 20px; 
+            color: #FFFFFF; 
+            /* 宇宙色をイメージした深いグラデーション */
+            background: radial-gradient(circle, #1b2735 0%, #090a0f 100%); 
+            font-weight: bold;
+            font-family: "Hiragino Mincho ProN", "MS Mincho", serif; 
+            text-align: center;
+        }
+        .portal-gate {
+            border: 8px groove gold;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 25px;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.5);
+        }
+        h1 { 
+            font-size: 3.5em; 
+            border-bottom: 5px double gold; 
+            padding-bottom: 20px; 
+            margin-bottom: 30px; 
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+        
+        /* エリア選択パネル：2カラム構成 */
+        .area-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .area-card {
+            padding: 40px 20px;
+            border: 2px solid #fff;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.5em;
+            transition: all 0.4s ease;
+            border-radius: 15px;
+            display: block;
+        }
+        /* 各エリアのテーマカラー */
+        .cg-area { background: rgba(0, 128, 128, 0.4); border-color: #008080; }
+        .pg-area { background: rgba(0, 0, 139, 0.4); border-color: #00008b; }
+        .mu-area { background: rgba(139, 0, 0, 0.4); border-color: #8b0000; }
+        .nv-area { background: rgba(75, 0, 130, 0.4); border-color: #4b0082; }
+
+        .area-card:hover { 
+            transform: translateY(-10px); 
+            background: rgba(255, 255, 255, 0.2); 
+            border-color: gold; 
+            color: gold; 
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* フッター全体のスタイル */
+        .portal-footer {
+            margin-top: 50px;
+            padding-top: 20px;
+        }
+
+        /* 玄関へ戻るボタンの配置 */
+        .footer-nav {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* 玄関へ戻るボタンのデザイン */
+        .return-index-btn {
+            display: inline-block;
+            padding: 8px 25px;
+            color: gold !important;
+            border: 2px solid gold;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            text-decoration: none !important;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .return-index-btn:hover {
+            background: gold;
+            color: #000 !important;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+            transform: translateY(-2px);
+        }
+
+        /* クレジット部分 */
+        .footer-credit {
+            padding: 30px;
+            border-top: 3px double gold;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+        }
+        .credit-list { list-style: none; padding: 0; line-height: 2; font-size: 1.1em; }
+        .marsh-btn {
+            display: inline-block;
+            margin-left: 15px;
+            background: #ffb6c1;
+            color: #d11e6d !important;
+            padding: 2px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid #fff;
+        }
+        .thanks-msg {
+            text-align: center;
+            color: gold;
+            font-size: 1.3em;
+            margin-top: 30px;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 5px #000;
+        }
+
+        /* -------------------------------------------------- */
+        /* 🔔 更新通知バナー（サイトのデザインに合わせた装飾） */
+        /* -------------------------------------------------- */
+        #update-banner {
+            display: none; /* 初期状態は非表示 */
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(9, 10, 15, 0.95);
+            color: #ffffff;
+            border: 2px solid gold;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+            z-index: 9999;
+            max-width: 340px;
+            text-align: left;
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .banner-header {
+            font-weight: bold;
+            color: gold;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
+            padding-bottom: 5px;
+        }
+
+        .banner-body {
+            font-size: 0.9em;
+            color: #e0e0e0;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .banner-btn {
+            background: rgba(212, 175, 55, 0.2);
+            color: gold;
+            border: 1px solid gold;
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        .banner-btn:hover {
+            background: gold;
+            color: #000;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="portal-gate">
+        <h1>創作物の宝物庫</h1>
+        <p style="font-size: 1.3em; color: silver;">―― 紡がれる七色の記録 ――</p>
+        
+        <!-- エリアカード一覧 -->
+        <div class="area-grid">
+            <a href="創作物の宝物庫-CGエリア.html" class="area-card cg-area" target="_blank" rel="noopener noreferrer">🖼️ CG AREA<br><small style="font-size: 0.6em;">六色同盟 / D4DJ / 二次世界</small></a>
+            <a href="創作物の宝物庫-PROGRAMエリア.html" class="area-card pg-area" target="_blank" rel="noopener noreferrer">💻 PROGRAM AREA<br><small style="font-size: 0.6em;">C / VSCode / システム開発</small></a>
+            <a href="創作物の宝物庫-MUSICエリア.html" class="area-card mu-area" target="_blank" rel="noopener noreferrer">🎵 MUSIC AREA<br><small style="font-size: 0.6em;">音色と旋律のアーカイブ</small></a>
+            <a href="創作物の宝物庫-小説エリア.html" class="area-card nv-area" target="_blank" rel="noopener noreferrer">📖 NOVEL AREA<br><small style="font-size: 0.6em;">色彩学園 / 一族の設定資料</small></a>
+        </div>
+
+        <!-- フッターセクション -->
+        <footer class="portal-footer">
+            <div class="footer-nav">
+                <a href="index.html" class="return-index-btn">🚪 玄関 (index) へ戻る</a>
+            </div>
+            
+            <div class="footer-credit">
+                <ul class="credit-list">
+                    <li>● 企画：しらのん</li>
+                    <li>● 映像クリエイター：クレア=テラニス=黄燐</li>
+                    <li>● 統括管理者：ジェシカ・トローヴ 
+                        <a href="https://marshmallow-qa.com/p9yi3b9pgo3dhr9" target="_blank" rel="noopener noreferrer" class="marsh-btn">
+                            🍬 しらのんへ感想を送る
+                        </a>
+                    </li>
+                    <li>● 元所属：電子創作研究会</li>
+                    <li>● 協力サークル：電子創作研究会</li>
+                </ul>
+                
+                <div class="thanks-msg">
+                    Special Thanks: このHPへアクセス、あるいは来訪してくれた皆さん
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 🔔 登録不要の更新通知ポップアップバナー -->
+    <div id="update-banner">
+        <div class="banner-header">
+            <span>🔔</span> 宝物庫からのお知らせ
+        </div>
+        <div class="banner-body">
+            前回の来訪以降に、新しい作品やコンテンツが追加・更新されました！
+        </div>
+        <button class="banner-btn" onclick="closeUpdateBanner()">確認した（通知を消す）</button>
+    </div>
+
+    <!-- 🔔 更新通知スクリプト -->
+    <script>
+        // ★ サイトを更新したら、この日付文字列（日時）を変更してください
+        const LATEST_UPDATE_DATE = "2026-11-20 00:0000:00"; // YYYY-MM-DD HH:MM:SS 形式
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // 来訪者の前回の訪問日時を取得
+            const lastVisited = localStorage.getItem('treasure_last_visit');
+            
+            // 初めての訪問、または前回の訪問日時より LATEST_UPDATE_DATE が新しい場合に表示
+            if (!lastVisited || new Date(LATEST_UPDATE_DATE) > new Date(lastVisited)) {
+                document.getElementById('update-banner').style.display = 'block';
+            }
+        });
+
+        function closeUpdateBanner() {
+            // 「確認した」ボタンが押された現在時刻をブラウザ（ローカルストレージ）に記録
+            localStorage.setItem('treasure_last_visit', new Date().toISOString());
+            // バナーを非表示にする
+            document.getElementById('update-banner').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
