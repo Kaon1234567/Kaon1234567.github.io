@@ -1,35 +1,53 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>用語変換 - 3分10秒_HR&D</title>
     <style>
+        :root {
+            --gold: #ffd700;
+            --gold-dark: #b8860b;
+            --panel-bg: rgba(255,255,255,0.05);
+            --ink: #000;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            min-height: 100%;
+            width: 100%;
+        }
+
         body {
             background: radial-gradient(circle, #2c1e14 0%, #000 100%);
-            color: #ffd700;
-            font-family: "MS Ｐ明朝", "MS Mincho", serif;
-            margin: 0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
+            color: var(--gold);
+            font-family: "Yu Mincho", "Hiragino Mincho ProN", "MS Mincho", "Meiryo", serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             overflow-x: hidden;
         }
         #game-container { 
             position: relative; 
-            width: 100%; 
-            max-width: 900px; 
+            width: min(100%, 900px);
             min-height: 100vh;
             text-align: center; 
             padding: 20px 10px;
-            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
-        .title { font-size: 3rem; margin: 10px 0; text-shadow: 0 0 20px #b8860b; letter-spacing: 0.5rem; }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .title { font-size: clamp(2.2rem, 5vw, 3rem); margin: 10px 0; text-shadow: 0 0 20px #b8860b; letter-spacing: 0.4rem; }
         
         #start-screen {
             display: flex;
@@ -152,15 +170,44 @@
         #title-display { font-size: 1.5rem; color: #00ffff; text-shadow: 0 0 10px #00ffff; margin-bottom: 10px; }
         .ranking-table { margin: 10px auto; color: #fff; border-collapse: collapse; width: 90%; font-size: 0.9rem; }
         .ranking-table th, .ranking-table td { border-bottom: 1px solid #ffd700; padding: 8px; text-align: center; }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 12px 0;
+            }
+
+            #game-container {
+                padding: 12px 8px;
+            }
+
+            .question-box,
+            #hint-display {
+                width: 100%;
+                font-size: 1rem;
+            }
+
+            input[type="text"] {
+                width: min(100%, 300px);
+            }
+
+            button,
+            .ui-btn {
+                width: auto;
+                min-width: 110px;
+            }
+        }
         
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-<audio id="bgm" src="世界に楽しいを届けて(カスタマイズ).mp3" loop></audio>
-<audio id="se-correct" src="クイズ正解1.mp3"></audio>
-<audio id="se-wrong" src="クイズ不正解1.mp3"></audio>
+<audio id="bgm" preload="auto" loop>
+  <source src="bgm.mp3" type="audio/mpeg">
+  <source src="bgm.wav" type="audio/wav">
+</audio>
+<audio id="se-correct" src="quiz_correct.wav" preload="auto"></audio>
+<audio id="se-wrong" src="wrong.wav" preload="auto"></audio>
 
 <div id="game-container">
 
@@ -168,15 +215,15 @@
     <div id="start-screen">
         <h1 class="title">用語変換</h1>
         
-        <img id="start-img" src="3分10秒_HR&D.png" alt="タイトルイラスト">
+        <img id="start-img" src="3分10秒_HR&D.png" alt="タイトルイラスト" onerror="this.style.display='none'">
         
         <div>
             <input type="text" id="user-name" placeholder="名前を入力してください" autocomplete="off">
         </div>
-        <button onclick="startGame()" style="font-size: 1.8rem; padding: 10px 40px; margin-bottom: 15px;">START</button>
+        <button id="start-btn" onclick="startGame()" style="font-size: 1.8rem; padding: 10px 40px; margin-bottom: 15px;">START</button>
 
         <div style="width: 100%; margin-top: 10px;">
-            <a href="創作物の宝物庫-PROGRAMエリア.html#top3" target="_top" 
+            <a href="創作物の宝物庫-PROGRAMエリア.html" target="_top" 
                style="display: inline-block; width: 100%; max-width: 260px; color: #ffd700; font-size: 1rem; text-decoration: none; border: 1px solid #ffd700; padding: 10px 0; border-radius: 8px; background: rgba(0,0,0,0.8); box-sizing: border-box; text-align: center;">
                 ↓ PROGRAMエリアへ戻る
             </a>
@@ -185,14 +232,15 @@
 
     <!-- クイズ画面 -->
     <div id="quiz-screen" class="hidden">
+        <div id="progress-display" style="font-size: 1rem; color: #ffd700; margin-bottom: 5px;">第 1 / 5 問</div>
         <div id="question-text" class="question-box"></div>
         <div id="feedback"></div>
         <div id="hint-display">ヒントはここに表示されます</div>
-        <img id="character-img" src="3分10秒_HR&D_真剣.png" alt="キャラクター">
+        <img id="character-img" src="3分10秒_HR&D_真剣.png" alt="キャラクター" onerror="this.style.display='none'">
         
         <div class="input-area">
             <input type="text" id="answer-input" autocomplete="off" placeholder="変換後の用語を入力">
-            <button onclick="checkAnswer()">変換</button>
+            <button id="submit-btn" onclick="checkAnswer()">変換</button>
         </div>
         
         <div style="margin-top: 15px;">
@@ -264,7 +312,7 @@
         { q: "激怒症候群から症候群を外したものを何という？", a: "激怒", en: "Rage(=ragesyndrome-syndrome)", hints: ["感情に所属しており,強い感情に位置している", "激しく怒る事", "酷い立腹", "大○○○○する", "先生の○○を買う"] },
         { q: "憎悪の念からのと念を外したものを何という？", a: "憎悪", en: "Loathing(=thoughtsofhatred-of-Thought)", hints: ["感情に所属しており,強い感情及び負の感情に位置している", "憎み嫌う事", "酷く憎むこと", "戦争を○○する", "○○の科学", "○○のピラミッド"] },
         { q: "驚嘆の声からのと声を外したものを何という？", a: "驚嘆", en: "Amazement(=amazing-to-worthy)", hints: ["感情に所属しており,強い感情に位置している", "非常に驚くこと", "大きな驚き", "びっくりして感心する事", "酷く感心すること", "思いがけない出来事に会って驚くこと"] },
-        { q: "恐怖しろ！からしろと！を外したものを何という？", a: "恐怖", en: "Terror(=Beafraid!"+"-do"+"-!)", hints: ["感情に所属しており強い感情及び負の感情に位置している", "恐れること", "恐れる心", "恐ろしい感じ", "○○にかられる", "○○心"] },
+        { q: "恐怖しろ！からしろと！を外したものを何という？", a: "恐怖", en: "Terror(=Beafraid!-do-!)", hints: ["感情に所属しており強い感情及び負の感情に位置している", "恐れること", "恐れる心", "恐ろしい感じ", "○○にかられる", "○○心"] },
         { q: "感嘆符から符を外したものを何という？", a: "感嘆", en: "Admiration+(=Exclamationpoint-sign)", hints: ["感情に所属しており,強い感情に位置している", "「感心して,ほめること」", "なげきかなしむこと", "熱意と努力に○○する", "○○Ⅱ", "○○の声を上げる"] },
         { q: "平穏無事から無事を外したものを何という？", a: "平穏", en: "Serenity(=Peacefulandsafe-safely)", hints: ["感情に所属しており,弱い感情に位置している", "「変ったことも怒らず,おだやかなさま」", "○○な日常を送る", "心の○○", "静かに穏やかな事", "○○死"] },
         { q: "興味津々から津々を外したものを何という？", a: "興味", en: "Interest(=Interesting-allover)", hints: ["感情に所属しており,弱い感情に位置している", "人の関心をそそる面白み", "ある対象に対する特別の関心", "○○に満ちた表情", "○○を引く", "○○がわく"] },
@@ -307,12 +355,14 @@
     ];
 
     // ゲーム進行用変数・統計データ
+    const TOTAL_QUESTIONS = 5;
     let currentQuestions = [];
     let currentIndex = 0;
     let hintCount = 0;
     let hintIndex = 0;
     let startTime = 0;
     let playerName = "";
+    let isTransitioning = false;
 
     let stats = {
         misCount: 0,
@@ -321,11 +371,29 @@
         history: []
     };
 
-    function playSE(id) {
-        const se = document.getElementById(id);
-        if (se) {
-            se.currentTime = 0;
-            se.play().catch(() => {});
+    // 音声再生（エラー時でもゲームを止めない安全設計）
+    // 音声再生（確実なロードと再生処理）
+    function playAudioSafe(id, resetTime = true) {
+        const audio = document.getElementById(id);
+        if (!audio) return;
+        
+        // まだ読み込まれていない場合は強制ロード
+        if (audio.readyState === 0) {
+            audio.load();
+        }
+        
+        audio.muted = false;
+        audio.volume = 1.0;
+
+        if (resetTime) {
+            audio.currentTime = 0;
+        }
+
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.error(`音声再生エラー (${id}):`, error);
+            });
         }
     }
 
@@ -338,6 +406,7 @@
         currentIndex = 0;
         hintCount = 0;
         startTime = Date.now();
+        isTransitioning = false;
 
         stats = {
             misCount: 0,
@@ -349,79 +418,93 @@
         document.getElementById("start-screen").classList.add("hidden");
         document.getElementById("quiz-screen").classList.remove("hidden");
 
-        const bgm = document.getElementById("bgm");
-        bgm.currentTime = 0;
-        bgm.play().catch(() => {});
+        playAudioSafe("bgm", true);
 
-        document.getElementById("answer-input").addEventListener("keypress", handleKeyPress);
+        const answerInput = document.getElementById("answer-input");
+        answerInput.removeEventListener("keydown", handleKeyPress);
+        answerInput.addEventListener("keydown", handleKeyPress);
 
         showQuestion();
     }
 
     function handleKeyPress(e) {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && !e.isComposing) {
+            e.preventDefault();
             checkAnswer();
         }
     }
 
     // 問題表示
     function showQuestion() {
+        isTransitioning = false;
         const q = currentQuestions[currentIndex];
+        document.getElementById('progress-display').innerText = `第 ${currentIndex + 1} / ${TOTAL_QUESTIONS} 問`;
         document.getElementById('question-text').innerText = q.q;
-        document.getElementById('character-img').src = "3分10秒_HR&D_真剣.png";
+        
+        const charImg = document.getElementById('character-img');
+        charImg.style.display = 'inline-block';
+        charImg.src = '3分10秒_HR&D_真剣.png';
+        
         document.getElementById('feedback').innerText = "";
         document.getElementById('hint-display').innerText = "ヒントはここに表示されます";
-        document.getElementById('answer-input').value = "";
-        document.getElementById('answer-input').focus();
+        
+        const inputEl = document.getElementById('answer-input');
+        inputEl.disabled = false;
+        inputEl.value = "";
+        inputEl.focus();
+        
         stats.misCount = 0;
         hintIndex = 0;
     }
 
     // 回答チェック
     function checkAnswer() {
-        const input = document.getElementById('answer-input').value.trim();
+        if (isTransitioning) return;
+
+        const inputEl = document.getElementById('answer-input');
+        const input = inputEl.value.trim();
         if (!input) return;
 
         const q = currentQuestions[currentIndex];
+        const charImg = document.getElementById('character-img');
 
         if (input === q.a) {
-            playSE('se-correct');
+            isTransitioning = true;
+            inputEl.disabled = true;
+            playAudioSafe('se-correct');
             
-            const imgName = "3分10秒_HR&D_照れ.png";
-            document.getElementById('character-img').src = imgName;
+            charImg.src = '3分10秒_HR&D_照れ.png';
             document.getElementById('feedback').innerHTML = `<span style="color:#0f0">〇 正解!</span> ${q.en}`;
             
             stats.correctCount++;
             stats.history.push({
                 questionIndex: currentIndex,
                 result: 'correct',
-                imageUsed: imgName,
                 misses: stats.misCount
             });
 
             setTimeout(next, 1500);
         } else {
-            playSE('se-wrong');
+            playAudioSafe('se-wrong');
             stats.misCount++;
             
-            const imgName = "3分10秒_HR&D_切ない.png";
-            document.getElementById('character-img').src = imgName;
-            document.getElementById('feedback').innerHTML = `<span style="color:#f00">× 不正解</span>`;
+            charImg.src = '3分10秒_HR&D_切ない.png';
+            document.getElementById('feedback').innerHTML = `<span style="color:#f00">× 不正解</span> (残り${7 - stats.misCount}回)`;
             
             if (stats.misCount >= 7) {
+                isTransitioning = true;
+                inputEl.disabled = true;
                 stats.giveUps++;
                 document.getElementById('feedback').innerHTML = `<span style="color:#ffd700">正解: ${q.a}</span>`;
                 
                 stats.history.push({
                     questionIndex: currentIndex,
                     result: 'giveup',
-                    imageUsed: imgName,
                     misses: stats.misCount
                 });
 
                 setTimeout(next, 2000);
             } else {
-                const inputEl = document.getElementById('answer-input');
                 inputEl.value = "";
                 inputEl.focus();
             }
@@ -430,7 +513,7 @@
 
     function next() {
         currentIndex++;
-        if (currentIndex < 5) {
+        if (currentIndex < TOTAL_QUESTIONS) {
             showQuestion();
         } else {
             showResult();
@@ -439,6 +522,7 @@
 
     // ヒント表示
     function showHint() {
+        if (isTransitioning) return;
         const q = currentQuestions[currentIndex];
         const hintEl = document.getElementById('hint-display');
         
@@ -472,13 +556,15 @@
             overlay.style.display = "flex";
         } else {
             overlay.style.display = "none";
-            document.getElementById('answer-input').focus();
+            if (!isTransitioning) {
+                document.getElementById('answer-input').focus();
+            }
         }
     }
 
     // ゲーム終了（リザルト・称号表示）
     function showResult() {
-        document.getElementById("answer-input").removeEventListener("keypress", handleKeyPress);
+        document.getElementById("answer-input").removeEventListener("keydown", handleKeyPress);
         document.getElementById("quiz-screen").classList.add("hidden");
         document.getElementById("result-screen").classList.remove("hidden");
 
@@ -506,7 +592,7 @@
         document.getElementById("title-display").innerText = `称号: 「${titleName}」`;
         document.getElementById("final-stats").innerHTML = `
             プレイヤー: ${playerName}<br>
-            正解数: ${stats.correctCount} / 5<br>
+            正解数: ${stats.correctCount} / ${TOTAL_QUESTIONS}<br>
             ギブアップ数: ${stats.giveUps}<br>
             使用ヒント数: ${hintCount}<br>
             経過時間: ${elapsedTimeSec}秒
@@ -524,7 +610,12 @@
 
     // ランキング保存・表示
     function saveAndRenderRanking(newRecord) {
-        let rankings = JSON.parse(localStorage.getItem("terms_conversion_rankings") || "[]");
+        let rankings = [];
+        try {
+            rankings = JSON.parse(localStorage.getItem("terms_conversion_rankings") || "[]");
+        } catch (e) {
+            rankings = [];
+        }
         rankings.push(newRecord);
 
         rankings.sort((a, b) => {
@@ -534,7 +625,9 @@
         });
 
         rankings = rankings.slice(0, 5);
-        localStorage.setItem("terms_conversion_rankings", JSON.stringify(rankings));
+        try {
+            localStorage.setItem("terms_conversion_rankings", JSON.stringify(rankings));
+        } catch (e) {}
 
         const tbody = document.getElementById("ranking-body");
         tbody.innerHTML = `
